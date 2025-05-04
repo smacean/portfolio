@@ -1,35 +1,40 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ポートフォリオ | トップ</title>
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-  <header>
-    <h1>ポートフォリオサイト</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="profile.html">プロフィール</a></li>
-        <li><a href="works.html">制作物</a></li>
-        <li><a href="contact.html">連絡先</a></li>
-      </ul>
-    </nav>
-  </header>
-  <main>
-    <h2>自己紹介</h2>
-    <p>名前：山田 太郎</p>
-    <p>大学：○○大学 工学部</p>
-    <p>研究：AIと非言語的対話に関する研究</p>
-    <p>エンジニア歴：2年</p>
-  </main>
-  <footer>
-    <p>&copy; 2025 Taro Yamada</p>
-  </footer>
-  <script src="js/jquery.min.js"></script>
-  <script src="js/main.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>自己紹介 | Portfolio</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+      rel="stylesheet"
+    />
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="css/style.css" rel="stylesheet" />
+  </head>
+  <body class="bg-gray-100 text-gray-800">
+    <header></header>
+    <div id="firstView"></div>
+    <div id="profile"></div>
+    <div id="works"></div>
+    <div id="skills"></div>
+    <div id="contact"></div>
+    </main>
+
+    <footer></footer>
+
+    <!-- 必須JS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
+  </body>
 </html>
