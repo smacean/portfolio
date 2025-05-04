@@ -1,32 +1,40 @@
 $(function () {
-  // 共通部分の読み込み
   $("header").load("components/header.html");
   $("footer").load("components/footer.html");
   $("#firstView").load("components/firstView.html");
-  $("#profile").load("components/profile.html");
-  $("#works").load("components/works.html");
-  $("#skills").load("components/skills.html");
+  $("#profile").load("components/profile.html", function () {
+    $(".profile-menus").on("click", ".profile-menu", function () {
+      const target = $(this).data("target");
 
-  $("#contact").load("components/contact.html");
+      // 切り替えたい背景色
+      const bgColors = {
+        profile: "rgb(255, 81, 81)", // 赤
+        research: "rgb(81, 180, 81)", // 緑
+        experience: "rgb(81, 81, 255)", // 青
+        hobby: "rgb(255, 230, 45)", // 黄
+      };
 
-  // クリックで詳細表示
-  $("#moreBtn").click(function () {
-    toggleMoreInfo();
+      const textColors = {
+        profile: "white",
+        research: "white",
+        experience: "white",
+        hobby: "rgb(100, 100, 100)", // 黄色背景には暗い文字
+      };
+
+      // 背景色を変更
+      $(".profile-bg").css("background-color", bgColors[target]);
+
+      // テキスト切り替え
+      $(".profile-section:visible").fadeOut(300, function () {
+        $(".profile-" + target).fadeIn(300);
+      });
+
+      $(".profile-wrapper").css("color", textColors[target]);
+      $(".profile-header").css("color", textColors[target]);
+    });
   });
 
-  // 関数① 表示切り替え
-  function toggleMoreInfo() {
-    $("#moreInfo").toggleClass("hidden");
-    logToggleState();
-  }
-
-  // 関数② 表示状態のログ出力
-  function logToggleState() {
-    const isVisible = !$("#moreInfo").hasClass("hidden");
-    console.log("詳細表示状態:", isVisible);
-  }
-});
-document.addEventListener("DOMContentLoaded", function () {
-  const elems = document.querySelectorAll(".parallax");
-  M.Parallax.init(elems);
+  $("#works").load("components/works.html");
+  $("#skills").load("components/skills.html");
+  $("#contact").load("components/contact.html");
 });

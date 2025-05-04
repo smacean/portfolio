@@ -1,6 +1,59 @@
-<section class="relative z-20 bg-white py-8">
-  <div class="container mx-auto text-center">
-    <h2 class="text-2xl font-bold" data-aos="fade-up">プロフィール</h2>
-    <p class="mt-4" data-aos="fade-up">ここにプロフィールの内容が入ります。</p>
+<section class="parallax-section profile-bg">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="section-title profile-header">Profile</h2>
+    </div>
+
+    <div class="profile-wrapper">
+      <div class="profile-menus">
+        <div class="profile-menu" data-target="profile">
+          <a class="btn-floating btn-large red"
+            ><i class="material-icons">add</i></a
+          >
+          <p>Profile</p>
+        </div>
+        <div class="profile-menu" data-target="research">
+          <a class="btn-floating btn-large green"
+            ><i class="material-icons">add</i></a
+          >
+          <p>Research</p>
+        </div>
+        <div class="profile-menu" data-target="experience">
+          <a class="btn-floating btn-large blue"
+            ><i class="material-icons">add</i></a
+          >
+          <p>Experience</p>
+        </div>
+        <div class="profile-menu" data-target="hobby">
+          <a class="btn-floating btn-large yellow"
+            ><i class="material-icons">add</i></a
+          >
+          <p>Hobby</p>
+        </div>
+      </div>
+
+      <div class="profile-explanations">
+        <div class="profile-section profile-profile">
+          <h3>Profile</h3>
+          <p>プロフィールの説明が入ります。</p>
+        </div>
+        <div
+          class="profile-section profile-research"
+          id="research"
+          style="display: none"
+        >
+          <h3>Research</h3>
+          <p>研究内容の紹介です。</p>
+        </div>
+        <div class="profile-section profile-experience" style="display: none">
+          <h3>Experience</h3>
+          <p>経歴の紹介です。</p>
+        </div>
+        <div class="profile-section profile-hobby" style="display: none">
+          <h3>Hobby</h3>
+          <p>趣味の紹介です。</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
