@@ -26,10 +26,17 @@ body {
   padding: 0 2rem;
 }
 
-.overlay {
+.parallax-overlay {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.parallax-overlay-white {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.1);
   z-index: 1;
 }
 

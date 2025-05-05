@@ -1,24 +1,56 @@
-<section class="parallax-section grey lighten-4">
+<section class="parallax-section works-bg">
+  <div class="parallax-overlay-white"></div>
   <div class="container works-wrapper">
-    <h2 class="section-title">制作物</h2>
+    <h2 class="section-title white-text">Works</h2>
     <div class="works-slider-wrapper">
       <div class="works-component">
-        <h4>School</h4>
+        <h4 class="works-title">School</h4>
         <div class="works-slider">
-          <div><img src="/images/image.png" /></div>
-          <div><img src="/images/jump_blur.png" /></div>
-          <div><img src="/images/noimg.png" /></div>
-          <div><img src="/images/research.png" /></div>
+          <div data-target="research"><img src="/images/research.png" /></div>
+          <div data-target="duckShout">
+            <img src="/images/duck_shout.png" />
+          </div>
+          <div data-target="dontKickMe">
+            <img src="/images/Don't_Kick_Me!.png" />
+          </div>
+          <div data-target="shooting"><img src="/images/noimg.png" /></div>
+        </div>
+        <div class="works-names">
+          <div class="works-name works-name-research">Research</div>
+          <div class="works-name works-name-duckShout">Duck Shout</div>
+          <div class="works-name works-name-dontKickMe">Don't Kick Me!</div>
+          <div class="works-name works-name-shooting">Current Work</div>
         </div>
       </div>
       <div class="works-component">
-        <h4>Personal</h4>
+        <h4 class="works-title">Personal</h4>
         <div class="works-slider">
-          <div><img src="/images/image.png" /></div>
-          <div><img src="/images/jump_blur.png" /></div>
-          <div><img src="/images/noimg.png" /></div>
-          <div><img src="/images/research.png" /></div>
+          <div data-target="POS"><img src="/images/noimg.png" /></div>
+          <div data-target="MX"><img src="/images/noimg.png" /></div>
+          <div data-target="portfolio"><img src="/images/Portfolio.png" /></div>
+          <div data-target="jamApp"><img src="/images/noimg.png" /></div>
+          <div data-target="danceLayout">
+            <img src="/images/composition_app.png" />
+          </div>
         </div>
+        <div class="works-names">
+          <div class="works-name works-name-POS">POS System</div>
+          <div class="works-name works-name-MX">Motion-X</div>
+          <div class="works-name works-name-portfolio">Portfolio</div>
+          <div class="works-name works-name-jamApp">Jam App</div>
+          <div class="works-name works-name-danceLayout">Dance Layout</div>
+        </div>
+      </div>
+    </div>
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>モーダルのタイトル</h4>
+        <p>これはモーダルの中身です。</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat"
+          >閉じる</a
+        >
       </div>
     </div>
   </div>

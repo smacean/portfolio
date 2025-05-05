@@ -43,7 +43,7 @@ $(function () {
       dots: true,
       responsive: [
         {
-          breakpoint: 1200,
+          breakpoint: 1060,
           settings: {
             arrows: true,
             centerMode: true,
@@ -62,8 +62,32 @@ $(function () {
         },
       ],
     });
+    const modalInstance = $("#modal1").modal();
+
+    $(".slick-center").click(function () {
+      modalInstance.modal("open");
+    });
+
+    $(".works-slider").on("beforeChange", function () {
+      const $slider = $(this);
+      const $component = $slider.closest(".works-component");
+
+      // 現在の .slick-center を取得（これが「次に中央になる予定」のスライド）
+      // beforeChange の時点で既に .slick-center は次の要素に切り替わっている場合がある
+      // それが難しい場合は afterChange に切り替えるのも選択肢
+
+      setTimeout(() => {
+        const $center = $slider.find(".slick-center");
+        const target = $center.data("target");
+
+        $component.find(".works-name:visible").fadeOut(250, function () {
+          $component.find(".works-name-" + target).fadeIn(250);
+        });
+      }, 1); // DOM反映直後に取得するための遅延
+    });
   });
 
   $("#skills").load("components/skills.html");
   $("#contact").load("components/contact.html");
+  $("#modals").load("/components/modals.html");
 });
