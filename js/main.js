@@ -34,7 +34,36 @@ $(function () {
     });
   });
 
-  $("#works").load("components/works.html");
+  $("#works").load("components/works.html", function () {
+    $(".works-slider").slick({
+      centerMode: true,
+      centerPadding: "0px",
+      slidesToShow: 3,
+      arrows: true,
+      dots: true,
+      responsive: [
+        {
+          breakpoint: 1200,
+          settings: {
+            arrows: true,
+            centerMode: true,
+            centerPadding: "0px",
+            slidesToShow: 1,
+          },
+        },
+        {
+          breakpoint: 520,
+          settings: {
+            arrows: false,
+            centerMode: true,
+            centerPadding: "0px",
+            slidesToShow: 1,
+          },
+        },
+      ],
+    });
+  });
+
   $("#skills").load("components/skills.html");
   $("#contact").load("components/contact.html");
 });

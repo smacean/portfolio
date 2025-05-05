@@ -3,6 +3,8 @@
 @import url("works.css");
 @import url("skills.css");
 @import url("contact.css");
+@import url("slick.css");
+@import url("slick-theme.css");
 html,
 body {
   margin: 0;
