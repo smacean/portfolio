@@ -62,10 +62,24 @@ $(function () {
         },
       ],
     });
-    const modalInstance = $("#modal1").modal();
+    // モーダルの初期化
+    $(".modal").modal({
+      dismissible: true, // モーダルを閉じるために背景をクリックできるかどうか
+      opacity: 0.5, // 背景の不透明度
+      inDuration: 300, // 開くときのアニメーション時間
+      outDuration: 200, // 閉じるときのアニメーション時間
+      startingTop: "4%", // モーダルが開くときの初期位置
+      endingTop: "10%", // モーダルが開いたときの位置
+    });
 
-    $(".slick-center").click(function () {
-      modalInstance.modal("open");
+    $(".slick-slide").on("click", function () {
+      console.log("clicked");
+      if ($(this).hasClass("slick-center")) {
+        const target = $(this).data("target");
+        const modalClass = ".works-modal-" + target;
+        console.log("Opening modal:", modalClass);
+        $(modalClass).modal("open");
+      }
     });
 
     $(".works-slider").on("beforeChange", function () {
@@ -73,8 +87,6 @@ $(function () {
       const $component = $slider.closest(".works-component");
 
       // 現在の .slick-center を取得（これが「次に中央になる予定」のスライド）
-      // beforeChange の時点で既に .slick-center は次の要素に切り替わっている場合がある
-      // それが難しい場合は afterChange に切り替えるのも選択肢
 
       setTimeout(() => {
         const $center = $slider.find(".slick-center");
@@ -89,5 +101,4 @@ $(function () {
 
   $("#skills").load("components/skills.html");
   $("#contact").load("components/contact.html");
-  $("#modals").load("/components/modals.html");
 });

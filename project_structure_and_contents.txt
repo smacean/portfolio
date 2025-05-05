@@ -1,0 +1,3012 @@
+[DIR] .
+    [FILE] index.html
+        --- Start of index.html ---
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>自己紹介 | Portfolio</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+      rel="stylesheet"
+    />
+    <link href="css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header></header>
+    <div id="firstView"></div>
+    <div id="profile"></div>
+    <div id="works"></div>
+    <div id="modals"></div>
+    <div id="skills"></div>
+    <div id="contact"></div>
+    <footer></footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="/js/slick.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
+
+        --- End of index.html ---
+
+    [FILE] project_structure_and_contents.txt
+        --- Start of project_structure_and_contents.txt ---
+
+        --- End of project_structure_and_contents.txt ---
+
+    [FILE] README.md
+        --- Start of README.md ---
+# portfolio
+        --- End of README.md ---
+
+    [FILE] save_directory_structure_and_contents.py
+        --- Start of save_directory_structure_and_contents.py ---
+import os
+
+
+def save_structure_and_contents(start_path, output_file):
+    with open(output_file, "w", encoding="utf-8") as f:
+        for root, dirs, files in os.walk(start_path):
+            # 相対パス表示（ルートからのパス）
+            rel_root = os.path.relpath(root, start_path)
+            indent = "    " * (rel_root.count(os.sep))
+            f.write(f"{indent}[DIR] {rel_root if rel_root != '.' else '.'}\n")
+
+            for file in files:
+                file_path = os.path.join(root, file)
+                rel_file_path = os.path.relpath(file_path, start_path)
+                f.write(f"{indent}    [FILE] {rel_file_path}\n")
+                try:
+                    with open(file_path, "r", encoding="utf-8") as file_content:
+                        content = file_content.read()
+                except Exception as e:
+                    content = f"[Error reading file: {e}]\n"
+
+                f.write(f"{indent}        --- Start of {rel_file_path} ---\n")
+                f.write(content + "\n")
+                f.write(f"{indent}        --- End of {rel_file_path} ---\n\n")
+
+
+if __name__ == "__main__":
+    # 対象となるパス（このスクリプトと同じ階層）
+    target_dir = os.path.dirname(os.path.abspath(__file__))
+    output_txt_path = os.path.join(target_dir, "project_structure_and_contents.txt")
+
+    save_structure_and_contents(target_dir, output_txt_path)
+    print(f"構造と中身を '{output_txt_path}' に保存しました。")
+
+        --- End of save_directory_structure_and_contents.py ---
+
+[DIR] .git
+    [FILE] .git\COMMIT_EDITMSG
+        --- Start of .git\COMMIT_EDITMSG ---
+feat: worksデザインとモーダル準備
+
+        --- End of .git\COMMIT_EDITMSG ---
+
+    [FILE] .git\config
+        --- Start of .git\config ---
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+[remote "origin"]
+	url = git@github.com:smacean/portfolio.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main
+	vscode-merge-base = origin/main
+
+        --- End of .git\config ---
+
+    [FILE] .git\description
+        --- Start of .git\description ---
+Unnamed repository; edit this file 'description' to name the repository.
+
+        --- End of .git\description ---
+
+    [FILE] .git\FETCH_HEAD
+        --- Start of .git\FETCH_HEAD ---
+9ceb621a5dc6291f65692e3b91b4b8739d341655		branch 'main' of github.com:smacean/portfolio
+
+        --- End of .git\FETCH_HEAD ---
+
+    [FILE] .git\HEAD
+        --- Start of .git\HEAD ---
+ref: refs/heads/main
+
+        --- End of .git\HEAD ---
+
+    [FILE] .git\index
+        --- Start of .git\index ---
+[Error reading file: 'utf-8' codec can't decode byte 0xf4 in position 14: invalid continuation byte]
+
+        --- End of .git\index ---
+
+    [FILE] .git\ORIG_HEAD
+        --- Start of .git\ORIG_HEAD ---
+9ceb621a5dc6291f65692e3b91b4b8739d341655
+
+        --- End of .git\ORIG_HEAD ---
+
+    [FILE] .git\packed-refs
+        --- Start of .git\packed-refs ---
+# pack-refs with: peeled fully-peeled sorted 
+1ca9dc82bd3d631e95a68ff5e919bf1b94b77f32 refs/remotes/origin/main
+
+        --- End of .git\packed-refs ---
+
+    [DIR] .git\hooks
+        [FILE] .git\hooks\applypatch-msg.sample
+            --- Start of .git\hooks\applypatch-msg.sample ---
+#!/bin/sh
+#
+# An example hook script to check the commit log message taken by
+# applypatch from an e-mail message.
+#
+# The hook should exit with non-zero status after issuing an
+# appropriate message if it wants to stop the commit.  The hook is
+# allowed to edit the commit message file.
+#
+# To enable this hook, rename this file to "applypatch-msg".
+
+. git-sh-setup
+commitmsg="$(git rev-parse --git-path hooks/commit-msg)"
+test -x "$commitmsg" && exec "$commitmsg" ${1+"$@"}
+:
+
+            --- End of .git\hooks\applypatch-msg.sample ---
+
+        [FILE] .git\hooks\commit-msg.sample
+            --- Start of .git\hooks\commit-msg.sample ---
+#!/bin/sh
+#
+# An example hook script to check the commit log message.
+# Called by "git commit" with one argument, the name of the file
+# that has the commit message.  The hook should exit with non-zero
+# status after issuing an appropriate message if it wants to stop the
+# commit.  The hook is allowed to edit the commit message file.
+#
+# To enable this hook, rename this file to "commit-msg".
+
+# Uncomment the below to add a Signed-off-by line to the message.
+# Doing this in a hook is a bad idea in general, but the prepare-commit-msg
+# hook is more suited to it.
+#
+# SOB=$(git var GIT_AUTHOR_IDENT | sed -n 's/^\(.*>\).*$/Signed-off-by: \1/p')
+# grep -qs "^$SOB" "$1" || echo "$SOB" >> "$1"
+
+# This example catches duplicate Signed-off-by lines.
+
+test "" = "$(grep '^Signed-off-by: ' "$1" |
+	 sort | uniq -c | sed -e '/^[ 	]*1[ 	]/d')" || {
+	echo >&2 Duplicate Signed-off-by lines.
+	exit 1
+}
+
+            --- End of .git\hooks\commit-msg.sample ---
+
+        [FILE] .git\hooks\fsmonitor-watchman.sample
+            --- Start of .git\hooks\fsmonitor-watchman.sample ---
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use IPC::Open2;
+
+# An example hook script to integrate Watchman
+# (https://facebook.github.io/watchman/) with git to speed up detecting
+# new and modified files.
+#
+# The hook is passed a version (currently 2) and last update token
+# formatted as a string and outputs to stdout a new update token and
+# all files that have been modified since the update token. Paths must
+# be relative to the root of the working tree and separated by a single NUL.
+#
+# To enable this hook, rename this file to "query-watchman" and set
+# 'git config core.fsmonitor .git/hooks/query-watchman'
+#
+my ($version, $last_update_token) = @ARGV;
+
+# Uncomment for debugging
+# print STDERR "$0 $version $last_update_token\n";
+
+# Check the hook interface version
+if ($version ne 2) {
+	die "Unsupported query-fsmonitor hook version '$version'.\n" .
+	    "Falling back to scanning...\n";
+}
+
+my $git_work_tree = get_working_dir();
+
+my $retry = 1;
+
+my $json_pkg;
+eval {
+	require JSON::XS;
+	$json_pkg = "JSON::XS";
+	1;
+} or do {
+	require JSON::PP;
+	$json_pkg = "JSON::PP";
+};
+
+launch_watchman();
+
+sub launch_watchman {
+	my $o = watchman_query();
+	if (is_work_tree_watched($o)) {
+		output_result($o->{clock}, @{$o->{files}});
+	}
+}
+
+sub output_result {
+	my ($clockid, @files) = @_;
+
+	# Uncomment for debugging watchman output
+	# open (my $fh, ">", ".git/watchman-output.out");
+	# binmode $fh, ":utf8";
+	# print $fh "$clockid\n@files\n";
+	# close $fh;
+
+	binmode STDOUT, ":utf8";
+	print $clockid;
+	print "\0";
+	local $, = "\0";
+	print @files;
+}
+
+sub watchman_clock {
+	my $response = qx/watchman clock "$git_work_tree"/;
+	die "Failed to get clock id on '$git_work_tree'.\n" .
+		"Falling back to scanning...\n" if $? != 0;
+
+	return $json_pkg->new->utf8->decode($response);
+}
+
+sub watchman_query {
+	my $pid = open2(\*CHLD_OUT, \*CHLD_IN, 'watchman -j --no-pretty')
+	or die "open2() failed: $!\n" .
+	"Falling back to scanning...\n";
+
+	# In the query expression below we're asking for names of files that
+	# changed since $last_update_token but not from the .git folder.
+	#
+	# To accomplish this, we're using the "since" generator to use the
+	# recency index to select candidate nodes and "fields" to limit the
+	# output to file names only. Then we're using the "expression" term to
+	# further constrain the results.
+	my $last_update_line = "";
+	if (substr($last_update_token, 0, 1) eq "c") {
+		$last_update_token = "\"$last_update_token\"";
+		$last_update_line = qq[\n"since": $last_update_token,];
+	}
+	my $query = <<"	END";
+		["query", "$git_work_tree", {$last_update_line
+			"fields": ["name"],
+			"expression": ["not", ["dirname", ".git"]]
+		}]
+	END
+
+	# Uncomment for debugging the watchman query
+	# open (my $fh, ">", ".git/watchman-query.json");
+	# print $fh $query;
+	# close $fh;
+
+	print CHLD_IN $query;
+	close CHLD_IN;
+	my $response = do {local $/; <CHLD_OUT>};
+
+	# Uncomment for debugging the watch response
+	# open ($fh, ">", ".git/watchman-response.json");
+	# print $fh $response;
+	# close $fh;
+
+	die "Watchman: command returned no output.\n" .
+	"Falling back to scanning...\n" if $response eq "";
+	die "Watchman: command returned invalid output: $response\n" .
+	"Falling back to scanning...\n" unless $response =~ /^\{/;
+
+	return $json_pkg->new->utf8->decode($response);
+}
+
+sub is_work_tree_watched {
+	my ($output) = @_;
+	my $error = $output->{error};
+	if ($retry > 0 and $error and $error =~ m/unable to resolve root .* directory (.*) is not watched/) {
+		$retry--;
+		my $response = qx/watchman watch "$git_work_tree"/;
+		die "Failed to make watchman watch '$git_work_tree'.\n" .
+		    "Falling back to scanning...\n" if $? != 0;
+		$output = $json_pkg->new->utf8->decode($response);
+		$error = $output->{error};
+		die "Watchman: $error.\n" .
+		"Falling back to scanning...\n" if $error;
+
+		# Uncomment for debugging watchman output
+		# open (my $fh, ">", ".git/watchman-output.out");
+		# close $fh;
+
+		# Watchman will always return all files on the first query so
+		# return the fast "everything is dirty" flag to git and do the
+		# Watchman query just to get it over with now so we won't pay
+		# the cost in git to look up each individual file.
+		my $o = watchman_clock();
+		$error = $output->{error};
+
+		die "Watchman: $error.\n" .
+		"Falling back to scanning...\n" if $error;
+
+		output_result($o->{clock}, ("/"));
+		$last_update_token = $o->{clock};
+
+		eval { launch_watchman() };
+		return 0;
+	}
+
+	die "Watchman: $error.\n" .
+	"Falling back to scanning...\n" if $error;
+
+	return 1;
+}
+
+sub get_working_dir {
+	my $working_dir;
+	if ($^O =~ 'msys' || $^O =~ 'cygwin') {
+		$working_dir = Win32::GetCwd();
+		$working_dir =~ tr/\\/\//;
+	} else {
+		require Cwd;
+		$working_dir = Cwd::cwd();
+	}
+
+	return $working_dir;
+}
+
+            --- End of .git\hooks\fsmonitor-watchman.sample ---
+
+        [FILE] .git\hooks\post-update.sample
+            --- Start of .git\hooks\post-update.sample ---
+#!/bin/sh
+#
+# An example hook script to prepare a packed repository for use over
+# dumb transports.
+#
+# To enable this hook, rename this file to "post-update".
+
+exec git update-server-info
+
+            --- End of .git\hooks\post-update.sample ---
+
+        [FILE] .git\hooks\pre-applypatch.sample
+            --- Start of .git\hooks\pre-applypatch.sample ---
+#!/bin/sh
+#
+# An example hook script to verify what is about to be committed
+# by applypatch from an e-mail message.
+#
+# The hook should exit with non-zero status after issuing an
+# appropriate message if it wants to stop the commit.
+#
+# To enable this hook, rename this file to "pre-applypatch".
+
+. git-sh-setup
+precommit="$(git rev-parse --git-path hooks/pre-commit)"
+test -x "$precommit" && exec "$precommit" ${1+"$@"}
+:
+
+            --- End of .git\hooks\pre-applypatch.sample ---
+
+        [FILE] .git\hooks\pre-commit.sample
+            --- Start of .git\hooks\pre-commit.sample ---
+#!/bin/sh
+#
+# An example hook script to verify what is about to be committed.
+# Called by "git commit" with no arguments.  The hook should
+# exit with non-zero status after issuing an appropriate message if
+# it wants to stop the commit.
+#
+# To enable this hook, rename this file to "pre-commit".
+
+if git rev-parse --verify HEAD >/dev/null 2>&1
+then
+	against=HEAD
+else
+	# Initial commit: diff against an empty tree object
+	against=$(git hash-object -t tree /dev/null)
+fi
+
+# If you want to allow non-ASCII filenames set this variable to true.
+allownonascii=$(git config --type=bool hooks.allownonascii)
+
+# Redirect output to stderr.
+exec 1>&2
+
+# Cross platform projects tend to avoid non-ASCII filenames; prevent
+# them from being added to the repository. We exploit the fact that the
+# printable range starts at the space character and ends with tilde.
+if [ "$allownonascii" != "true" ] &&
+	# Note that the use of brackets around a tr range is ok here, (it's
+	# even required, for portability to Solaris 10's /usr/bin/tr), since
+	# the square bracket bytes happen to fall in the designated range.
+	test $(git diff-index --cached --name-only --diff-filter=A -z $against |
+	  LC_ALL=C tr -d '[ -~]\0' | wc -c) != 0
+then
+	cat <<\EOF
+Error: Attempt to add a non-ASCII file name.
+
+This can cause problems if you want to work with people on other platforms.
+
+To be portable it is advisable to rename the file.
+
+If you know what you are doing you can disable this check using:
+
+  git config hooks.allownonascii true
+EOF
+	exit 1
+fi
+
+# If there are whitespace errors, print the offending file names and fail.
+exec git diff-index --check --cached $against --
+
+            --- End of .git\hooks\pre-commit.sample ---
+
+        [FILE] .git\hooks\pre-merge-commit.sample
+            --- Start of .git\hooks\pre-merge-commit.sample ---
+#!/bin/sh
+#
+# An example hook script to verify what is about to be committed.
+# Called by "git merge" with no arguments.  The hook should
+# exit with non-zero status after issuing an appropriate message to
+# stderr if it wants to stop the merge commit.
+#
+# To enable this hook, rename this file to "pre-merge-commit".
+
+. git-sh-setup
+test -x "$GIT_DIR/hooks/pre-commit" &&
+        exec "$GIT_DIR/hooks/pre-commit"
+:
+
+            --- End of .git\hooks\pre-merge-commit.sample ---
+
+        [FILE] .git\hooks\pre-push.sample
+            --- Start of .git\hooks\pre-push.sample ---
+#!/bin/sh
+
+# An example hook script to verify what is about to be pushed.  Called by "git
+# push" after it has checked the remote status, but before anything has been
+# pushed.  If this script exits with a non-zero status nothing will be pushed.
+#
+# This hook is called with the following parameters:
+#
+# $1 -- Name of the remote to which the push is being done
+# $2 -- URL to which the push is being done
+#
+# If pushing without using a named remote those arguments will be equal.
+#
+# Information about the commits which are being pushed is supplied as lines to
+# the standard input in the form:
+#
+#   <local ref> <local oid> <remote ref> <remote oid>
+#
+# This sample shows how to prevent push of commits where the log message starts
+# with "WIP" (work in progress).
+
+remote="$1"
+url="$2"
+
+zero=$(git hash-object --stdin </dev/null | tr '[0-9a-f]' '0')
+
+while read local_ref local_oid remote_ref remote_oid
+do
+	if test "$local_oid" = "$zero"
+	then
+		# Handle delete
+		:
+	else
+		if test "$remote_oid" = "$zero"
+		then
+			# New branch, examine all commits
+			range="$local_oid"
+		else
+			# Update to existing branch, examine new commits
+			range="$remote_oid..$local_oid"
+		fi
+
+		# Check for WIP commit
+		commit=$(git rev-list -n 1 --grep '^WIP' "$range")
+		if test -n "$commit"
+		then
+			echo >&2 "Found WIP commit in $local_ref, not pushing"
+			exit 1
+		fi
+	fi
+done
+
+exit 0
+
+            --- End of .git\hooks\pre-push.sample ---
+
+        [FILE] .git\hooks\pre-rebase.sample
+            --- Start of .git\hooks\pre-rebase.sample ---
+#!/bin/sh
+#
+# Copyright (c) 2006, 2008 Junio C Hamano
+#
+# The "pre-rebase" hook is run just before "git rebase" starts doing
+# its job, and can prevent the command from running by exiting with
+# non-zero status.
+#
+# The hook is called with the following parameters:
+#
+# $1 -- the upstream the series was forked from.
+# $2 -- the branch being rebased (or empty when rebasing the current branch).
+#
+# This sample shows how to prevent topic branches that are already
+# merged to 'next' branch from getting rebased, because allowing it
+# would result in rebasing already published history.
+
+publish=next
+basebranch="$1"
+if test "$#" = 2
+then
+	topic="refs/heads/$2"
+else
+	topic=`git symbolic-ref HEAD` ||
+	exit 0 ;# we do not interrupt rebasing detached HEAD
+fi
+
+case "$topic" in
+refs/heads/??/*)
+	;;
+*)
+	exit 0 ;# we do not interrupt others.
+	;;
+esac
+
+# Now we are dealing with a topic branch being rebased
+# on top of master.  Is it OK to rebase it?
+
+# Does the topic really exist?
+git show-ref -q "$topic" || {
+	echo >&2 "No such branch $topic"
+	exit 1
+}
+
+# Is topic fully merged to master?
+not_in_master=`git rev-list --pretty=oneline ^master "$topic"`
+if test -z "$not_in_master"
+then
+	echo >&2 "$topic is fully merged to master; better remove it."
+	exit 1 ;# we could allow it, but there is no point.
+fi
+
+# Is topic ever merged to next?  If so you should not be rebasing it.
+only_next_1=`git rev-list ^master "^$topic" ${publish} | sort`
+only_next_2=`git rev-list ^master           ${publish} | sort`
+if test "$only_next_1" = "$only_next_2"
+then
+	not_in_topic=`git rev-list "^$topic" master`
+	if test -z "$not_in_topic"
+	then
+		echo >&2 "$topic is already up to date with master"
+		exit 1 ;# we could allow it, but there is no point.
+	else
+		exit 0
+	fi
+else
+	not_in_next=`git rev-list --pretty=oneline ^${publish} "$topic"`
+	/usr/bin/perl -e '
+		my $topic = $ARGV[0];
+		my $msg = "* $topic has commits already merged to public branch:\n";
+		my (%not_in_next) = map {
+			/^([0-9a-f]+) /;
+			($1 => 1);
+		} split(/\n/, $ARGV[1]);
+		for my $elem (map {
+				/^([0-9a-f]+) (.*)$/;
+				[$1 => $2];
+			} split(/\n/, $ARGV[2])) {
+			if (!exists $not_in_next{$elem->[0]}) {
+				if ($msg) {
+					print STDERR $msg;
+					undef $msg;
+				}
+				print STDERR " $elem->[1]\n";
+			}
+		}
+	' "$topic" "$not_in_next" "$not_in_master"
+	exit 1
+fi
+
+<<\DOC_END
+
+This sample hook safeguards topic branches that have been
+published from being rewound.
+
+The workflow assumed here is:
+
+ * Once a topic branch forks from "master", "master" is never
+   merged into it again (either directly or indirectly).
+
+ * Once a topic branch is fully cooked and merged into "master",
+   it is deleted.  If you need to build on top of it to correct
+   earlier mistakes, a new topic branch is created by forking at
+   the tip of the "master".  This is not strictly necessary, but
+   it makes it easier to keep your history simple.
+
+ * Whenever you need to test or publish your changes to topic
+   branches, merge them into "next" branch.
+
+The script, being an example, hardcodes the publish branch name
+to be "next", but it is trivial to make it configurable via
+$GIT_DIR/config mechanism.
+
+With this workflow, you would want to know:
+
+(1) ... if a topic branch has ever been merged to "next".  Young
+    topic branches can have stupid mistakes you would rather
+    clean up before publishing, and things that have not been
+    merged into other branches can be easily rebased without
+    affecting other people.  But once it is published, you would
+    not want to rewind it.
+
+(2) ... if a topic branch has been fully merged to "master".
+    Then you can delete it.  More importantly, you should not
+    build on top of it -- other people may already want to
+    change things related to the topic as patches against your
+    "master", so if you need further changes, it is better to
+    fork the topic (perhaps with the same name) afresh from the
+    tip of "master".
+
+Let's look at this example:
+
+		   o---o---o---o---o---o---o---o---o---o "next"
+		  /       /           /           /
+		 /   a---a---b A     /           /
+		/   /               /           /
+	       /   /   c---c---c---c B         /
+	      /   /   /             \         /
+	     /   /   /   b---b C     \       /
+	    /   /   /   /             \     /
+    ---o---o---o---o---o---o---o---o---o---o---o "master"
+
+
+A, B and C are topic branches.
+
+ * A has one fix since it was merged up to "next".
+
+ * B has finished.  It has been fully merged up to "master" and "next",
+   and is ready to be deleted.
+
+ * C has not merged to "next" at all.
+
+We would want to allow C to be rebased, refuse A, and encourage
+B to be deleted.
+
+To compute (1):
+
+	git rev-list ^master ^topic next
+	git rev-list ^master        next
+
+	if these match, topic has not merged in next at all.
+
+To compute (2):
+
+	git rev-list master..topic
+
+	if this is empty, it is fully merged to "master".
+
+DOC_END
+
+            --- End of .git\hooks\pre-rebase.sample ---
+
+        [FILE] .git\hooks\pre-receive.sample
+            --- Start of .git\hooks\pre-receive.sample ---
+#!/bin/sh
+#
+# An example hook script to make use of push options.
+# The example simply echoes all push options that start with 'echoback='
+# and rejects all pushes when the "reject" push option is used.
+#
+# To enable this hook, rename this file to "pre-receive".
+
+if test -n "$GIT_PUSH_OPTION_COUNT"
+then
+	i=0
+	while test "$i" -lt "$GIT_PUSH_OPTION_COUNT"
+	do
+		eval "value=\$GIT_PUSH_OPTION_$i"
+		case "$value" in
+		echoback=*)
+			echo "echo from the pre-receive-hook: ${value#*=}" >&2
+			;;
+		reject)
+			exit 1
+		esac
+		i=$((i + 1))
+	done
+fi
+
+            --- End of .git\hooks\pre-receive.sample ---
+
+        [FILE] .git\hooks\prepare-commit-msg.sample
+            --- Start of .git\hooks\prepare-commit-msg.sample ---
+#!/bin/sh
+#
+# An example hook script to prepare the commit log message.
+# Called by "git commit" with the name of the file that has the
+# commit message, followed by the description of the commit
+# message's source.  The hook's purpose is to edit the commit
+# message file.  If the hook fails with a non-zero status,
+# the commit is aborted.
+#
+# To enable this hook, rename this file to "prepare-commit-msg".
+
+# This hook includes three examples. The first one removes the
+# "# Please enter the commit message..." help message.
+#
+# The second includes the output of "git diff --name-status -r"
+# into the message, just before the "git status" output.  It is
+# commented because it doesn't cope with --amend or with squashed
+# commits.
+#
+# The third example adds a Signed-off-by line to the message, that can
+# still be edited.  This is rarely a good idea.
+
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2
+SHA1=$3
+
+/usr/bin/perl -i.bak -ne 'print unless(m/^. Please enter the commit message/..m/^#$/)' "$COMMIT_MSG_FILE"
+
+# case "$COMMIT_SOURCE,$SHA1" in
+#  ,|template,)
+#    /usr/bin/perl -i.bak -pe '
+#       print "\n" . `git diff --cached --name-status -r`
+# 	 if /^#/ && $first++ == 0' "$COMMIT_MSG_FILE" ;;
+#  *) ;;
+# esac
+
+# SOB=$(git var GIT_COMMITTER_IDENT | sed -n 's/^\(.*>\).*$/Signed-off-by: \1/p')
+# git interpret-trailers --in-place --trailer "$SOB" "$COMMIT_MSG_FILE"
+# if test -z "$COMMIT_SOURCE"
+# then
+#   /usr/bin/perl -i.bak -pe 'print "\n" if !$first_line++' "$COMMIT_MSG_FILE"
+# fi
+
+            --- End of .git\hooks\prepare-commit-msg.sample ---
+
+        [FILE] .git\hooks\push-to-checkout.sample
+            --- Start of .git\hooks\push-to-checkout.sample ---
+#!/bin/sh
+
+# An example hook script to update a checked-out tree on a git push.
+#
+# This hook is invoked by git-receive-pack(1) when it reacts to git
+# push and updates reference(s) in its repository, and when the push
+# tries to update the branch that is currently checked out and the
+# receive.denyCurrentBranch configuration variable is set to
+# updateInstead.
+#
+# By default, such a push is refused if the working tree and the index
+# of the remote repository has any difference from the currently
+# checked out commit; when both the working tree and the index match
+# the current commit, they are updated to match the newly pushed tip
+# of the branch. This hook is to be used to override the default
+# behaviour; however the code below reimplements the default behaviour
+# as a starting point for convenient modification.
+#
+# The hook receives the commit with which the tip of the current
+# branch is going to be updated:
+commit=$1
+
+# It can exit with a non-zero status to refuse the push (when it does
+# so, it must not modify the index or the working tree).
+die () {
+	echo >&2 "$*"
+	exit 1
+}
+
+# Or it can make any necessary changes to the working tree and to the
+# index to bring them to the desired state when the tip of the current
+# branch is updated to the new commit, and exit with a zero status.
+#
+# For example, the hook can simply run git read-tree -u -m HEAD "$1"
+# in order to emulate git fetch that is run in the reverse direction
+# with git push, as the two-tree form of git read-tree -u -m is
+# essentially the same as git switch or git checkout that switches
+# branches while keeping the local changes in the working tree that do
+# not interfere with the difference between the branches.
+
+# The below is a more-or-less exact translation to shell of the C code
+# for the default behaviour for git's push-to-checkout hook defined in
+# the push_to_deploy() function in builtin/receive-pack.c.
+#
+# Note that the hook will be executed from the repository directory,
+# not from the working tree, so if you want to perform operations on
+# the working tree, you will have to adapt your code accordingly, e.g.
+# by adding "cd .." or using relative paths.
+
+if ! git update-index -q --ignore-submodules --refresh
+then
+	die "Up-to-date check failed"
+fi
+
+if ! git diff-files --quiet --ignore-submodules --
+then
+	die "Working directory has unstaged changes"
+fi
+
+# This is a rough translation of:
+#
+#   head_has_history() ? "HEAD" : EMPTY_TREE_SHA1_HEX
+if git cat-file -e HEAD 2>/dev/null
+then
+	head=HEAD
+else
+	head=$(git hash-object -t tree --stdin </dev/null)
+fi
+
+if ! git diff-index --quiet --cached --ignore-submodules $head --
+then
+	die "Working directory has staged changes"
+fi
+
+if ! git read-tree -u -m "$commit"
+then
+	die "Could not update working tree to new HEAD"
+fi
+
+            --- End of .git\hooks\push-to-checkout.sample ---
+
+        [FILE] .git\hooks\sendemail-validate.sample
+            --- Start of .git\hooks\sendemail-validate.sample ---
+#!/bin/sh
+
+# An example hook script to validate a patch (and/or patch series) before
+# sending it via email.
+#
+# The hook should exit with non-zero status after issuing an appropriate
+# message if it wants to prevent the email(s) from being sent.
+#
+# To enable this hook, rename this file to "sendemail-validate".
+#
+# By default, it will only check that the patch(es) can be applied on top of
+# the default upstream branch without conflicts in a secondary worktree. After
+# validation (successful or not) of the last patch of a series, the worktree
+# will be deleted.
+#
+# The following config variables can be set to change the default remote and
+# remote ref that are used to apply the patches against:
+#
+#   sendemail.validateRemote (default: origin)
+#   sendemail.validateRemoteRef (default: HEAD)
+#
+# Replace the TODO placeholders with appropriate checks according to your
+# needs.
+
+validate_cover_letter () {
+	file="$1"
+	# TODO: Replace with appropriate checks (e.g. spell checking).
+	true
+}
+
+validate_patch () {
+	file="$1"
+	# Ensure that the patch applies without conflicts.
+	git am -3 "$file" || return
+	# TODO: Replace with appropriate checks for this patch
+	# (e.g. checkpatch.pl).
+	true
+}
+
+validate_series () {
+	# TODO: Replace with appropriate checks for the whole series
+	# (e.g. quick build, coding style checks, etc.).
+	true
+}
+
+# main -------------------------------------------------------------------------
+
+if test "$GIT_SENDEMAIL_FILE_COUNTER" = 1
+then
+	remote=$(git config --default origin --get sendemail.validateRemote) &&
+	ref=$(git config --default HEAD --get sendemail.validateRemoteRef) &&
+	worktree=$(mktemp --tmpdir -d sendemail-validate.XXXXXXX) &&
+	git worktree add -fd --checkout "$worktree" "refs/remotes/$remote/$ref" &&
+	git config --replace-all sendemail.validateWorktree "$worktree"
+else
+	worktree=$(git config --get sendemail.validateWorktree)
+fi || {
+	echo "sendemail-validate: error: failed to prepare worktree" >&2
+	exit 1
+}
+
+unset GIT_DIR GIT_WORK_TREE
+cd "$worktree" &&
+
+if grep -q "^diff --git " "$1"
+then
+	validate_patch "$1"
+else
+	validate_cover_letter "$1"
+fi &&
+
+if test "$GIT_SENDEMAIL_FILE_COUNTER" = "$GIT_SENDEMAIL_FILE_TOTAL"
+then
+	git config --unset-all sendemail.validateWorktree &&
+	trap 'git worktree remove -ff "$worktree"' EXIT &&
+	validate_series
+fi
+
+            --- End of .git\hooks\sendemail-validate.sample ---
+
+        [FILE] .git\hooks\update.sample
+            --- Start of .git\hooks\update.sample ---
+#!/bin/sh
+#
+# An example hook script to block unannotated tags from entering.
+# Called by "git receive-pack" with arguments: refname sha1-old sha1-new
+#
+# To enable this hook, rename this file to "update".
+#
+# Config
+# ------
+# hooks.allowunannotated
+#   This boolean sets whether unannotated tags will be allowed into the
+#   repository.  By default they won't be.
+# hooks.allowdeletetag
+#   This boolean sets whether deleting tags will be allowed in the
+#   repository.  By default they won't be.
+# hooks.allowmodifytag
+#   This boolean sets whether a tag may be modified after creation. By default
+#   it won't be.
+# hooks.allowdeletebranch
+#   This boolean sets whether deleting branches will be allowed in the
+#   repository.  By default they won't be.
+# hooks.denycreatebranch
+#   This boolean sets whether remotely creating branches will be denied
+#   in the repository.  By default this is allowed.
+#
+
+# --- Command line
+refname="$1"
+oldrev="$2"
+newrev="$3"
+
+# --- Safety check
+if [ -z "$GIT_DIR" ]; then
+	echo "Don't run this script from the command line." >&2
+	echo " (if you want, you could supply GIT_DIR then run" >&2
+	echo "  $0 <ref> <oldrev> <newrev>)" >&2
+	exit 1
+fi
+
+if [ -z "$refname" -o -z "$oldrev" -o -z "$newrev" ]; then
+	echo "usage: $0 <ref> <oldrev> <newrev>" >&2
+	exit 1
+fi
+
+# --- Config
+allowunannotated=$(git config --type=bool hooks.allowunannotated)
+allowdeletebranch=$(git config --type=bool hooks.allowdeletebranch)
+denycreatebranch=$(git config --type=bool hooks.denycreatebranch)
+allowdeletetag=$(git config --type=bool hooks.allowdeletetag)
+allowmodifytag=$(git config --type=bool hooks.allowmodifytag)
+
+# check for no description
+projectdesc=$(sed -e '1q' "$GIT_DIR/description")
+case "$projectdesc" in
+"Unnamed repository"* | "")
+	echo "*** Project description file hasn't been set" >&2
+	exit 1
+	;;
+esac
+
+# --- Check types
+# if $newrev is 0000...0000, it's a commit to delete a ref.
+zero=$(git hash-object --stdin </dev/null | tr '[0-9a-f]' '0')
+if [ "$newrev" = "$zero" ]; then
+	newrev_type=delete
+else
+	newrev_type=$(git cat-file -t $newrev)
+fi
+
+case "$refname","$newrev_type" in
+	refs/tags/*,commit)
+		# un-annotated tag
+		short_refname=${refname##refs/tags/}
+		if [ "$allowunannotated" != "true" ]; then
+			echo "*** The un-annotated tag, $short_refname, is not allowed in this repository" >&2
+			echo "*** Use 'git tag [ -a | -s ]' for tags you want to propagate." >&2
+			exit 1
+		fi
+		;;
+	refs/tags/*,delete)
+		# delete tag
+		if [ "$allowdeletetag" != "true" ]; then
+			echo "*** Deleting a tag is not allowed in this repository" >&2
+			exit 1
+		fi
+		;;
+	refs/tags/*,tag)
+		# annotated tag
+		if [ "$allowmodifytag" != "true" ] && git rev-parse $refname > /dev/null 2>&1
+		then
+			echo "*** Tag '$refname' already exists." >&2
+			echo "*** Modifying a tag is not allowed in this repository." >&2
+			exit 1
+		fi
+		;;
+	refs/heads/*,commit)
+		# branch
+		if [ "$oldrev" = "$zero" -a "$denycreatebranch" = "true" ]; then
+			echo "*** Creating a branch is not allowed in this repository" >&2
+			exit 1
+		fi
+		;;
+	refs/heads/*,delete)
+		# delete branch
+		if [ "$allowdeletebranch" != "true" ]; then
+			echo "*** Deleting a branch is not allowed in this repository" >&2
+			exit 1
+		fi
+		;;
+	refs/remotes/*,commit)
+		# tracking branch
+		;;
+	refs/remotes/*,delete)
+		# delete tracking branch
+		if [ "$allowdeletebranch" != "true" ]; then
+			echo "*** Deleting a tracking branch is not allowed in this repository" >&2
+			exit 1
+		fi
+		;;
+	*)
+		# Anything else (is there anything else?)
+		echo "*** Update hook: unknown type of update to ref $refname of type $newrev_type" >&2
+		exit 1
+		;;
+esac
+
+# --- Finished
+exit 0
+
+            --- End of .git\hooks\update.sample ---
+
+    [DIR] .git\info
+        [FILE] .git\info\exclude
+            --- Start of .git\info\exclude ---
+# git ls-files --others --exclude-from=.git/info/exclude
+# Lines that start with '#' are comments.
+# For a project mostly in C, the following would be a good set of
+# exclude patterns (uncomment them if you want to use them):
+# *.[oa]
+# *~
+
+            --- End of .git\info\exclude ---
+
+    [DIR] .git\logs
+        [FILE] .git\logs\HEAD
+            --- Start of .git\logs\HEAD ---
+0000000000000000000000000000000000000000 1ca9dc82bd3d631e95a68ff5e919bf1b94b77f32 smacean <kazukida30@gmail.com> 1746251235 +0900	clone: from github.com:smacean/portfolio.git
+1ca9dc82bd3d631e95a68ff5e919bf1b94b77f32 9ceb621a5dc6291f65692e3b91b4b8739d341655 smacean <kazukida30@gmail.com> 1746251454 +0900	commit: initial commit
+9ceb621a5dc6291f65692e3b91b4b8739d341655 72a4c17b1e0da411b799f5b636088e80a225860e smacean <kazukida30@gmail.com> 1746251724 +0900	commit: 初期設定
+72a4c17b1e0da411b799f5b636088e80a225860e 58bc4dea3b3405c5d56be5daad5392be9003195d smacean <kazukida30@gmail.com> 1746340272 +0900	commit: feat: フォルダ構成変更と気になる機能の作成
+58bc4dea3b3405c5d56be5daad5392be9003195d 6457aad3654a8429996035b7fec15cf5faddfbfb smacean <kazukida30@gmail.com> 1746358441 +0900	commit: feat: profileのcss
+6457aad3654a8429996035b7fec15cf5faddfbfb 3c5123d88312a595e4a51de334f1436f82c4cde0 smacean <kazukida30@gmail.com> 1746358767 +0900	commit: fix: profileのアイコン変更
+3c5123d88312a595e4a51de334f1436f82c4cde0 c05fcd52f5ace9fee8cf713846945817ee8dc43f smacean <kazukida30@gmail.com> 1746360589 +0900	commit: アイコン変更
+c05fcd52f5ace9fee8cf713846945817ee8dc43f 47bd7566884f836de69ad57bc3207c3662da7b1c smacean <kazukida30@gmail.com> 1746434826 +0900	commit: feat: worksのスライダー
+47bd7566884f836de69ad57bc3207c3662da7b1c bd66f7d3660fed82bab4732238ca2eb409823d8d smacean <kazukida30@gmail.com> 1746452343 +0900	commit: feat: worksデザインとモーダル準備
+
+            --- End of .git\logs\HEAD ---
+
+        [DIR] .git\logs\refs
+            [DIR] .git\logs\refs\heads
+                [FILE] .git\logs\refs\heads\main
+                    --- Start of .git\logs\refs\heads\main ---
+0000000000000000000000000000000000000000 1ca9dc82bd3d631e95a68ff5e919bf1b94b77f32 smacean <kazukida30@gmail.com> 1746251235 +0900	clone: from github.com:smacean/portfolio.git
+1ca9dc82bd3d631e95a68ff5e919bf1b94b77f32 9ceb621a5dc6291f65692e3b91b4b8739d341655 smacean <kazukida30@gmail.com> 1746251454 +0900	commit: initial commit
+9ceb621a5dc6291f65692e3b91b4b8739d341655 72a4c17b1e0da411b799f5b636088e80a225860e smacean <kazukida30@gmail.com> 1746251724 +0900	commit: 初期設定
+72a4c17b1e0da411b799f5b636088e80a225860e 58bc4dea3b3405c5d56be5daad5392be9003195d smacean <kazukida30@gmail.com> 1746340272 +0900	commit: feat: フォルダ構成変更と気になる機能の作成
+58bc4dea3b3405c5d56be5daad5392be9003195d 6457aad3654a8429996035b7fec15cf5faddfbfb smacean <kazukida30@gmail.com> 1746358441 +0900	commit: feat: profileのcss
+6457aad3654a8429996035b7fec15cf5faddfbfb 3c5123d88312a595e4a51de334f1436f82c4cde0 smacean <kazukida30@gmail.com> 1746358767 +0900	commit: fix: profileのアイコン変更
+3c5123d88312a595e4a51de334f1436f82c4cde0 c05fcd52f5ace9fee8cf713846945817ee8dc43f smacean <kazukida30@gmail.com> 1746360589 +0900	commit: アイコン変更
+c05fcd52f5ace9fee8cf713846945817ee8dc43f 47bd7566884f836de69ad57bc3207c3662da7b1c smacean <kazukida30@gmail.com> 1746434826 +0900	commit: feat: worksのスライダー
+47bd7566884f836de69ad57bc3207c3662da7b1c bd66f7d3660fed82bab4732238ca2eb409823d8d smacean <kazukida30@gmail.com> 1746452343 +0900	commit: feat: worksデザインとモーダル準備
+
+                    --- End of .git\logs\refs\heads\main ---
+
+            [DIR] .git\logs\refs\remotes
+                [DIR] .git\logs\refs\remotes\origin
+                    [FILE] .git\logs\refs\remotes\origin\HEAD
+                        --- Start of .git\logs\refs\remotes\origin\HEAD ---
+0000000000000000000000000000000000000000 1ca9dc82bd3d631e95a68ff5e919bf1b94b77f32 smacean <kazukida30@gmail.com> 1746251235 +0900	clone: from github.com:smacean/portfolio.git
+
+                        --- End of .git\logs\refs\remotes\origin\HEAD ---
+
+                    [FILE] .git\logs\refs\remotes\origin\main
+                        --- Start of .git\logs\refs\remotes\origin\main ---
+1ca9dc82bd3d631e95a68ff5e919bf1b94b77f32 9ceb621a5dc6291f65692e3b91b4b8739d341655 smacean <kazukida30@gmail.com> 1746251467 +0900	update by push
+
+                        --- End of .git\logs\refs\remotes\origin\main ---
+
+    [DIR] .git\objects
+        [DIR] .git\objects\00
+            [FILE] .git\objects\00\ef19a0e5e55eeeb3d7645fb36d972a56af62bd
+                --- Start of .git\objects\00\ef19a0e5e55eeeb3d7645fb36d972a56af62bd ---
+[Error reading file: 'utf-8' codec can't decode byte 0xbd in position 16: invalid start byte]
+
+                --- End of .git\objects\00\ef19a0e5e55eeeb3d7645fb36d972a56af62bd ---
+
+        [DIR] .git\objects\02
+            [FILE] .git\objects\02\ab099de1bc9691fbc59b111498b4b074261f83
+                --- Start of .git\objects\02\ab099de1bc9691fbc59b111498b4b074261f83 ---
+[Error reading file: 'utf-8' codec can't decode byte 0x85 in position 2: invalid start byte]
+
+                --- End of .git\objects\02\ab099de1bc9691fbc59b111498b4b074261f83 ---
+
+            [FILE] .git\objects\02\c66dd13c78e93293bdda0fd053e7be05484872
+                --- Start of .git\objects\02\c66dd13c78e93293bdda0fd053e7be05484872 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xca in position 3: invalid continuation byte]
+
+                --- End of .git\objects\02\c66dd13c78e93293bdda0fd053e7be05484872 ---
+
+        [DIR] .git\objects\07
+            [FILE] .git\objects\07\289efcf8cba0548878ec29b927c55bac9f8312
+                --- Start of .git\objects\07\289efcf8cba0548878ec29b927c55bac9f8312 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xca in position 3: invalid continuation byte]
+
+                --- End of .git\objects\07\289efcf8cba0548878ec29b927c55bac9f8312 ---
+
+        [DIR] .git\objects\09
+            [FILE] .git\objects\09\67ef424bce6791893e9a57bb952f80fd536e93
+                --- Start of .git\objects\09\67ef424bce6791893e9a57bb952f80fd536e93 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xca in position 3: invalid continuation byte]
+
+                --- End of .git\objects\09\67ef424bce6791893e9a57bb952f80fd536e93 ---
+
+        [DIR] .git\objects\0b
+            [FILE] .git\objects\0b\813e378833f61d926457157b963e1b56ee0451
+                --- Start of .git\objects\0b\813e378833f61d926457157b963e1b56ee0451 ---
+[Error reading file: 'utf-8' codec can't decode byte 0x85 in position 2: invalid start byte]
+
+                --- End of .git\objects\0b\813e378833f61d926457157b963e1b56ee0451 ---
+
+        [DIR] .git\objects\0d
+            [FILE] .git\objects\0d\c00f30aadbfe7e198f929e5ac0d0e25ac5a3e8
+                --- Start of .git\objects\0d\c00f30aadbfe7e198f929e5ac0d0e25ac5a3e8 ---
+[Error reading file: 'utf-8' codec can't decode byte 0x8e in position 3: invalid start byte]
+
+                --- End of .git\objects\0d\c00f30aadbfe7e198f929e5ac0d0e25ac5a3e8 ---
+
+        [DIR] .git\objects\0f
+            [FILE] .git\objects\0f\17922a73205ee6d0463b5fb468322e4a1e0369
+                --- Start of .git\objects\0f\17922a73205ee6d0463b5fb468322e4a1e0369 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xa5 in position 2: invalid start byte]
+
+                --- End of .git\objects\0f\17922a73205ee6d0463b5fb468322e4a1e0369 ---
+
+        [DIR] .git\objects\10
+            [FILE] .git\objects\10\b9aa0869fa0ec84466fb83aaa98e7e912daac4
+                --- Start of .git\objects\10\b9aa0869fa0ec84466fb83aaa98e7e912daac4 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xed in position 2: invalid continuation byte]
+
+                --- End of .git\objects\10\b9aa0869fa0ec84466fb83aaa98e7e912daac4 ---
+
+        [DIR] .git\objects\17
+            [FILE] .git\objects\17\81ea9d2f6eaefc64656f72e6dcd4d19a4fa75c
+                --- Start of .git\objects\17\81ea9d2f6eaefc64656f72e6dcd4d19a4fa75c ---
+[Error reading file: 'utf-8' codec can't decode byte 0xa4 in position 2: invalid start byte]
+
+                --- End of .git\objects\17\81ea9d2f6eaefc64656f72e6dcd4d19a4fa75c ---
+
+        [DIR] .git\objects\18
+            [FILE] .git\objects\18\80dee51d799cf4b528f0fe2d613ec96b645a5c
+                --- Start of .git\objects\18\80dee51d799cf4b528f0fe2d613ec96b645a5c ---
+[Error reading file: 'utf-8' codec can't decode bytes in position 2-3: invalid continuation byte]
+
+                --- End of .git\objects\18\80dee51d799cf4b528f0fe2d613ec96b645a5c ---
+
+            [FILE] .git\objects\18\b97ce408f600416cac50030849fd1f43fe27ae
+                --- Start of .git\objects\18\b97ce408f600416cac50030849fd1f43fe27ae ---
+[Error reading file: 'utf-8' codec can't decode byte 0x91 in position 3: invalid start byte]
+
+                --- End of .git\objects\18\b97ce408f600416cac50030849fd1f43fe27ae ---
+
+        [DIR] .git\objects\1c
+            [FILE] .git\objects\1c\9c0b80388ae23fe5e2871bc21fad733a54ea57
+                --- Start of .git\objects\1c\9c0b80388ae23fe5e2871bc21fad733a54ea57 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xb6 in position 9: invalid start byte]
+
+                --- End of .git\objects\1c\9c0b80388ae23fe5e2871bc21fad733a54ea57 ---
+
+        [DIR] .git\objects\24
+            [FILE] .git\objects\24\17bc44019c22029cd5744289b5e2db102b7903
+                --- Start of .git\objects\24\17bc44019c22029cd5744289b5e2db102b7903 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xc8 in position 17: invalid continuation byte]
+
+                --- End of .git\objects\24\17bc44019c22029cd5744289b5e2db102b7903 ---
+
+        [DIR] .git\objects\25
+            [FILE] .git\objects\25\fa84f2ca26a1ac8ef163cc3fd0796ef566fdc6
+                --- Start of .git\objects\25\fa84f2ca26a1ac8ef163cc3fd0796ef566fdc6 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xca in position 3: invalid continuation byte]
+
+                --- End of .git\objects\25\fa84f2ca26a1ac8ef163cc3fd0796ef566fdc6 ---
+
+        [DIR] .git\objects\2c
+            [FILE] .git\objects\2c\bab9ca97723bc24c50315a0a9bd155db4e0aa5
+                --- Start of .git\objects\2c\bab9ca97723bc24c50315a0a9bd155db4e0aa5 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xbd in position 2: invalid start byte]
+
+                --- End of .git\objects\2c\bab9ca97723bc24c50315a0a9bd155db4e0aa5 ---
+
+        [DIR] .git\objects\2e
+            [FILE] .git\objects\2e\4ba03b561846c7fd27a0fd84ce551aecfa00ce
+                --- Start of .git\objects\2e\4ba03b561846c7fd27a0fd84ce551aecfa00ce ---
+[Error reading file: 'utf-8' codec can't decode byte 0x85 in position 2: invalid start byte]
+
+                --- End of .git\objects\2e\4ba03b561846c7fd27a0fd84ce551aecfa00ce ---
+
+        [DIR] .git\objects\35
+            [FILE] .git\objects\35\ccbc778573630dccb8cc5c70595b1dde948c5a
+                --- Start of .git\objects\35\ccbc778573630dccb8cc5c70595b1dde948c5a ---
+[Error reading file: 'utf-8' codec can't decode byte 0xc9 in position 21: invalid continuation byte]
+
+                --- End of .git\objects\35\ccbc778573630dccb8cc5c70595b1dde948c5a ---
+
+        [DIR] .git\objects\36
+            [FILE] .git\objects\36\bdd515376760e9d41830029f1a2bcf7cb997a8
+                --- Start of .git\objects\36\bdd515376760e9d41830029f1a2bcf7cb997a8 ---
+[Error reading file: 'utf-8' codec can't decode byte 0x95 in position 2: invalid start byte]
+
+                --- End of .git\objects\36\bdd515376760e9d41830029f1a2bcf7cb997a8 ---
+
+        [DIR] .git\objects\38
+            [FILE] .git\objects\38\a86b531c0a89004b28f401afa9bb462a3a4bf1
+                --- Start of .git\objects\38\a86b531c0a89004b28f401afa9bb462a3a4bf1 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xb6 in position 9: invalid start byte]
+
+                --- End of .git\objects\38\a86b531c0a89004b28f401afa9bb462a3a4bf1 ---
+
+        [DIR] .git\objects\39
+            [FILE] .git\objects\39\f9fd7a1835dc905e608eaf2568152fa2099f76
+                --- Start of .git\objects\39\f9fd7a1835dc905e608eaf2568152fa2099f76 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xb6 in position 9: invalid start byte]
+
+                --- End of .git\objects\39\f9fd7a1835dc905e608eaf2568152fa2099f76 ---
+
+        [DIR] .git\objects\3c
+            [FILE] .git\objects\3c\5123d88312a595e4a51de334f1436f82c4cde0
+                --- Start of .git\objects\3c\5123d88312a595e4a51de334f1436f82c4cde0 ---
+[Error reading file: 'utf-8' codec can't decode byte 0x95 in position 2: invalid start byte]
+
+                --- End of .git\objects\3c\5123d88312a595e4a51de334f1436f82c4cde0 ---
+
+            [FILE] .git\objects\3c\68985318180289c8c0b7f5425dad70503b1382
+                --- Start of .git\objects\3c\68985318180289c8c0b7f5425dad70503b1382 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xa5 in position 2: invalid start byte]
+
+                --- End of .git\objects\3c\68985318180289c8c0b7f5425dad70503b1382 ---
+
+        [DIR] .git\objects\42
+            [FILE] .git\objects\42\172c2f6ed2f683fe898bdc4291b323ef563312
+                --- Start of .git\objects\42\172c2f6ed2f683fe898bdc4291b323ef563312 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xd5 in position 2: invalid continuation byte]
+
+                --- End of .git\objects\42\172c2f6ed2f683fe898bdc4291b323ef563312 ---
+
+        [DIR] .git\objects\44
+            [FILE] .git\objects\44\5e898722470ecd132efb69efdc280d0cf63c94
+                --- Start of .git\objects\44\5e898722470ecd132efb69efdc280d0cf63c94 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xb3 in position 9: invalid start byte]
+
+                --- End of .git\objects\44\5e898722470ecd132efb69efdc280d0cf63c94 ---
+
+        [DIR] .git\objects\46
+            [FILE] .git\objects\46\d7f73dec34ba55e9359896d0f309712ebdf0ac
+                --- Start of .git\objects\46\d7f73dec34ba55e9359896d0f309712ebdf0ac ---
+[Error reading file: 'utf-8' codec can't decode byte 0xb6 in position 9: invalid start byte]
+
+                --- End of .git\objects\46\d7f73dec34ba55e9359896d0f309712ebdf0ac ---
+
+        [DIR] .git\objects\47
+            [FILE] .git\objects\47\3f8b3c15d2096bf4ca4f85083ce69d6c52276b
+                --- Start of .git\objects\47\3f8b3c15d2096bf4ca4f85083ce69d6c52276b ---
+[Error reading file: 'utf-8' codec can't decode byte 0x90 in position 3: invalid start byte]
+
+                --- End of .git\objects\47\3f8b3c15d2096bf4ca4f85083ce69d6c52276b ---
+
+            [FILE] .git\objects\47\bd7566884f836de69ad57bc3207c3662da7b1c
+                --- Start of .git\objects\47\bd7566884f836de69ad57bc3207c3662da7b1c ---
+[Error reading file: 'utf-8' codec can't decode byte 0x95 in position 2: invalid start byte]
+
+                --- End of .git\objects\47\bd7566884f836de69ad57bc3207c3662da7b1c ---
+
+        [DIR] .git\objects\49
+            [FILE] .git\objects\49\23ac1ea6ff658d3ba565d38a40ae29005d7d58
+                --- Start of .git\objects\49\23ac1ea6ff658d3ba565d38a40ae29005d7d58 ---
+[Error reading file: 'utf-8' codec can't decode byte 0x90 in position 3: invalid start byte]
+
+                --- End of .git\objects\49\23ac1ea6ff658d3ba565d38a40ae29005d7d58 ---
+
+            [FILE] .git\objects\49\ed8a55d3ef048172b088ec70c6c07cc10a77f1
+                --- Start of .git\objects\49\ed8a55d3ef048172b088ec70c6c07cc10a77f1 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xc8 in position 18: invalid continuation byte]
+
+                --- End of .git\objects\49\ed8a55d3ef048172b088ec70c6c07cc10a77f1 ---
+
+        [DIR] .git\objects\4d
+            [FILE] .git\objects\4d\8624b14f6cb919d36a91adf740c5e07c1ed90e
+                --- Start of .git\objects\4d\8624b14f6cb919d36a91adf740c5e07c1ed90e ---
+[Error reading file: 'utf-8' codec can't decode byte 0x90 in position 3: invalid start byte]
+
+                --- End of .git\objects\4d\8624b14f6cb919d36a91adf740c5e07c1ed90e ---
+
+        [DIR] .git\objects\4e
+            [FILE] .git\objects\4e\c4015997241f1827504107962f3722150cac40
+                --- Start of .git\objects\4e\c4015997241f1827504107962f3722150cac40 ---
+[Error reading file: 'utf-8' codec can't decode bytes in position 2-3: invalid continuation byte]
+
+                --- End of .git\objects\4e\c4015997241f1827504107962f3722150cac40 ---
+
+        [DIR] .git\objects\57
+            [FILE] .git\objects\57\3de3c6e3e67e7fa126ff43b77c2e42846f2039
+                --- Start of .git\objects\57\3de3c6e3e67e7fa126ff43b77c2e42846f2039 ---
+[Error reading file: 'utf-8' codec can't decode byte 0x8c in position 2: invalid start byte]
+
+                --- End of .git\objects\57\3de3c6e3e67e7fa126ff43b77c2e42846f2039 ---
+
+            [FILE] .git\objects\57\477e848b989426ab54c7b9ebff5eaf2318c1c6
+                --- Start of .git\objects\57\477e848b989426ab54c7b9ebff5eaf2318c1c6 ---
+[Error reading file: 'utf-8' codec can't decode byte 0x9d in position 2: invalid start byte]
+
+                --- End of .git\objects\57\477e848b989426ab54c7b9ebff5eaf2318c1c6 ---
+
+        [DIR] .git\objects\58
+            [FILE] .git\objects\58\304a80fe14f9885e4719cabac5c88a7bb3fdcb
+                --- Start of .git\objects\58\304a80fe14f9885e4719cabac5c88a7bb3fdcb ---
+[Error reading file: 'utf-8' codec can't decode byte 0xce in position 19: invalid continuation byte]
+
+                --- End of .git\objects\58\304a80fe14f9885e4719cabac5c88a7bb3fdcb ---
+
+            [FILE] .git\objects\58\bc4dea3b3405c5d56be5daad5392be9003195d
+                --- Start of .git\objects\58\bc4dea3b3405c5d56be5daad5392be9003195d ---
+[Error reading file: 'utf-8' codec can't decode byte 0x95 in position 2: invalid start byte]
+
+                --- End of .git\objects\58\bc4dea3b3405c5d56be5daad5392be9003195d ---
+
+        [DIR] .git\objects\59
+            [FILE] .git\objects\59\b10d746f7ba6d7117e5a3e2d7ef114ad59ec04
+                --- Start of .git\objects\59\b10d746f7ba6d7117e5a3e2d7ef114ad59ec04 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xce in position 3: invalid continuation byte]
+
+                --- End of .git\objects\59\b10d746f7ba6d7117e5a3e2d7ef114ad59ec04 ---
+
+        [DIR] .git\objects\5e
+            [FILE] .git\objects\5e\85a4e5d05ca2d0fb1c174dc007f011557b9e58
+                --- Start of .git\objects\5e\85a4e5d05ca2d0fb1c174dc007f011557b9e58 ---
+[Error reading file: 'utf-8' codec can't decode byte 0x8e in position 3: invalid start byte]
+
+                --- End of .git\objects\5e\85a4e5d05ca2d0fb1c174dc007f011557b9e58 ---
+
+        [DIR] .git\objects\5f
+            [FILE] .git\objects\5f\73ba8a5e0a49b9bd91a197e0fded3f3e875685
+                --- Start of .git\objects\5f\73ba8a5e0a49b9bd91a197e0fded3f3e875685 ---
+[Error reading file: 'utf-8' codec can't decode byte 0x8c in position 2: invalid start byte]
+
+                --- End of .git\objects\5f\73ba8a5e0a49b9bd91a197e0fded3f3e875685 ---
+
+        [DIR] .git\objects\62
+            [FILE] .git\objects\62\907a71b08c0204f4c1d5f9048a7e74696a986c
+                --- Start of .git\objects\62\907a71b08c0204f4c1d5f9048a7e74696a986c ---
+[Error reading file: 'utf-8' codec can't decode byte 0xce in position 19: invalid continuation byte]
+
+                --- End of .git\objects\62\907a71b08c0204f4c1d5f9048a7e74696a986c ---
+
+        [DIR] .git\objects\64
+            [FILE] .git\objects\64\57aad3654a8429996035b7fec15cf5faddfbfb
+                --- Start of .git\objects\64\57aad3654a8429996035b7fec15cf5faddfbfb ---
+[Error reading file: 'utf-8' codec can't decode byte 0x95 in position 2: invalid start byte]
+
+                --- End of .git\objects\64\57aad3654a8429996035b7fec15cf5faddfbfb ---
+
+        [DIR] .git\objects\65
+            [FILE] .git\objects\65\c612ce417f33157bcb22b2a77b43cf02a14329
+                --- Start of .git\objects\65\c612ce417f33157bcb22b2a77b43cf02a14329 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xbb in position 3: invalid start byte]
+
+                --- End of .git\objects\65\c612ce417f33157bcb22b2a77b43cf02a14329 ---
+
+        [DIR] .git\objects\6a
+            [FILE] .git\objects\6a\75c94571b989d2178e0df046a71b950cf1e375
+                --- Start of .git\objects\6a\75c94571b989d2178e0df046a71b950cf1e375 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xd1 in position 22: invalid continuation byte]
+
+                --- End of .git\objects\6a\75c94571b989d2178e0df046a71b950cf1e375 ---
+
+        [DIR] .git\objects\6f
+            [FILE] .git\objects\6f\42290889b648d13b253183c1aec5bcb246c804
+                --- Start of .git\objects\6f\42290889b648d13b253183c1aec5bcb246c804 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xad in position 2: invalid start byte]
+
+                --- End of .git\objects\6f\42290889b648d13b253183c1aec5bcb246c804 ---
+
+        [DIR] .git\objects\70
+            [FILE] .git\objects\70\30d2bf22bee904d96be683aa04647a461fabed
+                --- Start of .git\objects\70\30d2bf22bee904d96be683aa04647a461fabed ---
+[Error reading file: 'utf-8' codec can't decode byte 0x95 in position 2: invalid start byte]
+
+                --- End of .git\objects\70\30d2bf22bee904d96be683aa04647a461fabed ---
+
+        [DIR] .git\objects\71
+            [FILE] .git\objects\71\6c5e96602e9ac59216d4876ff7bfa06035b07e
+                --- Start of .git\objects\71\6c5e96602e9ac59216d4876ff7bfa06035b07e ---
+[Error reading file: 'utf-8' codec can't decode byte 0xbd in position 16: invalid start byte]
+
+                --- End of .git\objects\71\6c5e96602e9ac59216d4876ff7bfa06035b07e ---
+
+            [FILE] .git\objects\71\b3aa77bad71c45c5fdbdb1cd04b86da1cffc2f
+                --- Start of .git\objects\71\b3aa77bad71c45c5fdbdb1cd04b86da1cffc2f ---
+[Error reading file: 'utf-8' codec can't decode byte 0x95 in position 2: invalid start byte]
+
+                --- End of .git\objects\71\b3aa77bad71c45c5fdbdb1cd04b86da1cffc2f ---
+
+            [FILE] .git\objects\71\d0ad2de33d16f36dd77d1f79a5b38fd099ee64
+                --- Start of .git\objects\71\d0ad2de33d16f36dd77d1f79a5b38fd099ee64 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xc8 in position 17: invalid continuation byte]
+
+                --- End of .git\objects\71\d0ad2de33d16f36dd77d1f79a5b38fd099ee64 ---
+
+        [DIR] .git\objects\72
+            [FILE] .git\objects\72\a4c17b1e0da411b799f5b636088e80a225860e
+                --- Start of .git\objects\72\a4c17b1e0da411b799f5b636088e80a225860e ---
+[Error reading file: 'utf-8' codec can't decode byte 0x95 in position 2: invalid start byte]
+
+                --- End of .git\objects\72\a4c17b1e0da411b799f5b636088e80a225860e ---
+
+        [DIR] .git\objects\7d
+            [FILE] .git\objects\7d\13a350a7db1581c210358ab9d92bdf1908aaa4
+                --- Start of .git\objects\7d\13a350a7db1581c210358ab9d92bdf1908aaa4 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xbb in position 4: invalid start byte]
+
+                --- End of .git\objects\7d\13a350a7db1581c210358ab9d92bdf1908aaa4 ---
+
+        [DIR] .git\objects\82
+            [FILE] .git\objects\82\b8dd43d72ece0aa9c3695d2bd78664b27f76ef
+                --- Start of .git\objects\82\b8dd43d72ece0aa9c3695d2bd78664b27f76ef ---
+[Error reading file: 'utf-8' codec can't decode byte 0xca in position 3: invalid continuation byte]
+
+                --- End of .git\objects\82\b8dd43d72ece0aa9c3695d2bd78664b27f76ef ---
+
+        [DIR] .git\objects\84
+            [FILE] .git\objects\84\c7d6a10c2bb74c3b8962339c1e19d763947f0a
+                --- Start of .git\objects\84\c7d6a10c2bb74c3b8962339c1e19d763947f0a ---
+[Error reading file: 'utf-8' codec can't decode byte 0x8d in position 2: invalid start byte]
+
+                --- End of .git\objects\84\c7d6a10c2bb74c3b8962339c1e19d763947f0a ---
+
+        [DIR] .git\objects\86
+            [FILE] .git\objects\86\6102d0ebe8b235409ee3b09a2abe950ed9780d
+                --- Start of .git\objects\86\6102d0ebe8b235409ee3b09a2abe950ed9780d ---
+[Error reading file: 'utf-8' codec can't decode byte 0x95 in position 2: invalid start byte]
+
+                --- End of .git\objects\86\6102d0ebe8b235409ee3b09a2abe950ed9780d ---
+
+            [FILE] .git\objects\86\f17990848da35a21953d4c25427a1cb2b7b954
+                --- Start of .git\objects\86\f17990848da35a21953d4c25427a1cb2b7b954 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xc8 in position 17: invalid continuation byte]
+
+                --- End of .git\objects\86\f17990848da35a21953d4c25427a1cb2b7b954 ---
+
+        [DIR] .git\objects\87
+            [FILE] .git\objects\87\21660c7d72061bc81d481c5a64c61546d87422
+                --- Start of .git\objects\87\21660c7d72061bc81d481c5a64c61546d87422 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xca in position 3: invalid continuation byte]
+
+                --- End of .git\objects\87\21660c7d72061bc81d481c5a64c61546d87422 ---
+
+        [DIR] .git\objects\88
+            [FILE] .git\objects\88\ce4217cd82aa20197bb111cc9dfd39ff31da1e
+                --- Start of .git\objects\88\ce4217cd82aa20197bb111cc9dfd39ff31da1e ---
+[Error reading file: 'utf-8' codec can't decode byte 0xad in position 2: invalid start byte]
+
+                --- End of .git\objects\88\ce4217cd82aa20197bb111cc9dfd39ff31da1e ---
+
+            [FILE] .git\objects\88\f1e5417285bd15c88ffc39dc5eccb5b21a3c51
+                --- Start of .git\objects\88\f1e5417285bd15c88ffc39dc5eccb5b21a3c51 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xd1 in position 22: invalid continuation byte]
+
+                --- End of .git\objects\88\f1e5417285bd15c88ffc39dc5eccb5b21a3c51 ---
+
+        [DIR] .git\objects\8e
+            [FILE] .git\objects\8e\a12269f3073c07c4d91445aa6ec07698212590
+                --- Start of .git\objects\8e\a12269f3073c07c4d91445aa6ec07698212590 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xfe in position 7: invalid start byte]
+
+                --- End of .git\objects\8e\a12269f3073c07c4d91445aa6ec07698212590 ---
+
+            [FILE] .git\objects\8e\e99721bb81b59a5e1ceee1d3256b15f907d96b
+                --- Start of .git\objects\8e\e99721bb81b59a5e1ceee1d3256b15f907d96b ---
+[Error reading file: 'utf-8' codec can't decode byte 0xd2 in position 6: invalid continuation byte]
+
+                --- End of .git\objects\8e\e99721bb81b59a5e1ceee1d3256b15f907d96b ---
+
+        [DIR] .git\objects\90
+            [FILE] .git\objects\90\c4f1640886bc2ef6b1a4fa1ef2bf899c52eda7
+                --- Start of .git\objects\90\c4f1640886bc2ef6b1a4fa1ef2bf899c52eda7 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xbb in position 3: invalid start byte]
+
+                --- End of .git\objects\90\c4f1640886bc2ef6b1a4fa1ef2bf899c52eda7 ---
+
+        [DIR] .git\objects\94
+            [FILE] .git\objects\94\22abb5f75ab44679df80aebc9845e772e5d9b1
+                --- Start of .git\objects\94\22abb5f75ab44679df80aebc9845e772e5d9b1 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xca in position 3: invalid continuation byte]
+
+                --- End of .git\objects\94\22abb5f75ab44679df80aebc9845e772e5d9b1 ---
+
+        [DIR] .git\objects\99
+            [FILE] .git\objects\99\e007647fb38c16680b98af8eed707022e5b4c1
+                --- Start of .git\objects\99\e007647fb38c16680b98af8eed707022e5b4c1 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xad in position 2: invalid start byte]
+
+                --- End of .git\objects\99\e007647fb38c16680b98af8eed707022e5b4c1 ---
+
+        [DIR] .git\objects\9b
+            [FILE] .git\objects\9b\b246ac155a3a6fc607c4a954e3c955ad63fbfb
+                --- Start of .git\objects\9b\b246ac155a3a6fc607c4a954e3c955ad63fbfb ---
+[Error reading file: 'utf-8' codec can't decode byte 0xcc in position 19: invalid continuation byte]
+
+                --- End of .git\objects\9b\b246ac155a3a6fc607c4a954e3c955ad63fbfb ---
+
+        [DIR] .git\objects\9c
+            [FILE] .git\objects\9c\a0a50d7ade52dd901d52119735bbdd7c1570fd
+                --- Start of .git\objects\9c\a0a50d7ade52dd901d52119735bbdd7c1570fd ---
+[Error reading file: 'utf-8' codec can't decode byte 0xcc in position 19: invalid continuation byte]
+
+                --- End of .git\objects\9c\a0a50d7ade52dd901d52119735bbdd7c1570fd ---
+
+            [FILE] .git\objects\9c\eb621a5dc6291f65692e3b91b4b8739d341655
+                --- Start of .git\objects\9c\eb621a5dc6291f65692e3b91b4b8739d341655 ---
+[Error reading file: 'utf-8' codec can't decode byte 0x95 in position 2: invalid start byte]
+
+                --- End of .git\objects\9c\eb621a5dc6291f65692e3b91b4b8739d341655 ---
+
+        [DIR] .git\objects\9d
+            [FILE] .git\objects\9d\03461b653373f7cda3b4af104c6bca07f9892b
+                --- Start of .git\objects\9d\03461b653373f7cda3b4af104c6bca07f9892b ---
+[Error reading file: 'utf-8' codec can't decode byte 0xbd in position 2: invalid start byte]
+
+                --- End of .git\objects\9d\03461b653373f7cda3b4af104c6bca07f9892b ---
+
+            [FILE] .git\objects\9d\e754b1cf5df854645cadfef50980abd5655ab7
+                --- Start of .git\objects\9d\e754b1cf5df854645cadfef50980abd5655ab7 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xad in position 2: invalid start byte]
+
+                --- End of .git\objects\9d\e754b1cf5df854645cadfef50980abd5655ab7 ---
+
+        [DIR] .git\objects\9e
+            [FILE] .git\objects\9e\be2f56b0e022bd5f2152426281b019d300e0d0
+                --- Start of .git\objects\9e\be2f56b0e022bd5f2152426281b019d300e0d0 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xa9 in position 5: invalid start byte]
+
+                --- End of .git\objects\9e\be2f56b0e022bd5f2152426281b019d300e0d0 ---
+
+            [FILE] .git\objects\9e\ebb658f221f3038da574d21dbf4636becef34e
+                --- Start of .git\objects\9e\ebb658f221f3038da574d21dbf4636becef34e ---
+[Error reading file: 'utf-8' codec can't decode byte 0x90 in position 3: invalid start byte]
+
+                --- End of .git\objects\9e\ebb658f221f3038da574d21dbf4636becef34e ---
+
+        [DIR] .git\objects\9f
+            [FILE] .git\objects\9f\7464540ad15b8ad7b474bf707fc2994159fc32
+                --- Start of .git\objects\9f\7464540ad15b8ad7b474bf707fc2994159fc32 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xce in position 19: invalid continuation byte]
+
+                --- End of .git\objects\9f\7464540ad15b8ad7b474bf707fc2994159fc32 ---
+
+        [DIR] .git\objects\a1
+            [FILE] .git\objects\a1\b079e281a9d9265bb11890b215403fb781f289
+                --- Start of .git\objects\a1\b079e281a9d9265bb11890b215403fb781f289 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xdd in position 4: invalid continuation byte]
+
+                --- End of .git\objects\a1\b079e281a9d9265bb11890b215403fb781f289 ---
+
+        [DIR] .git\objects\a7
+            [FILE] .git\objects\a7\8203c2686702978f7b48031f371f4b69a5f35a
+                --- Start of .git\objects\a7\8203c2686702978f7b48031f371f4b69a5f35a ---
+[Error reading file: 'utf-8' codec can't decode byte 0xc8 in position 17: invalid continuation byte]
+
+                --- End of .git\objects\a7\8203c2686702978f7b48031f371f4b69a5f35a ---
+
+        [DIR] .git\objects\ab
+            [FILE] .git\objects\ab\9b58003960a06e309023ee31acdc90263482af
+                --- Start of .git\objects\ab\9b58003960a06e309023ee31acdc90263482af ---
+[Error reading file: 'utf-8' codec can't decode byte 0x8c in position 2: invalid start byte]
+
+                --- End of .git\objects\ab\9b58003960a06e309023ee31acdc90263482af ---
+
+        [DIR] .git\objects\af
+            [FILE] .git\objects\af\35bcca36794768ce82e0fafc60a88641d83128
+                --- Start of .git\objects\af\35bcca36794768ce82e0fafc60a88641d83128 ---
+[Error reading file: 'utf-8' codec can't decode byte 0x83 in position 6: invalid start byte]
+
+                --- End of .git\objects\af\35bcca36794768ce82e0fafc60a88641d83128 ---
+
+        [DIR] .git\objects\b3
+            [FILE] .git\objects\b3\6a66a6c454fb901133b8bce089a5ff7f74f871
+                --- Start of .git\objects\b3\6a66a6c454fb901133b8bce089a5ff7f74f871 ---
+[Error reading file: 'utf-8' codec can't decode bytes in position 2-3: invalid continuation byte]
+
+                --- End of .git\objects\b3\6a66a6c454fb901133b8bce089a5ff7f74f871 ---
+
+        [DIR] .git\objects\b6
+            [FILE] .git\objects\b6\e36ae4fede1f77947cfdccc9f8d435c2965ce2
+                --- Start of .git\objects\b6\e36ae4fede1f77947cfdccc9f8d435c2965ce2 ---
+[Error reading file: 'utf-8' codec can't decode byte 0x95 in position 2: invalid start byte]
+
+                --- End of .git\objects\b6\e36ae4fede1f77947cfdccc9f8d435c2965ce2 ---
+
+        [DIR] .git\objects\b7
+            [FILE] .git\objects\b7\d4bbb115cbd58b99bfd450e990afa6c23bacd8
+                --- Start of .git\objects\b7\d4bbb115cbd58b99bfd450e990afa6c23bacd8 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xb2 in position 8: invalid start byte]
+
+                --- End of .git\objects\b7\d4bbb115cbd58b99bfd450e990afa6c23bacd8 ---
+
+            [FILE] .git\objects\b7\e08c23928f8967a73a0420b3301562cf99e950
+                --- Start of .git\objects\b7\e08c23928f8967a73a0420b3301562cf99e950 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xce in position 19: invalid continuation byte]
+
+                --- End of .git\objects\b7\e08c23928f8967a73a0420b3301562cf99e950 ---
+
+        [DIR] .git\objects\b8
+            [FILE] .git\objects\b8\28d4d1644af5147fb22d7cb86c3373605db51a
+                --- Start of .git\objects\b8\28d4d1644af5147fb22d7cb86c3373605db51a ---
+[Error reading file: 'utf-8' codec can't decode byte 0x95 in position 2: invalid start byte]
+
+                --- End of .git\objects\b8\28d4d1644af5147fb22d7cb86c3373605db51a ---
+
+        [DIR] .git\objects\bd
+            [FILE] .git\objects\bd\66f7d3660fed82bab4732238ca2eb409823d8d
+                --- Start of .git\objects\bd\66f7d3660fed82bab4732238ca2eb409823d8d ---
+[Error reading file: 'utf-8' codec can't decode byte 0x95 in position 2: invalid start byte]
+
+                --- End of .git\objects\bd\66f7d3660fed82bab4732238ca2eb409823d8d ---
+
+        [DIR] .git\objects\c0
+            [FILE] .git\objects\c0\5fcd52f5ace9fee8cf713846945817ee8dc43f
+                --- Start of .git\objects\c0\5fcd52f5ace9fee8cf713846945817ee8dc43f ---
+[Error reading file: 'utf-8' codec can't decode byte 0x95 in position 2: invalid start byte]
+
+                --- End of .git\objects\c0\5fcd52f5ace9fee8cf713846945817ee8dc43f ---
+
+        [DIR] .git\objects\c1
+            [FILE] .git\objects\c1\e6a1d1f5ba4ffee6a780fcb29d0e9030493886
+                --- Start of .git\objects\c1\e6a1d1f5ba4ffee6a780fcb29d0e9030493886 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xce in position 19: invalid continuation byte]
+
+                --- End of .git\objects\c1\e6a1d1f5ba4ffee6a780fcb29d0e9030493886 ---
+
+        [DIR] .git\objects\c3
+            [FILE] .git\objects\c3\21f2f69534e119f882ae7e00395531b61597ba
+                --- Start of .git\objects\c3\21f2f69534e119f882ae7e00395531b61597ba ---
+[Error reading file: 'utf-8' codec can't decode byte 0xad in position 2: invalid start byte]
+
+                --- End of .git\objects\c3\21f2f69534e119f882ae7e00395531b61597ba ---
+
+        [DIR] .git\objects\cc
+            [FILE] .git\objects\cc\15d4d46e17d81504305d08bf81d95602709554
+                --- Start of .git\objects\cc\15d4d46e17d81504305d08bf81d95602709554 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xad in position 2: invalid start byte]
+
+                --- End of .git\objects\cc\15d4d46e17d81504305d08bf81d95602709554 ---
+
+        [DIR] .git\objects\ce
+            [FILE] .git\objects\ce\031810af70adead6f5f6a9c2d0b2549b4599d7
+                --- Start of .git\objects\ce\031810af70adead6f5f6a9c2d0b2549b4599d7 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xb2 in position 8: invalid start byte]
+
+                --- End of .git\objects\ce\031810af70adead6f5f6a9c2d0b2549b4599d7 ---
+
+            [FILE] .git\objects\ce\8b1193deb3b58985e376e71591ec21cd2887f0
+                --- Start of .git\objects\ce\8b1193deb3b58985e376e71591ec21cd2887f0 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xb4 in position 8: invalid start byte]
+
+                --- End of .git\objects\ce\8b1193deb3b58985e376e71591ec21cd2887f0 ---
+
+        [DIR] .git\objects\d4
+            [FILE] .git\objects\d4\8b23931a5c26c5bef6b9487fab48d20b390383
+                --- Start of .git\objects\d4\8b23931a5c26c5bef6b9487fab48d20b390383 ---
+[Error reading file: 'utf-8' codec can't decode byte 0x85 in position 2: invalid start byte]
+
+                --- End of .git\objects\d4\8b23931a5c26c5bef6b9487fab48d20b390383 ---
+
+        [DIR] .git\objects\d5
+            [FILE] .git\objects\d5\b38a3b2da06a95c3661468528639602315a72b
+                --- Start of .git\objects\d5\b38a3b2da06a95c3661468528639602315a72b ---
+[Error reading file: 'utf-8' codec can't decode byte 0x8b in position 3: invalid start byte]
+
+                --- End of .git\objects\d5\b38a3b2da06a95c3661468528639602315a72b ---
+
+        [DIR] .git\objects\d6
+            [FILE] .git\objects\d6\ffe9f580c33adebccc704024d0de803ef8ee48
+                --- Start of .git\objects\d6\ffe9f580c33adebccc704024d0de803ef8ee48 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xce in position 19: invalid continuation byte]
+
+                --- End of .git\objects\d6\ffe9f580c33adebccc704024d0de803ef8ee48 ---
+
+        [DIR] .git\objects\d9
+            [FILE] .git\objects\d9\27862ab70d481a1b3ea7b64a7089889bdcd323
+                --- Start of .git\objects\d9\27862ab70d481a1b3ea7b64a7089889bdcd323 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xcf in position 4: invalid continuation byte]
+
+                --- End of .git\objects\d9\27862ab70d481a1b3ea7b64a7089889bdcd323 ---
+
+        [DIR] .git\objects\de
+            [FILE] .git\objects\de\4a4b03d2459761b38d1446dc93c772b1e3f11a
+                --- Start of .git\objects\de\4a4b03d2459761b38d1446dc93c772b1e3f11a ---
+[Error reading file: 'utf-8' codec can't decode byte 0xd1 in position 22: invalid continuation byte]
+
+                --- End of .git\objects\de\4a4b03d2459761b38d1446dc93c772b1e3f11a ---
+
+        [DIR] .git\objects\e0
+            [FILE] .git\objects\e0\e6e9760bc04861cc4771e327f22ed7962e0858
+                --- Start of .git\objects\e0\e6e9760bc04861cc4771e327f22ed7962e0858 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xcd in position 2: invalid continuation byte]
+
+                --- End of .git\objects\e0\e6e9760bc04861cc4771e327f22ed7962e0858 ---
+
+        [DIR] .git\objects\e1
+            [FILE] .git\objects\e1\56ec8bfc31e20ed4ec0c979d8cddc5e7dc9927
+                --- Start of .git\objects\e1\56ec8bfc31e20ed4ec0c979d8cddc5e7dc9927 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xb1 in position 9: invalid start byte]
+
+                --- End of .git\objects\e1\56ec8bfc31e20ed4ec0c979d8cddc5e7dc9927 ---
+
+            [FILE] .git\objects\e1\dba5bf59507c11918e9c61782eb77f708800c8
+                --- Start of .git\objects\e1\dba5bf59507c11918e9c61782eb77f708800c8 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xad in position 2: invalid start byte]
+
+                --- End of .git\objects\e1\dba5bf59507c11918e9c61782eb77f708800c8 ---
+
+        [DIR] .git\objects\e6
+            [FILE] .git\objects\e6\9de29bb2d1d6434b8b29ae775ad8c2e48c5391
+                --- Start of .git\objects\e6\9de29bb2d1d6434b8b29ae775ad8c2e48c5391 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xca in position 3: invalid continuation byte]
+
+                --- End of .git\objects\e6\9de29bb2d1d6434b8b29ae775ad8c2e48c5391 ---
+
+        [DIR] .git\objects\e8
+            [FILE] .git\objects\e8\079d0230a165ec418e73dace07836f4c902285
+                --- Start of .git\objects\e8\079d0230a165ec418e73dace07836f4c902285 ---
+[Error reading file: 'utf-8' codec can't decode byte 0x91 in position 3: invalid start byte]
+
+                --- End of .git\objects\e8\079d0230a165ec418e73dace07836f4c902285 ---
+
+            [FILE] .git\objects\e8\5667222610f14fda8e6b3f7977cfdf0289c97d
+                --- Start of .git\objects\e8\5667222610f14fda8e6b3f7977cfdf0289c97d ---
+[Error reading file: 'utf-8' codec can't decode byte 0xc9 in position 19: invalid continuation byte]
+
+                --- End of .git\objects\e8\5667222610f14fda8e6b3f7977cfdf0289c97d ---
+
+        [DIR] .git\objects\eb
+            [FILE] .git\objects\eb\b5fbf5c74d1387eef1cb026d7b877fdd4619b6
+                --- Start of .git\objects\eb\b5fbf5c74d1387eef1cb026d7b877fdd4619b6 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xca in position 3: invalid continuation byte]
+
+                --- End of .git\objects\eb\b5fbf5c74d1387eef1cb026d7b877fdd4619b6 ---
+
+        [DIR] .git\objects\f2
+            [FILE] .git\objects\f2\986dfb18b4a5bf2e2b54da22b60b1263bb6a8f
+                --- Start of .git\objects\f2\986dfb18b4a5bf2e2b54da22b60b1263bb6a8f ---
+[Error reading file: 'utf-8' codec can't decode byte 0xcc in position 19: invalid continuation byte]
+
+                --- End of .git\objects\f2\986dfb18b4a5bf2e2b54da22b60b1263bb6a8f ---
+
+        [DIR] .git\objects\f3
+            [FILE] .git\objects\f3\818ee759a247a32516b762a31aa967d1a0bf66
+                --- Start of .git\objects\f3\818ee759a247a32516b762a31aa967d1a0bf66 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xc8 in position 18: invalid continuation byte]
+
+                --- End of .git\objects\f3\818ee759a247a32516b762a31aa967d1a0bf66 ---
+
+        [DIR] .git\objects\f4
+            [FILE] .git\objects\f4\f516a663cc7cd44fe25c8695bafa26356afd67
+                --- Start of .git\objects\f4\f516a663cc7cd44fe25c8695bafa26356afd67 ---
+[Error reading file: 'utf-8' codec can't decode byte 0x93 in position 3: invalid start byte]
+
+                --- End of .git\objects\f4\f516a663cc7cd44fe25c8695bafa26356afd67 ---
+
+        [DIR] .git\objects\f7
+            [FILE] .git\objects\f7\9cf1a0682e8db5d33835b17f7b61dfa15e6245
+                --- Start of .git\objects\f7\9cf1a0682e8db5d33835b17f7b61dfa15e6245 ---
+[Error reading file: 'utf-8' codec can't decode bytes in position 2-3: invalid continuation byte]
+
+                --- End of .git\objects\f7\9cf1a0682e8db5d33835b17f7b61dfa15e6245 ---
+
+        [DIR] .git\objects\fa
+            [FILE] .git\objects\fa\69c18d32a30efe8a6aaba06c17e4b37db3ea25
+                --- Start of .git\objects\fa\69c18d32a30efe8a6aaba06c17e4b37db3ea25 ---
+[Error reading file: 'utf-8' codec can't decode byte 0xad in position 2: invalid start byte]
+
+                --- End of .git\objects\fa\69c18d32a30efe8a6aaba06c17e4b37db3ea25 ---
+
+            [FILE] .git\objects\fa\a4c4694808608710566c12046d15ce77f4a78d
+                --- Start of .git\objects\fa\a4c4694808608710566c12046d15ce77f4a78d ---
+[Error reading file: 'utf-8' codec can't decode byte 0x90 in position 3: invalid start byte]
+
+                --- End of .git\objects\fa\a4c4694808608710566c12046d15ce77f4a78d ---
+
+        [DIR] .git\objects\info
+        [DIR] .git\objects\pack
+            [FILE] .git\objects\pack\pack-3eba493effabe85e8f8c9494d9f434b4bfec1349.idx
+                --- Start of .git\objects\pack\pack-3eba493effabe85e8f8c9494d9f434b4bfec1349.idx ---
+[Error reading file: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte]
+
+                --- End of .git\objects\pack\pack-3eba493effabe85e8f8c9494d9f434b4bfec1349.idx ---
+
+            [FILE] .git\objects\pack\pack-3eba493effabe85e8f8c9494d9f434b4bfec1349.pack
+                --- Start of .git\objects\pack\pack-3eba493effabe85e8f8c9494d9f434b4bfec1349.pack ---
+[Error reading file: 'utf-8' codec can't decode byte 0x9e in position 12: invalid start byte]
+
+                --- End of .git\objects\pack\pack-3eba493effabe85e8f8c9494d9f434b4bfec1349.pack ---
+
+            [FILE] .git\objects\pack\pack-3eba493effabe85e8f8c9494d9f434b4bfec1349.rev
+                --- Start of .git\objects\pack\pack-3eba493effabe85e8f8c9494d9f434b4bfec1349.rev ---
+[Error reading file: 'utf-8' codec can't decode byte 0xba in position 25: invalid start byte]
+
+                --- End of .git\objects\pack\pack-3eba493effabe85e8f8c9494d9f434b4bfec1349.rev ---
+
+    [DIR] .git\refs
+        [DIR] .git\refs\heads
+            [FILE] .git\refs\heads\main
+                --- Start of .git\refs\heads\main ---
+bd66f7d3660fed82bab4732238ca2eb409823d8d
+
+                --- End of .git\refs\heads\main ---
+
+        [DIR] .git\refs\remotes
+            [DIR] .git\refs\remotes\origin
+                [FILE] .git\refs\remotes\origin\HEAD
+                    --- Start of .git\refs\remotes\origin\HEAD ---
+ref: refs/remotes/origin/main
+
+                    --- End of .git\refs\remotes\origin\HEAD ---
+
+                [FILE] .git\refs\remotes\origin\main
+                    --- Start of .git\refs\remotes\origin\main ---
+9ceb621a5dc6291f65692e3b91b4b8739d341655
+
+                    --- End of .git\refs\remotes\origin\main ---
+
+        [DIR] .git\refs\tags
+[DIR] .vscode
+    [FILE] .vscode\settings.json
+        --- Start of .vscode\settings.json ---
+{}
+
+        --- End of .vscode\settings.json ---
+
+[DIR] components
+    [FILE] components\contact.html
+        --- Start of components\contact.html ---
+<section class="content-section white-bg">
+  <div class="container">
+    <h2>連絡先</h2>
+    <ul>
+      <li>GitHub: <a href="https://github.com/yourusername" target="_blank">yourusername</a></li>
+      <li>Instagram: <a href="https://instagram.com/yourhandle" target="_blank">@yourhandle</a></li>
+      <li>Email: example@example.com</li>
+    </ul>
+  </div>
+</section>
+
+        --- End of components\contact.html ---
+
+    [FILE] components\firstView.html
+        --- Start of components\firstView.html ---
+<section class="parallax-section first-view-bg">
+  <div class="parallax-overlay"></div>
+  <div class="first-text-container">
+    <p class="main-title">KAZUKI KOKAI</p>
+    <p class="subtitle">portfolio</p>
+  </div>
+</section>
+
+        --- End of components\firstView.html ---
+
+    [FILE] components\footer.html
+        --- Start of components\footer.html ---
+<footer class="page-footer blue-grey darken-3">
+  <div class="container center-align">
+    <p class="white-text">&copy; 2025 Taro Yamada</p>
+  </div>
+</footer>
+
+        --- End of components\footer.html ---
+
+    [FILE] components\header.html
+        --- Start of components\header.html ---
+<header class="custom-header">
+  <nav class="nav-wrapper blue-grey darken-1 navbar">
+    <a href="index.html" class="brand-logo">Portfolio</a>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="#profile">プロフィール</a></li>
+      <li><a href="#works">制作物</a></li>
+      <li><a href="#contact">連絡先</a></li>
+    </ul>
+  </nav>
+</header>
+
+        --- End of components\header.html ---
+
+    [FILE] components\modals.html
+        --- Start of components\modals.html ---
+<script>
+  modalDataList = [
+    {
+      id: "works-modal-research",
+      title: "Research",
+      img: "/images/research.png",
+      content: "<p>Researchの説明</p>",
+    },
+    {
+      id: "works-modal-duckShout",
+      title: "Duck Shout",
+      img: "/images/duck_shout.png",
+      content: "<p>Duck Shoutの説明</p>",
+    },
+    {
+      id: "works-modal-dontKickMe",
+      title: "Don't Kick Me!",
+      img: "/images/Don't_Kick_Me!.png",
+      content: "<p>Don't Kick Me!の説明</p>",
+    },
+    {
+      id: "works-modal-shooting",
+      title: "Current Work",
+      img: "/images/noimg.png",
+      content: "<p>Current Workの説明</p>",
+    },
+    {
+      id: "works-modal-POS",
+      title: "POS System",
+      img: "/images/noimg.png",
+      content: "<p>POS Systemの説明</p>",
+    },
+    {
+      id: "works-modal-MX",
+      title: "Motion-X",
+      img: "/images/noimg.png",
+      content: "<p>Motion-Xの説明</p>",
+    },
+    {
+      id: "works-modal-portfolio",
+      title: "Portfolio",
+      img: "/images/Portfolio.png",
+      content: "<p>Portfolioの説明</p>",
+    },
+    {
+      id: "works-modal-jamApp",
+      title: "Jam App",
+      img: "/images/noimg.png",
+      content: "<p>Jam Appの説明</p>",
+    },
+    {
+      id: "works-modal-danceLayout",
+      title: "Dance Layout",
+      img: "/images/composition_app.png",
+      content: "<p>Dance Layoutの説明</p>",
+    },
+    // 他のモーダルデータもここに追加
+  ];
+
+  $(document).ready(function () {
+    modalDataList.forEach((data) => {
+      const modalHtml = `
+        <div id="${data.id}" class="modal">
+          <div class="modal-content">
+            <h4>${data.title}</h4>
+            <img src="${data.img}" alt="${data.title}" style="width:100%;" />
+            <div>${data.content}</div>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">閉じる</a>
+          </div>
+        </div>
+      `;
+      console.log("modalHtml = ", modalHtml);
+      $("#modalsContainer").append(modalHtml);
+    });
+  });
+</script>
+
+        --- End of components\modals.html ---
+
+    [FILE] components\profile.html
+        --- Start of components\profile.html ---
+<section class="parallax-section profile-bg">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="section-title profile-header">Profile</h2>
+    </div>
+
+    <div class="profile-wrapper">
+      <div class="profile-menus">
+        <div class="profile-menu" data-target="profile">
+          <a class="btn-floating btn-large red"
+            ><i class="material-icons">face</i></a
+          >
+          <p>Profile</p>
+        </div>
+        <div class="profile-menu" data-target="research">
+          <a class="btn-floating btn-large green"
+            ><i class="material-icons">science</i></a
+          >
+          <p>Research</p>
+        </div>
+        <div class="profile-menu" data-target="experience">
+          <a class="btn-floating btn-large blue"
+            ><i class="material-icons">work</i></a
+          >
+          <p>Experience</p>
+        </div>
+        <div class="profile-menu" data-target="hobby">
+          <a class="btn-floating btn-large yellow"
+            ><i class="material-icons">nightlife</i></a
+          >
+          <p>Hobby</p>
+        </div>
+      </div>
+
+      <div class="profile-explanations">
+        <div class="profile-section profile-profile">
+          <h3>Profile</h3>
+          <p>プロフィールの説明が入ります。</p>
+        </div>
+        <div
+          class="profile-section profile-research"
+          id="research"
+          style="display: none"
+        >
+          <h3>Research</h3>
+          <p>研究内容の紹介です。</p>
+        </div>
+        <div class="profile-section profile-experience" style="display: none">
+          <h3>Experience</h3>
+          <p>経歴の紹介です。</p>
+        </div>
+        <div class="profile-section profile-hobby" style="display: none">
+          <h3>Hobby</h3>
+          <p>趣味の紹介です。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+        --- End of components\profile.html ---
+
+    [FILE] components\skills.html
+        --- Start of components\skills.html ---
+<section class="content-section white-bg">
+  <div class="container text-center">
+    <h2>スキル</h2>
+    <p>スキルについて記載</p>
+  </div>
+</section>
+
+        --- End of components\skills.html ---
+
+    [FILE] components\works.html
+        --- Start of components\works.html ---
+<section class="parallax-section works-bg">
+  <div class="parallax-overlay-white"></div>
+  <div class="container works-wrapper">
+    <h2 class="section-title white-text">Works</h2>
+    <div class="works-slider-wrapper">
+      <div class="works-component">
+        <h4 class="works-title">School</h4>
+        <div class="works-slider">
+          <div data-target="research"><img src="/images/research.png" /></div>
+          <div data-target="duckShout">
+            <img src="/images/duck_shout.png" />
+          </div>
+          <div data-target="dontKickMe">
+            <img src="/images/Don't_Kick_Me!.png" />
+          </div>
+          <div data-target="shooting"><img src="/images/noimg.png" /></div>
+        </div>
+        <div class="works-names">
+          <div class="works-name works-name-research">Research</div>
+          <div class="works-name works-name-duckShout">Duck Shout</div>
+          <div class="works-name works-name-dontKickMe">Don't Kick Me!</div>
+          <div class="works-name works-name-shooting">Current Work</div>
+        </div>
+      </div>
+      <div class="works-component">
+        <h4 class="works-title">Personal</h4>
+        <div class="works-slider">
+          <div data-target="POS"><img src="/images/noimg.png" /></div>
+          <div data-target="MX"><img src="/images/noimg.png" /></div>
+          <div data-target="portfolio"><img src="/images/Portfolio.png" /></div>
+          <div data-target="jamApp"><img src="/images/noimg.png" /></div>
+          <div data-target="danceLayout">
+            <img src="/images/composition_app.png" />
+          </div>
+        </div>
+        <div class="works-names">
+          <div class="works-name works-name-POS">POS System</div>
+          <div class="works-name works-name-MX">Motion-X</div>
+          <div class="works-name works-name-portfolio">Portfolio</div>
+          <div class="works-name works-name-jamApp">Jam App</div>
+          <div class="works-name works-name-danceLayout">Dance Layout</div>
+        </div>
+      </div>
+    </div>
+    <div id="modalsContainer"></div>
+  </div>
+</section>
+
+        --- End of components\works.html ---
+
+[DIR] css
+    [FILE] css\ajax-loader.gif
+        --- Start of css\ajax-loader.gif ---
+[Error reading file: 'utf-8' codec can't decode byte 0xf5 in position 10: invalid start byte]
+
+        --- End of css\ajax-loader.gif ---
+
+    [FILE] css\contact.css
+        --- Start of css\contact.css ---
+
+        --- End of css\contact.css ---
+
+    [FILE] css\firstView.css
+        --- Start of css\firstView.css ---
+.first-view-bg {
+  background-image: url("../images/stand_blur.png");
+}
+
+/* .first-view-bg {
+  position: relative;
+  height: 100vh;
+  background: url("../images/stand_blur.png") center center / cover no-repeat
+    fixed;
+} */
+
+.first-text-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  color: white;
+}
+
+        --- End of css\firstView.css ---
+
+    [FILE] css\profile.css
+        --- Start of css\profile.css ---
+.profile-bg {
+  background-color: rgb(255, 81, 81);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  transition: background-color 0.5s ease;
+}
+
+.profile-header {
+  color: white;
+}
+
+.profile-wrapper {
+  position: absolute;
+  top: 6rem; /* section-title部分の高さ */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  /* align-items: center; */
+  padding: 2rem;
+  z-index: 10;
+  color: white;
+}
+
+.profile-menus {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  gap: 3rem;
+}
+
+.profile-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profile-menu p {
+  font-size: 2rem;
+}
+
+.profile-explanations {
+  width: 60%;
+}
+
+.profile-section {
+  gap: 2rem;
+}
+
+.profile-section {
+  display: none;
+}
+.profile-section:first-child {
+  display: block; /* 初期表示 */
+}
+
+        --- End of css\profile.css ---
+
+    [FILE] css\reset.css
+        --- Start of css\reset.css ---
+/* optional: modern reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+        --- End of css\reset.css ---
+
+    [FILE] css\skills.css
+        --- Start of css\skills.css ---
+
+        --- End of css\skills.css ---
+
+    [FILE] css\slick-theme.css
+        --- Start of css\slick-theme.css ---
+@charset 'UTF-8';
+/* Slider */
+.slick-loading .slick-list {
+  background: #fff url("./ajax-loader.gif") center center no-repeat;
+}
+
+/* Icons */
+@font-face {
+  font-family: "slick";
+  font-weight: normal;
+  font-style: normal;
+
+  src: url("./fonts/slick.eot");
+  src: url("./fonts/slick.eot?#iefix") format("embedded-opentype"),
+    url("./fonts/slick.woff") format("woff"),
+    url("./fonts/slick.ttf") format("truetype"),
+    url("./fonts/slick.svg#slick") format("svg");
+}
+/* Arrows */
+.slick-prev,
+.slick-next {
+  font-size: 0;
+  line-height: 0;
+
+  position: absolute;
+  top: 50%;
+
+  display: block;
+
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  -webkit-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+
+  cursor: pointer;
+
+  color: transparent;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+.slick-prev:hover,
+.slick-prev:focus,
+.slick-next:hover,
+.slick-next:focus {
+  color: transparent;
+  outline: none;
+  background: transparent;
+}
+.slick-prev:hover:before,
+.slick-prev:focus:before,
+.slick-next:hover:before,
+.slick-next:focus:before {
+  opacity: 1;
+}
+.slick-prev.slick-disabled:before,
+.slick-next.slick-disabled:before {
+  opacity: 0.25;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-family: "slick";
+  font-size: 20px;
+  line-height: 1;
+
+  opacity: 0.75;
+  color: rgb(180, 180, 180);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.slick-prev {
+  left: -25px;
+}
+[dir="rtl"] .slick-prev {
+  right: -25px;
+  left: auto;
+}
+.slick-prev:before {
+  content: "←";
+}
+[dir="rtl"] .slick-prev:before {
+  content: "→";
+}
+
+.slick-next {
+  right: -25px;
+}
+[dir="rtl"] .slick-next {
+  right: auto;
+  left: -25px;
+}
+.slick-next:before {
+  content: "→";
+}
+[dir="rtl"] .slick-next:before {
+  content: "←";
+}
+
+/* Dots */
+.slick-dotted.slick-slider {
+  margin-bottom: 30px;
+}
+
+.slick-dots {
+  position: absolute;
+  bottom: -25px;
+
+  display: block;
+
+  width: 100%;
+  padding: 0;
+  margin: 0;
+
+  list-style: none;
+
+  text-align: center;
+}
+.slick-dots li {
+  position: relative;
+
+  display: inline-block;
+
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+  padding: 0;
+
+  cursor: pointer;
+}
+.slick-dots li button {
+  font-size: 0;
+  line-height: 0;
+
+  display: block;
+
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+
+  cursor: pointer;
+
+  color: transparent;
+  border: 0;
+  outline: none;
+  background: transparent;
+}
+.slick-dots li button:hover,
+.slick-dots li button:focus {
+  outline: none;
+}
+.slick-dots li button:hover:before,
+.slick-dots li button:focus:before {
+  opacity: 1;
+}
+.slick-dots li button:before {
+  font-family: "slick";
+  font-size: 6px;
+  line-height: 20px;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 20px;
+  height: 20px;
+
+  content: "•";
+  text-align: center;
+
+  opacity: 0.25;
+  color: black;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.slick-dots li.slick-active button:before {
+  opacity: 0.75;
+  color: black;
+}
+
+        --- End of css\slick-theme.css ---
+
+    [FILE] css\slick.css
+        --- Start of css\slick.css ---
+/* Slider */
+.slick-slider
+{
+    position: relative;
+
+    display: block;
+    box-sizing: border-box;
+
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+
+    -webkit-touch-callout: none;
+    -khtml-user-select: none;
+    -ms-touch-action: pan-y;
+        touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.slick-list
+{
+    position: relative;
+
+    display: block;
+    overflow: hidden;
+
+    margin: 0;
+    padding: 0;
+}
+.slick-list:focus
+{
+    outline: none;
+}
+.slick-list.dragging
+{
+    cursor: pointer;
+    cursor: hand;
+}
+
+.slick-slider .slick-track,
+.slick-slider .slick-list
+{
+    -webkit-transform: translate3d(0, 0, 0);
+       -moz-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+         -o-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+}
+
+.slick-track
+{
+    position: relative;
+    top: 0;
+    left: 0;
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.slick-track:before,
+.slick-track:after
+{
+    display: table;
+
+    content: '';
+}
+.slick-track:after
+{
+    clear: both;
+}
+.slick-loading .slick-track
+{
+    visibility: hidden;
+}
+
+.slick-slide
+{
+    display: none;
+    float: left;
+
+    height: 100%;
+    min-height: 1px;
+}
+[dir='rtl'] .slick-slide
+{
+    float: right;
+}
+.slick-slide img
+{
+    display: block;
+}
+.slick-slide.slick-loading img
+{
+    display: none;
+}
+.slick-slide.dragging img
+{
+    pointer-events: none;
+}
+.slick-initialized .slick-slide
+{
+    display: block;
+}
+.slick-loading .slick-slide
+{
+    visibility: hidden;
+}
+.slick-vertical .slick-slide
+{
+    display: block;
+
+    height: auto;
+
+    border: 1px solid transparent;
+}
+.slick-arrow.slick-hidden {
+    display: none;
+}
+
+        --- End of css\slick.css ---
+
+    [FILE] css\style.css
+        --- Start of css\style.css ---
+@import url("profile.css");
+@import url("firstView.css");
+@import url("works.css");
+@import url("skills.css");
+@import url("contact.css");
+@import url("slick.css");
+@import url("slick-theme.css");
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.custom-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #263238;
+  color: white;
+  z-index: 1000;
+}
+
+.navbar {
+  padding: 0 2rem;
+}
+
+.parallax-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.parallax-overlay-white {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 1;
+}
+
+.main-title {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+}
+
+.section-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0 1rem 0 0;
+  padding: 3rem 0 0 0;
+}
+
+.parallax-section {
+  position: relative;
+  height: 100vh;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.text-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.content-section {
+  padding: 1rem 2rem;
+}
+
+.white-bg {
+  background-color: white;
+}
+
+.text-center {
+  text-align: center;
+}
+
+        --- End of css\style.css ---
+
+    [FILE] css\works.css
+        --- Start of css\works.css ---
+.works-bg {
+  background-image: url("../images/research.png");
+}
+
+.works-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  z-index: 10;
+}
+
+.works-slider-wrapper {
+  width: 100%;
+  height: 100%;
+  padding: 3rem 0;
+  margin-top: 2rem;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.works-slider {
+  width: 100%;
+  height: 240px;
+}
+
+/* .works-slider div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+/* 
+.slick-center {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+} */
+
+.slick-slide img {
+  filter: grayscale(100%);
+  /* box-sizing: border-box; */
+  padding: 0 0px;
+  display: block;
+  height: 120px;
+  width: 120px;
+  object-fit: cover;
+  margin: 60px auto;
+  max-width: 100%;
+  transition: all 0.5s ease;
+}
+
+.slick-center img {
+  height: 240px;
+  width: 300px;
+  filter: none;
+  margin: 0 auto;
+}
+
+.slick-center:hover img {
+  transform: scale(1.1);
+}
+
+.slider {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.works-component {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  background-color: rgb(255, 255, 255, 0.5);
+  padding: 0 0 1rem 0;
+  border-radius: 1rem;
+  margin: 0 1rem;
+}
+
+.works-title {
+  font-size: 2.5rem;
+  /* font-weight: bold; */
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.works-name {
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #002c42;
+  display: none;
+  padding: 4px 2rem;
+  border-radius: 1rem;
+}
+
+.works-name:first-child {
+  display: block; /* 初期表示 */
+}
+
+        --- End of css\works.css ---
+
+    [DIR] css\fonts
+        [FILE] css\fonts\slick.eot
+            --- Start of css\fonts\slick.eot ---
+[Error reading file: 'utf-8' codec can't decode byte 0x90 in position 28: invalid start byte]
+
+            --- End of css\fonts\slick.eot ---
+
+        [FILE] css\fonts\slick.svg
+            --- Start of css\fonts\slick.svg ---
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Generated by Fontastic.me</metadata>
+<defs>
+<font id="slick" horiz-adv-x="512">
+<font-face font-family="slick" units-per-em="512" ascent="480" descent="-32"/>
+<missing-glyph horiz-adv-x="512" />
+
+<glyph unicode="&#8594;" d="M241 113l130 130c4 4 6 8 6 13 0 5-2 9-6 13l-130 130c-3 3-7 5-12 5-5 0-10-2-13-5l-29-30c-4-3-6-7-6-12 0-5 2-10 6-13l87-88-87-88c-4-3-6-8-6-13 0-5 2-9 6-12l29-30c3-3 8-5 13-5 5 0 9 2 12 5z m234 143c0-40-9-77-29-110-20-34-46-60-80-80-33-20-70-29-110-29-40 0-77 9-110 29-34 20-60 46-80 80-20 33-29 70-29 110 0 40 9 77 29 110 20 34 46 60 80 80 33 20 70 29 110 29 40 0 77-9 110-29 34-20 60-46 80-80 20-33 29-70 29-110z"/>
+<glyph unicode="&#8592;" d="M296 113l29 30c4 3 6 7 6 12 0 5-2 10-6 13l-87 88 87 88c4 3 6 8 6 13 0 5-2 9-6 12l-29 30c-3 3-8 5-13 5-5 0-9-2-12-5l-130-130c-4-4-6-8-6-13 0-5 2-9 6-13l130-130c3-3 7-5 12-5 5 0 10 2 13 5z m179 143c0-40-9-77-29-110-20-34-46-60-80-80-33-20-70-29-110-29-40 0-77 9-110 29-34 20-60 46-80 80-20 33-29 70-29 110 0 40 9 77 29 110 20 34 46 60 80 80 33 20 70 29 110 29 40 0 77-9 110-29 34-20 60-46 80-80 20-33 29-70 29-110z"/>
+<glyph unicode="&#8226;" d="M475 256c0-40-9-77-29-110-20-34-46-60-80-80-33-20-70-29-110-29-40 0-77 9-110 29-34 20-60 46-80 80-20 33-29 70-29 110 0 40 9 77 29 110 20 34 46 60 80 80 33 20 70 29 110 29 40 0 77-9 110-29 34-20 60-46 80-80 20-33 29-70 29-110z"/>
+<glyph unicode="&#97;" d="M475 439l0-128c0-5-1-9-5-13-4-4-8-5-13-5l-128 0c-8 0-13 3-17 11-3 7-2 14 4 20l40 39c-28 26-62 39-100 39-20 0-39-4-57-11-18-8-33-18-46-32-14-13-24-28-32-46-7-18-11-37-11-57 0-20 4-39 11-57 8-18 18-33 32-46 13-14 28-24 46-32 18-7 37-11 57-11 23 0 44 5 64 15 20 9 38 23 51 42 2 1 4 3 7 3 3 0 5-1 7-3l39-39c2-2 3-3 3-6 0-2-1-4-2-6-21-25-46-45-76-59-29-14-60-20-93-20-30 0-58 5-85 17-27 12-51 27-70 47-20 19-35 43-47 70-12 27-17 55-17 85 0 30 5 58 17 85 12 27 27 51 47 70 19 20 43 35 70 47 27 12 55 17 85 17 28 0 55-5 81-15 26-11 50-26 70-45l37 37c6 6 12 7 20 4 8-4 11-9 11-17z"/>
+</font></defs></svg>
+
+            --- End of css\fonts\slick.svg ---
+
+        [FILE] css\fonts\slick.ttf
+            --- Start of css\fonts\slick.ttf ---
+[Error reading file: 'utf-8' codec can't decode byte 0x80 in position 7: invalid start byte]
+
+            --- End of css\fonts\slick.ttf ---
+
+        [FILE] css\fonts\slick.woff
+            --- Start of css\fonts\slick.woff ---
+[Error reading file: 'utf-8' codec can't decode byte 0x9b in position 59: invalid start byte]
+
+            --- End of css\fonts\slick.woff ---
+
+[DIR] images
+    [FILE] images\composition_app.png
+        --- Start of images\composition_app.png ---
+[Error reading file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte]
+
+        --- End of images\composition_app.png ---
+
+    [FILE] images\Don't_Kick_Me!.png
+        --- Start of images\Don't_Kick_Me!.png ---
+[Error reading file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte]
+
+        --- End of images\Don't_Kick_Me!.png ---
+
+    [FILE] images\duck_shout.png
+        --- Start of images\duck_shout.png ---
+[Error reading file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte]
+
+        --- End of images\duck_shout.png ---
+
+    [FILE] images\duck_shout_duck.png
+        --- Start of images\duck_shout_duck.png ---
+[Error reading file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte]
+
+        --- End of images\duck_shout_duck.png ---
+
+    [FILE] images\image.png
+        --- Start of images\image.png ---
+[Error reading file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte]
+
+        --- End of images\image.png ---
+
+    [FILE] images\jump_blur.png
+        --- Start of images\jump_blur.png ---
+[Error reading file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte]
+
+        --- End of images\jump_blur.png ---
+
+    [FILE] images\noimg.png
+        --- Start of images\noimg.png ---
+[Error reading file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte]
+
+        --- End of images\noimg.png ---
+
+    [FILE] images\Portfolio.png
+        --- Start of images\Portfolio.png ---
+[Error reading file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte]
+
+        --- End of images\Portfolio.png ---
+
+    [FILE] images\research.png
+        --- Start of images\research.png ---
+[Error reading file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte]
+
+        --- End of images\research.png ---
+
+    [FILE] images\stand_blur.png
+        --- Start of images\stand_blur.png ---
+[Error reading file: 'utf-8' codec can't decode byte 0x89 in position 0: invalid start byte]
+
+        --- End of images\stand_blur.png ---
+
+[DIR] js
+    [FILE] js\jquery.min.js
+        --- Start of js\jquery.min.js ---
+// jQuery CDNをHTMLで読み込むため、このファイルは空でもOKです
+        --- End of js\jquery.min.js ---
+
+    [FILE] js\main.js
+        --- Start of js\main.js ---
+$(function () {
+  $("header").load("components/header.html");
+  $("footer").load("components/footer.html");
+  $("#firstView").load("components/firstView.html");
+  $("#profile").load("components/profile.html", function () {
+    $(".profile-menus").on("click", ".profile-menu", function () {
+      const target = $(this).data("target");
+
+      // 切り替えたい背景色
+      const bgColors = {
+        profile: "rgb(255, 81, 81)", // 赤
+        research: "rgb(81, 180, 81)", // 緑
+        experience: "rgb(81, 81, 255)", // 青
+        hobby: "rgb(255, 230, 45)", // 黄
+      };
+
+      const textColors = {
+        profile: "white",
+        research: "white",
+        experience: "white",
+        hobby: "rgb(100, 100, 100)", // 黄色背景には暗い文字
+      };
+
+      // 背景色を変更
+      $(".profile-bg").css("background-color", bgColors[target]);
+
+      // テキスト切り替え
+      $(".profile-section:visible").fadeOut(300, function () {
+        $(".profile-" + target).fadeIn(300);
+      });
+
+      $(".profile-wrapper").css("color", textColors[target]);
+      $(".profile-header").css("color", textColors[target]);
+    });
+  });
+
+  $("#works").load("components/works.html", function () {
+    $(".works-slider").slick({
+      centerMode: true,
+      centerPadding: "0px",
+      slidesToShow: 3,
+      arrows: true,
+      dots: true,
+      responsive: [
+        {
+          breakpoint: 1060,
+          settings: {
+            arrows: true,
+            centerMode: true,
+            centerPadding: "0px",
+            slidesToShow: 1,
+          },
+        },
+        {
+          breakpoint: 520,
+          settings: {
+            arrows: false,
+            centerMode: true,
+            centerPadding: "0px",
+            slidesToShow: 1,
+          },
+        },
+      ],
+    });
+
+    $(".works-slider").on("beforeChange", function () {
+      const $slider = $(this);
+      const $component = $slider.closest(".works-component");
+
+      // 現在の .slick-center を取得（これが「次に中央になる予定」のスライド）
+      // beforeChange の時点で既に .slick-center は次の要素に切り替わっている場合がある
+      // それが難しい場合は afterChange に切り替えるのも選択肢
+
+      setTimeout(() => {
+        const $center = $slider.find(".slick-center");
+        const target = $center.data("target");
+
+        $component.find(".works-name:visible").fadeOut(250, function () {
+          $component.find(".works-name-" + target).fadeIn(250);
+        });
+      }, 1); // DOM反映直後に取得するための遅延
+    });
+  });
+
+  $("#skills").load("components/skills.html");
+  $("#contact").load("components/contact.html");
+  $("#modals").load("/components/modals.html", function () {
+    $(".modal").modal();
+  });
+  $(document).ready(function () {
+    $(".modal").modal();
+    $("#works").on("click", ".slick-center", function () {
+      const target = $(this).data("target");
+      const modalId = "#works-modal-" + target;
+      console.log("Opening modal:", modalId);
+      $(modalId).modal("open");
+    });
+  });
+});
+
+        --- End of js\main.js ---
+
+    [FILE] js\slick.min.js
+        --- Start of js\slick.min.js ---
+!function(i){"use strict";"function"==typeof define&&define.amd?define(["jquery"],i):"undefined"!=typeof exports?module.exports=i(require("jquery")):i(jQuery)}(function(i){"use strict";var e=window.Slick||{};(e=function(){var e=0;return function(t,o){var s,n=this;n.defaults={accessibility:!0,adaptiveHeight:!1,appendArrows:i(t),appendDots:i(t),arrows:!0,asNavFor:null,prevArrow:'<button class="slick-prev" aria-label="Previous" type="button">Previous</button>',nextArrow:'<button class="slick-next" aria-label="Next" type="button">Next</button>',autoplay:!1,autoplaySpeed:3e3,centerMode:!1,centerPadding:"50px",cssEase:"ease",customPaging:function(e,t){return i('<button type="button" />').text(t+1)},dots:!1,dotsClass:"slick-dots",draggable:!0,easing:"linear",edgeFriction:.35,fade:!1,focusOnSelect:!1,focusOnChange:!1,infinite:!0,initialSlide:0,lazyLoad:"ondemand",mobileFirst:!1,pauseOnHover:!0,pauseOnFocus:!0,pauseOnDotsHover:!1,respondTo:"window",responsive:null,rows:1,rtl:!1,slide:"",slidesPerRow:1,slidesToShow:1,slidesToScroll:1,speed:500,swipe:!0,swipeToSlide:!1,touchMove:!0,touchThreshold:5,useCSS:!0,useTransform:!0,variableWidth:!1,vertical:!1,verticalSwiping:!1,waitForAnimate:!0,zIndex:1e3},n.initials={animating:!1,dragging:!1,autoPlayTimer:null,currentDirection:0,currentLeft:null,currentSlide:0,direction:1,$dots:null,listWidth:null,listHeight:null,loadIndex:0,$nextArrow:null,$prevArrow:null,scrolling:!1,slideCount:null,slideWidth:null,$slideTrack:null,$slides:null,sliding:!1,slideOffset:0,swipeLeft:null,swiping:!1,$list:null,touchObject:{},transformsEnabled:!1,unslicked:!1},i.extend(n,n.initials),n.activeBreakpoint=null,n.animType=null,n.animProp=null,n.breakpoints=[],n.breakpointSettings=[],n.cssTransitions=!1,n.focussed=!1,n.interrupted=!1,n.hidden="hidden",n.paused=!0,n.positionProp=null,n.respondTo=null,n.rowCount=1,n.shouldClick=!0,n.$slider=i(t),n.$slidesCache=null,n.transformType=null,n.transitionType=null,n.visibilityChange="visibilitychange",n.windowWidth=0,n.windowTimer=null,s=i(t).data("slick")||{},n.options=i.extend({},n.defaults,o,s),n.currentSlide=n.options.initialSlide,n.originalSettings=n.options,void 0!==document.mozHidden?(n.hidden="mozHidden",n.visibilityChange="mozvisibilitychange"):void 0!==document.webkitHidden&&(n.hidden="webkitHidden",n.visibilityChange="webkitvisibilitychange"),n.autoPlay=i.proxy(n.autoPlay,n),n.autoPlayClear=i.proxy(n.autoPlayClear,n),n.autoPlayIterator=i.proxy(n.autoPlayIterator,n),n.changeSlide=i.proxy(n.changeSlide,n),n.clickHandler=i.proxy(n.clickHandler,n),n.selectHandler=i.proxy(n.selectHandler,n),n.setPosition=i.proxy(n.setPosition,n),n.swipeHandler=i.proxy(n.swipeHandler,n),n.dragHandler=i.proxy(n.dragHandler,n),n.keyHandler=i.proxy(n.keyHandler,n),n.instanceUid=e++,n.htmlExpr=/^(?:\s*(<[\w\W]+>)[^>]*)$/,n.registerBreakpoints(),n.init(!0)}}()).prototype.activateADA=function(){this.$slideTrack.find(".slick-active").attr({"aria-hidden":"false"}).find("a, input, button, select").attr({tabindex:"0"})},e.prototype.addSlide=e.prototype.slickAdd=function(e,t,o){var s=this;if("boolean"==typeof t)o=t,t=null;else if(t<0||t>=s.slideCount)return!1;s.unload(),"number"==typeof t?0===t&&0===s.$slides.length?i(e).appendTo(s.$slideTrack):o?i(e).insertBefore(s.$slides.eq(t)):i(e).insertAfter(s.$slides.eq(t)):!0===o?i(e).prependTo(s.$slideTrack):i(e).appendTo(s.$slideTrack),s.$slides=s.$slideTrack.children(this.options.slide),s.$slideTrack.children(this.options.slide).detach(),s.$slideTrack.append(s.$slides),s.$slides.each(function(e,t){i(t).attr("data-slick-index",e)}),s.$slidesCache=s.$slides,s.reinit()},e.prototype.animateHeight=function(){var i=this;if(1===i.options.slidesToShow&&!0===i.options.adaptiveHeight&&!1===i.options.vertical){var e=i.$slides.eq(i.currentSlide).outerHeight(!0);i.$list.animate({height:e},i.options.speed)}},e.prototype.animateSlide=function(e,t){var o={},s=this;s.animateHeight(),!0===s.options.rtl&&!1===s.options.vertical&&(e=-e),!1===s.transformsEnabled?!1===s.options.vertical?s.$slideTrack.animate({left:e},s.options.speed,s.options.easing,t):s.$slideTrack.animate({top:e},s.options.speed,s.options.easing,t):!1===s.cssTransitions?(!0===s.options.rtl&&(s.currentLeft=-s.currentLeft),i({animStart:s.currentLeft}).animate({animStart:e},{duration:s.options.speed,easing:s.options.easing,step:function(i){i=Math.ceil(i),!1===s.options.vertical?(o[s.animType]="translate("+i+"px, 0px)",s.$slideTrack.css(o)):(o[s.animType]="translate(0px,"+i+"px)",s.$slideTrack.css(o))},complete:function(){t&&t.call()}})):(s.applyTransition(),e=Math.ceil(e),!1===s.options.vertical?o[s.animType]="translate3d("+e+"px, 0px, 0px)":o[s.animType]="translate3d(0px,"+e+"px, 0px)",s.$slideTrack.css(o),t&&setTimeout(function(){s.disableTransition(),t.call()},s.options.speed))},e.prototype.getNavTarget=function(){var e=this,t=e.options.asNavFor;return t&&null!==t&&(t=i(t).not(e.$slider)),t},e.prototype.asNavFor=function(e){var t=this.getNavTarget();null!==t&&"object"==typeof t&&t.each(function(){var t=i(this).slick("getSlick");t.unslicked||t.slideHandler(e,!0)})},e.prototype.applyTransition=function(i){var e=this,t={};!1===e.options.fade?t[e.transitionType]=e.transformType+" "+e.options.speed+"ms "+e.options.cssEase:t[e.transitionType]="opacity "+e.options.speed+"ms "+e.options.cssEase,!1===e.options.fade?e.$slideTrack.css(t):e.$slides.eq(i).css(t)},e.prototype.autoPlay=function(){var i=this;i.autoPlayClear(),i.slideCount>i.options.slidesToShow&&(i.autoPlayTimer=setInterval(i.autoPlayIterator,i.options.autoplaySpeed))},e.prototype.autoPlayClear=function(){var i=this;i.autoPlayTimer&&clearInterval(i.autoPlayTimer)},e.prototype.autoPlayIterator=function(){var i=this,e=i.currentSlide+i.options.slidesToScroll;i.paused||i.interrupted||i.focussed||(!1===i.options.infinite&&(1===i.direction&&i.currentSlide+1===i.slideCount-1?i.direction=0:0===i.direction&&(e=i.currentSlide-i.options.slidesToScroll,i.currentSlide-1==0&&(i.direction=1))),i.slideHandler(e))},e.prototype.buildArrows=function(){var e=this;!0===e.options.arrows&&(e.$prevArrow=i(e.options.prevArrow).addClass("slick-arrow"),e.$nextArrow=i(e.options.nextArrow).addClass("slick-arrow"),e.slideCount>e.options.slidesToShow?(e.$prevArrow.removeClass("slick-hidden").removeAttr("aria-hidden tabindex"),e.$nextArrow.removeClass("slick-hidden").removeAttr("aria-hidden tabindex"),e.htmlExpr.test(e.options.prevArrow)&&e.$prevArrow.prependTo(e.options.appendArrows),e.htmlExpr.test(e.options.nextArrow)&&e.$nextArrow.appendTo(e.options.appendArrows),!0!==e.options.infinite&&e.$prevArrow.addClass("slick-disabled").attr("aria-disabled","true")):e.$prevArrow.add(e.$nextArrow).addClass("slick-hidden").attr({"aria-disabled":"true",tabindex:"-1"}))},e.prototype.buildDots=function(){var e,t,o=this;if(!0===o.options.dots){for(o.$slider.addClass("slick-dotted"),t=i("<ul />").addClass(o.options.dotsClass),e=0;e<=o.getDotCount();e+=1)t.append(i("<li />").append(o.options.customPaging.call(this,o,e)));o.$dots=t.appendTo(o.options.appendDots),o.$dots.find("li").first().addClass("slick-active")}},e.prototype.buildOut=function(){var e=this;e.$slides=e.$slider.children(e.options.slide+":not(.slick-cloned)").addClass("slick-slide"),e.slideCount=e.$slides.length,e.$slides.each(function(e,t){i(t).attr("data-slick-index",e).data("originalStyling",i(t).attr("style")||"")}),e.$slider.addClass("slick-slider"),e.$slideTrack=0===e.slideCount?i('<div class="slick-track"/>').appendTo(e.$slider):e.$slides.wrapAll('<div class="slick-track"/>').parent(),e.$list=e.$slideTrack.wrap('<div class="slick-list"/>').parent(),e.$slideTrack.css("opacity",0),!0!==e.options.centerMode&&!0!==e.options.swipeToSlide||(e.options.slidesToScroll=1),i("img[data-lazy]",e.$slider).not("[src]").addClass("slick-loading"),e.setupInfinite(),e.buildArrows(),e.buildDots(),e.updateDots(),e.setSlideClasses("number"==typeof e.currentSlide?e.currentSlide:0),!0===e.options.draggable&&e.$list.addClass("draggable")},e.prototype.buildRows=function(){var i,e,t,o,s,n,r,l=this;if(o=document.createDocumentFragment(),n=l.$slider.children(),l.options.rows>1){for(r=l.options.slidesPerRow*l.options.rows,s=Math.ceil(n.length/r),i=0;i<s;i++){var d=document.createElement("div");for(e=0;e<l.options.rows;e++){var a=document.createElement("div");for(t=0;t<l.options.slidesPerRow;t++){var c=i*r+(e*l.options.slidesPerRow+t);n.get(c)&&a.appendChild(n.get(c))}d.appendChild(a)}o.appendChild(d)}l.$slider.empty().append(o),l.$slider.children().children().children().css({width:100/l.options.slidesPerRow+"%",display:"inline-block"})}},e.prototype.checkResponsive=function(e,t){var o,s,n,r=this,l=!1,d=r.$slider.width(),a=window.innerWidth||i(window).width();if("window"===r.respondTo?n=a:"slider"===r.respondTo?n=d:"min"===r.respondTo&&(n=Math.min(a,d)),r.options.responsive&&r.options.responsive.length&&null!==r.options.responsive){s=null;for(o in r.breakpoints)r.breakpoints.hasOwnProperty(o)&&(!1===r.originalSettings.mobileFirst?n<r.breakpoints[o]&&(s=r.breakpoints[o]):n>r.breakpoints[o]&&(s=r.breakpoints[o]));null!==s?null!==r.activeBreakpoint?(s!==r.activeBreakpoint||t)&&(r.activeBreakpoint=s,"unslick"===r.breakpointSettings[s]?r.unslick(s):(r.options=i.extend({},r.originalSettings,r.breakpointSettings[s]),!0===e&&(r.currentSlide=r.options.initialSlide),r.refresh(e)),l=s):(r.activeBreakpoint=s,"unslick"===r.breakpointSettings[s]?r.unslick(s):(r.options=i.extend({},r.originalSettings,r.breakpointSettings[s]),!0===e&&(r.currentSlide=r.options.initialSlide),r.refresh(e)),l=s):null!==r.activeBreakpoint&&(r.activeBreakpoint=null,r.options=r.originalSettings,!0===e&&(r.currentSlide=r.options.initialSlide),r.refresh(e),l=s),e||!1===l||r.$slider.trigger("breakpoint",[r,l])}},e.prototype.changeSlide=function(e,t){var o,s,n,r=this,l=i(e.currentTarget);switch(l.is("a")&&e.preventDefault(),l.is("li")||(l=l.closest("li")),n=r.slideCount%r.options.slidesToScroll!=0,o=n?0:(r.slideCount-r.currentSlide)%r.options.slidesToScroll,e.data.message){case"previous":s=0===o?r.options.slidesToScroll:r.options.slidesToShow-o,r.slideCount>r.options.slidesToShow&&r.slideHandler(r.currentSlide-s,!1,t);break;case"next":s=0===o?r.options.slidesToScroll:o,r.slideCount>r.options.slidesToShow&&r.slideHandler(r.currentSlide+s,!1,t);break;case"index":var d=0===e.data.index?0:e.data.index||l.index()*r.options.slidesToScroll;r.slideHandler(r.checkNavigable(d),!1,t),l.children().trigger("focus");break;default:return}},e.prototype.checkNavigable=function(i){var e,t;if(e=this.getNavigableIndexes(),t=0,i>e[e.length-1])i=e[e.length-1];else for(var o in e){if(i<e[o]){i=t;break}t=e[o]}return i},e.prototype.cleanUpEvents=function(){var e=this;e.options.dots&&null!==e.$dots&&(i("li",e.$dots).off("click.slick",e.changeSlide).off("mouseenter.slick",i.proxy(e.interrupt,e,!0)).off("mouseleave.slick",i.proxy(e.interrupt,e,!1)),!0===e.options.accessibility&&e.$dots.off("keydown.slick",e.keyHandler)),e.$slider.off("focus.slick blur.slick"),!0===e.options.arrows&&e.slideCount>e.options.slidesToShow&&(e.$prevArrow&&e.$prevArrow.off("click.slick",e.changeSlide),e.$nextArrow&&e.$nextArrow.off("click.slick",e.changeSlide),!0===e.options.accessibility&&(e.$prevArrow&&e.$prevArrow.off("keydown.slick",e.keyHandler),e.$nextArrow&&e.$nextArrow.off("keydown.slick",e.keyHandler))),e.$list.off("touchstart.slick mousedown.slick",e.swipeHandler),e.$list.off("touchmove.slick mousemove.slick",e.swipeHandler),e.$list.off("touchend.slick mouseup.slick",e.swipeHandler),e.$list.off("touchcancel.slick mouseleave.slick",e.swipeHandler),e.$list.off("click.slick",e.clickHandler),i(document).off(e.visibilityChange,e.visibility),e.cleanUpSlideEvents(),!0===e.options.accessibility&&e.$list.off("keydown.slick",e.keyHandler),!0===e.options.focusOnSelect&&i(e.$slideTrack).children().off("click.slick",e.selectHandler),i(window).off("orientationchange.slick.slick-"+e.instanceUid,e.orientationChange),i(window).off("resize.slick.slick-"+e.instanceUid,e.resize),i("[draggable!=true]",e.$slideTrack).off("dragstart",e.preventDefault),i(window).off("load.slick.slick-"+e.instanceUid,e.setPosition)},e.prototype.cleanUpSlideEvents=function(){var e=this;e.$list.off("mouseenter.slick",i.proxy(e.interrupt,e,!0)),e.$list.off("mouseleave.slick",i.proxy(e.interrupt,e,!1))},e.prototype.cleanUpRows=function(){var i,e=this;e.options.rows>1&&((i=e.$slides.children().children()).removeAttr("style"),e.$slider.empty().append(i))},e.prototype.clickHandler=function(i){!1===this.shouldClick&&(i.stopImmediatePropagation(),i.stopPropagation(),i.preventDefault())},e.prototype.destroy=function(e){var t=this;t.autoPlayClear(),t.touchObject={},t.cleanUpEvents(),i(".slick-cloned",t.$slider).detach(),t.$dots&&t.$dots.remove(),t.$prevArrow&&t.$prevArrow.length&&(t.$prevArrow.removeClass("slick-disabled slick-arrow slick-hidden").removeAttr("aria-hidden aria-disabled tabindex").css("display",""),t.htmlExpr.test(t.options.prevArrow)&&t.$prevArrow.remove()),t.$nextArrow&&t.$nextArrow.length&&(t.$nextArrow.removeClass("slick-disabled slick-arrow slick-hidden").removeAttr("aria-hidden aria-disabled tabindex").css("display",""),t.htmlExpr.test(t.options.nextArrow)&&t.$nextArrow.remove()),t.$slides&&(t.$slides.removeClass("slick-slide slick-active slick-center slick-visible slick-current").removeAttr("aria-hidden").removeAttr("data-slick-index").each(function(){i(this).attr("style",i(this).data("originalStyling"))}),t.$slideTrack.children(this.options.slide).detach(),t.$slideTrack.detach(),t.$list.detach(),t.$slider.append(t.$slides)),t.cleanUpRows(),t.$slider.removeClass("slick-slider"),t.$slider.removeClass("slick-initialized"),t.$slider.removeClass("slick-dotted"),t.unslicked=!0,e||t.$slider.trigger("destroy",[t])},e.prototype.disableTransition=function(i){var e=this,t={};t[e.transitionType]="",!1===e.options.fade?e.$slideTrack.css(t):e.$slides.eq(i).css(t)},e.prototype.fadeSlide=function(i,e){var t=this;!1===t.cssTransitions?(t.$slides.eq(i).css({zIndex:t.options.zIndex}),t.$slides.eq(i).animate({opacity:1},t.options.speed,t.options.easing,e)):(t.applyTransition(i),t.$slides.eq(i).css({opacity:1,zIndex:t.options.zIndex}),e&&setTimeout(function(){t.disableTransition(i),e.call()},t.options.speed))},e.prototype.fadeSlideOut=function(i){var e=this;!1===e.cssTransitions?e.$slides.eq(i).animate({opacity:0,zIndex:e.options.zIndex-2},e.options.speed,e.options.easing):(e.applyTransition(i),e.$slides.eq(i).css({opacity:0,zIndex:e.options.zIndex-2}))},e.prototype.filterSlides=e.prototype.slickFilter=function(i){var e=this;null!==i&&(e.$slidesCache=e.$slides,e.unload(),e.$slideTrack.children(this.options.slide).detach(),e.$slidesCache.filter(i).appendTo(e.$slideTrack),e.reinit())},e.prototype.focusHandler=function(){var e=this;e.$slider.off("focus.slick blur.slick").on("focus.slick blur.slick","*",function(t){t.stopImmediatePropagation();var o=i(this);setTimeout(function(){e.options.pauseOnFocus&&(e.focussed=o.is(":focus"),e.autoPlay())},0)})},e.prototype.getCurrent=e.prototype.slickCurrentSlide=function(){return this.currentSlide},e.prototype.getDotCount=function(){var i=this,e=0,t=0,o=0;if(!0===i.options.infinite)if(i.slideCount<=i.options.slidesToShow)++o;else for(;e<i.slideCount;)++o,e=t+i.options.slidesToScroll,t+=i.options.slidesToScroll<=i.options.slidesToShow?i.options.slidesToScroll:i.options.slidesToShow;else if(!0===i.options.centerMode)o=i.slideCount;else if(i.options.asNavFor)for(;e<i.slideCount;)++o,e=t+i.options.slidesToScroll,t+=i.options.slidesToScroll<=i.options.slidesToShow?i.options.slidesToScroll:i.options.slidesToShow;else o=1+Math.ceil((i.slideCount-i.options.slidesToShow)/i.options.slidesToScroll);return o-1},e.prototype.getLeft=function(i){var e,t,o,s,n=this,r=0;return n.slideOffset=0,t=n.$slides.first().outerHeight(!0),!0===n.options.infinite?(n.slideCount>n.options.slidesToShow&&(n.slideOffset=n.slideWidth*n.options.slidesToShow*-1,s=-1,!0===n.options.vertical&&!0===n.options.centerMode&&(2===n.options.slidesToShow?s=-1.5:1===n.options.slidesToShow&&(s=-2)),r=t*n.options.slidesToShow*s),n.slideCount%n.options.slidesToScroll!=0&&i+n.options.slidesToScroll>n.slideCount&&n.slideCount>n.options.slidesToShow&&(i>n.slideCount?(n.slideOffset=(n.options.slidesToShow-(i-n.slideCount))*n.slideWidth*-1,r=(n.options.slidesToShow-(i-n.slideCount))*t*-1):(n.slideOffset=n.slideCount%n.options.slidesToScroll*n.slideWidth*-1,r=n.slideCount%n.options.slidesToScroll*t*-1))):i+n.options.slidesToShow>n.slideCount&&(n.slideOffset=(i+n.options.slidesToShow-n.slideCount)*n.slideWidth,r=(i+n.options.slidesToShow-n.slideCount)*t),n.slideCount<=n.options.slidesToShow&&(n.slideOffset=0,r=0),!0===n.options.centerMode&&n.slideCount<=n.options.slidesToShow?n.slideOffset=n.slideWidth*Math.floor(n.options.slidesToShow)/2-n.slideWidth*n.slideCount/2:!0===n.options.centerMode&&!0===n.options.infinite?n.slideOffset+=n.slideWidth*Math.floor(n.options.slidesToShow/2)-n.slideWidth:!0===n.options.centerMode&&(n.slideOffset=0,n.slideOffset+=n.slideWidth*Math.floor(n.options.slidesToShow/2)),e=!1===n.options.vertical?i*n.slideWidth*-1+n.slideOffset:i*t*-1+r,!0===n.options.variableWidth&&(o=n.slideCount<=n.options.slidesToShow||!1===n.options.infinite?n.$slideTrack.children(".slick-slide").eq(i):n.$slideTrack.children(".slick-slide").eq(i+n.options.slidesToShow),e=!0===n.options.rtl?o[0]?-1*(n.$slideTrack.width()-o[0].offsetLeft-o.width()):0:o[0]?-1*o[0].offsetLeft:0,!0===n.options.centerMode&&(o=n.slideCount<=n.options.slidesToShow||!1===n.options.infinite?n.$slideTrack.children(".slick-slide").eq(i):n.$slideTrack.children(".slick-slide").eq(i+n.options.slidesToShow+1),e=!0===n.options.rtl?o[0]?-1*(n.$slideTrack.width()-o[0].offsetLeft-o.width()):0:o[0]?-1*o[0].offsetLeft:0,e+=(n.$list.width()-o.outerWidth())/2)),e},e.prototype.getOption=e.prototype.slickGetOption=function(i){return this.options[i]},e.prototype.getNavigableIndexes=function(){var i,e=this,t=0,o=0,s=[];for(!1===e.options.infinite?i=e.slideCount:(t=-1*e.options.slidesToScroll,o=-1*e.options.slidesToScroll,i=2*e.slideCount);t<i;)s.push(t),t=o+e.options.slidesToScroll,o+=e.options.slidesToScroll<=e.options.slidesToShow?e.options.slidesToScroll:e.options.slidesToShow;return s},e.prototype.getSlick=function(){return this},e.prototype.getSlideCount=function(){var e,t,o=this;return t=!0===o.options.centerMode?o.slideWidth*Math.floor(o.options.slidesToShow/2):0,!0===o.options.swipeToSlide?(o.$slideTrack.find(".slick-slide").each(function(s,n){if(n.offsetLeft-t+i(n).outerWidth()/2>-1*o.swipeLeft)return e=n,!1}),Math.abs(i(e).attr("data-slick-index")-o.currentSlide)||1):o.options.slidesToScroll},e.prototype.goTo=e.prototype.slickGoTo=function(i,e){this.changeSlide({data:{message:"index",index:parseInt(i)}},e)},e.prototype.init=function(e){var t=this;i(t.$slider).hasClass("slick-initialized")||(i(t.$slider).addClass("slick-initialized"),t.buildRows(),t.buildOut(),t.setProps(),t.startLoad(),t.loadSlider(),t.initializeEvents(),t.updateArrows(),t.updateDots(),t.checkResponsive(!0),t.focusHandler()),e&&t.$slider.trigger("init",[t]),!0===t.options.accessibility&&t.initADA(),t.options.autoplay&&(t.paused=!1,t.autoPlay())},e.prototype.initADA=function(){var e=this,t=Math.ceil(e.slideCount/e.options.slidesToShow),o=e.getNavigableIndexes().filter(function(i){return i>=0&&i<e.slideCount});e.$slides.add(e.$slideTrack.find(".slick-cloned")).attr({"aria-hidden":"true",tabindex:"-1"}).find("a, input, button, select").attr({tabindex:"-1"}),null!==e.$dots&&(e.$slides.not(e.$slideTrack.find(".slick-cloned")).each(function(t){var s=o.indexOf(t);i(this).attr({role:"tabpanel",id:"slick-slide"+e.instanceUid+t,tabindex:-1}),-1!==s&&i(this).attr({"aria-describedby":"slick-slide-control"+e.instanceUid+s})}),e.$dots.attr("role","tablist").find("li").each(function(s){var n=o[s];i(this).attr({role:"presentation"}),i(this).find("button").first().attr({role:"tab",id:"slick-slide-control"+e.instanceUid+s,"aria-controls":"slick-slide"+e.instanceUid+n,"aria-label":s+1+" of "+t,"aria-selected":null,tabindex:"-1"})}).eq(e.currentSlide).find("button").attr({"aria-selected":"true",tabindex:"0"}).end());for(var s=e.currentSlide,n=s+e.options.slidesToShow;s<n;s++)e.$slides.eq(s).attr("tabindex",0);e.activateADA()},e.prototype.initArrowEvents=function(){var i=this;!0===i.options.arrows&&i.slideCount>i.options.slidesToShow&&(i.$prevArrow.off("click.slick").on("click.slick",{message:"previous"},i.changeSlide),i.$nextArrow.off("click.slick").on("click.slick",{message:"next"},i.changeSlide),!0===i.options.accessibility&&(i.$prevArrow.on("keydown.slick",i.keyHandler),i.$nextArrow.on("keydown.slick",i.keyHandler)))},e.prototype.initDotEvents=function(){var e=this;!0===e.options.dots&&(i("li",e.$dots).on("click.slick",{message:"index"},e.changeSlide),!0===e.options.accessibility&&e.$dots.on("keydown.slick",e.keyHandler)),!0===e.options.dots&&!0===e.options.pauseOnDotsHover&&i("li",e.$dots).on("mouseenter.slick",i.proxy(e.interrupt,e,!0)).on("mouseleave.slick",i.proxy(e.interrupt,e,!1))},e.prototype.initSlideEvents=function(){var e=this;e.options.pauseOnHover&&(e.$list.on("mouseenter.slick",i.proxy(e.interrupt,e,!0)),e.$list.on("mouseleave.slick",i.proxy(e.interrupt,e,!1)))},e.prototype.initializeEvents=function(){var e=this;e.initArrowEvents(),e.initDotEvents(),e.initSlideEvents(),e.$list.on("touchstart.slick mousedown.slick",{action:"start"},e.swipeHandler),e.$list.on("touchmove.slick mousemove.slick",{action:"move"},e.swipeHandler),e.$list.on("touchend.slick mouseup.slick",{action:"end"},e.swipeHandler),e.$list.on("touchcancel.slick mouseleave.slick",{action:"end"},e.swipeHandler),e.$list.on("click.slick",e.clickHandler),i(document).on(e.visibilityChange,i.proxy(e.visibility,e)),!0===e.options.accessibility&&e.$list.on("keydown.slick",e.keyHandler),!0===e.options.focusOnSelect&&i(e.$slideTrack).children().on("click.slick",e.selectHandler),i(window).on("orientationchange.slick.slick-"+e.instanceUid,i.proxy(e.orientationChange,e)),i(window).on("resize.slick.slick-"+e.instanceUid,i.proxy(e.resize,e)),i("[draggable!=true]",e.$slideTrack).on("dragstart",e.preventDefault),i(window).on("load.slick.slick-"+e.instanceUid,e.setPosition),i(e.setPosition)},e.prototype.initUI=function(){var i=this;!0===i.options.arrows&&i.slideCount>i.options.slidesToShow&&(i.$prevArrow.show(),i.$nextArrow.show()),!0===i.options.dots&&i.slideCount>i.options.slidesToShow&&i.$dots.show()},e.prototype.keyHandler=function(i){var e=this;i.target.tagName.match("TEXTAREA|INPUT|SELECT")||(37===i.keyCode&&!0===e.options.accessibility?e.changeSlide({data:{message:!0===e.options.rtl?"next":"previous"}}):39===i.keyCode&&!0===e.options.accessibility&&e.changeSlide({data:{message:!0===e.options.rtl?"previous":"next"}}))},e.prototype.lazyLoad=function(){function e(e){i("img[data-lazy]",e).each(function(){var e=i(this),t=i(this).attr("data-lazy"),o=i(this).attr("data-srcset"),s=i(this).attr("data-sizes")||n.$slider.attr("data-sizes"),r=document.createElement("img");r.onload=function(){e.animate({opacity:0},100,function(){o&&(e.attr("srcset",o),s&&e.attr("sizes",s)),e.attr("src",t).animate({opacity:1},200,function(){e.removeAttr("data-lazy data-srcset data-sizes").removeClass("slick-loading")}),n.$slider.trigger("lazyLoaded",[n,e,t])})},r.onerror=function(){e.removeAttr("data-lazy").removeClass("slick-loading").addClass("slick-lazyload-error"),n.$slider.trigger("lazyLoadError",[n,e,t])},r.src=t})}var t,o,s,n=this;if(!0===n.options.centerMode?!0===n.options.infinite?s=(o=n.currentSlide+(n.options.slidesToShow/2+1))+n.options.slidesToShow+2:(o=Math.max(0,n.currentSlide-(n.options.slidesToShow/2+1)),s=n.options.slidesToShow/2+1+2+n.currentSlide):(o=n.options.infinite?n.options.slidesToShow+n.currentSlide:n.currentSlide,s=Math.ceil(o+n.options.slidesToShow),!0===n.options.fade&&(o>0&&o--,s<=n.slideCount&&s++)),t=n.$slider.find(".slick-slide").slice(o,s),"anticipated"===n.options.lazyLoad)for(var r=o-1,l=s,d=n.$slider.find(".slick-slide"),a=0;a<n.options.slidesToScroll;a++)r<0&&(r=n.slideCount-1),t=(t=t.add(d.eq(r))).add(d.eq(l)),r--,l++;e(t),n.slideCount<=n.options.slidesToShow?e(n.$slider.find(".slick-slide")):n.currentSlide>=n.slideCount-n.options.slidesToShow?e(n.$slider.find(".slick-cloned").slice(0,n.options.slidesToShow)):0===n.currentSlide&&e(n.$slider.find(".slick-cloned").slice(-1*n.options.slidesToShow))},e.prototype.loadSlider=function(){var i=this;i.setPosition(),i.$slideTrack.css({opacity:1}),i.$slider.removeClass("slick-loading"),i.initUI(),"progressive"===i.options.lazyLoad&&i.progressiveLazyLoad()},e.prototype.next=e.prototype.slickNext=function(){this.changeSlide({data:{message:"next"}})},e.prototype.orientationChange=function(){var i=this;i.checkResponsive(),i.setPosition()},e.prototype.pause=e.prototype.slickPause=function(){var i=this;i.autoPlayClear(),i.paused=!0},e.prototype.play=e.prototype.slickPlay=function(){var i=this;i.autoPlay(),i.options.autoplay=!0,i.paused=!1,i.focussed=!1,i.interrupted=!1},e.prototype.postSlide=function(e){var t=this;t.unslicked||(t.$slider.trigger("afterChange",[t,e]),t.animating=!1,t.slideCount>t.options.slidesToShow&&t.setPosition(),t.swipeLeft=null,t.options.autoplay&&t.autoPlay(),!0===t.options.accessibility&&(t.initADA(),t.options.focusOnChange&&i(t.$slides.get(t.currentSlide)).attr("tabindex",0).focus()))},e.prototype.prev=e.prototype.slickPrev=function(){this.changeSlide({data:{message:"previous"}})},e.prototype.preventDefault=function(i){i.preventDefault()},e.prototype.progressiveLazyLoad=function(e){e=e||1;var t,o,s,n,r,l=this,d=i("img[data-lazy]",l.$slider);d.length?(t=d.first(),o=t.attr("data-lazy"),s=t.attr("data-srcset"),n=t.attr("data-sizes")||l.$slider.attr("data-sizes"),(r=document.createElement("img")).onload=function(){s&&(t.attr("srcset",s),n&&t.attr("sizes",n)),t.attr("src",o).removeAttr("data-lazy data-srcset data-sizes").removeClass("slick-loading"),!0===l.options.adaptiveHeight&&l.setPosition(),l.$slider.trigger("lazyLoaded",[l,t,o]),l.progressiveLazyLoad()},r.onerror=function(){e<3?setTimeout(function(){l.progressiveLazyLoad(e+1)},500):(t.removeAttr("data-lazy").removeClass("slick-loading").addClass("slick-lazyload-error"),l.$slider.trigger("lazyLoadError",[l,t,o]),l.progressiveLazyLoad())},r.src=o):l.$slider.trigger("allImagesLoaded",[l])},e.prototype.refresh=function(e){var t,o,s=this;o=s.slideCount-s.options.slidesToShow,!s.options.infinite&&s.currentSlide>o&&(s.currentSlide=o),s.slideCount<=s.options.slidesToShow&&(s.currentSlide=0),t=s.currentSlide,s.destroy(!0),i.extend(s,s.initials,{currentSlide:t}),s.init(),e||s.changeSlide({data:{message:"index",index:t}},!1)},e.prototype.registerBreakpoints=function(){var e,t,o,s=this,n=s.options.responsive||null;if("array"===i.type(n)&&n.length){s.respondTo=s.options.respondTo||"window";for(e in n)if(o=s.breakpoints.length-1,n.hasOwnProperty(e)){for(t=n[e].breakpoint;o>=0;)s.breakpoints[o]&&s.breakpoints[o]===t&&s.breakpoints.splice(o,1),o--;s.breakpoints.push(t),s.breakpointSettings[t]=n[e].settings}s.breakpoints.sort(function(i,e){return s.options.mobileFirst?i-e:e-i})}},e.prototype.reinit=function(){var e=this;e.$slides=e.$slideTrack.children(e.options.slide).addClass("slick-slide"),e.slideCount=e.$slides.length,e.currentSlide>=e.slideCount&&0!==e.currentSlide&&(e.currentSlide=e.currentSlide-e.options.slidesToScroll),e.slideCount<=e.options.slidesToShow&&(e.currentSlide=0),e.registerBreakpoints(),e.setProps(),e.setupInfinite(),e.buildArrows(),e.updateArrows(),e.initArrowEvents(),e.buildDots(),e.updateDots(),e.initDotEvents(),e.cleanUpSlideEvents(),e.initSlideEvents(),e.checkResponsive(!1,!0),!0===e.options.focusOnSelect&&i(e.$slideTrack).children().on("click.slick",e.selectHandler),e.setSlideClasses("number"==typeof e.currentSlide?e.currentSlide:0),e.setPosition(),e.focusHandler(),e.paused=!e.options.autoplay,e.autoPlay(),e.$slider.trigger("reInit",[e])},e.prototype.resize=function(){var e=this;i(window).width()!==e.windowWidth&&(clearTimeout(e.windowDelay),e.windowDelay=window.setTimeout(function(){e.windowWidth=i(window).width(),e.checkResponsive(),e.unslicked||e.setPosition()},50))},e.prototype.removeSlide=e.prototype.slickRemove=function(i,e,t){var o=this;if(i="boolean"==typeof i?!0===(e=i)?0:o.slideCount-1:!0===e?--i:i,o.slideCount<1||i<0||i>o.slideCount-1)return!1;o.unload(),!0===t?o.$slideTrack.children().remove():o.$slideTrack.children(this.options.slide).eq(i).remove(),o.$slides=o.$slideTrack.children(this.options.slide),o.$slideTrack.children(this.options.slide).detach(),o.$slideTrack.append(o.$slides),o.$slidesCache=o.$slides,o.reinit()},e.prototype.setCSS=function(i){var e,t,o=this,s={};!0===o.options.rtl&&(i=-i),e="left"==o.positionProp?Math.ceil(i)+"px":"0px",t="top"==o.positionProp?Math.ceil(i)+"px":"0px",s[o.positionProp]=i,!1===o.transformsEnabled?o.$slideTrack.css(s):(s={},!1===o.cssTransitions?(s[o.animType]="translate("+e+", "+t+")",o.$slideTrack.css(s)):(s[o.animType]="translate3d("+e+", "+t+", 0px)",o.$slideTrack.css(s)))},e.prototype.setDimensions=function(){var i=this;!1===i.options.vertical?!0===i.options.centerMode&&i.$list.css({padding:"0px "+i.options.centerPadding}):(i.$list.height(i.$slides.first().outerHeight(!0)*i.options.slidesToShow),!0===i.options.centerMode&&i.$list.css({padding:i.options.centerPadding+" 0px"})),i.listWidth=i.$list.width(),i.listHeight=i.$list.height(),!1===i.options.vertical&&!1===i.options.variableWidth?(i.slideWidth=Math.ceil(i.listWidth/i.options.slidesToShow),i.$slideTrack.width(Math.ceil(i.slideWidth*i.$slideTrack.children(".slick-slide").length))):!0===i.options.variableWidth?i.$slideTrack.width(5e3*i.slideCount):(i.slideWidth=Math.ceil(i.listWidth),i.$slideTrack.height(Math.ceil(i.$slides.first().outerHeight(!0)*i.$slideTrack.children(".slick-slide").length)));var e=i.$slides.first().outerWidth(!0)-i.$slides.first().width();!1===i.options.variableWidth&&i.$slideTrack.children(".slick-slide").width(i.slideWidth-e)},e.prototype.setFade=function(){var e,t=this;t.$slides.each(function(o,s){e=t.slideWidth*o*-1,!0===t.options.rtl?i(s).css({position:"relative",right:e,top:0,zIndex:t.options.zIndex-2,opacity:0}):i(s).css({position:"relative",left:e,top:0,zIndex:t.options.zIndex-2,opacity:0})}),t.$slides.eq(t.currentSlide).css({zIndex:t.options.zIndex-1,opacity:1})},e.prototype.setHeight=function(){var i=this;if(1===i.options.slidesToShow&&!0===i.options.adaptiveHeight&&!1===i.options.vertical){var e=i.$slides.eq(i.currentSlide).outerHeight(!0);i.$list.css("height",e)}},e.prototype.setOption=e.prototype.slickSetOption=function(){var e,t,o,s,n,r=this,l=!1;if("object"===i.type(arguments[0])?(o=arguments[0],l=arguments[1],n="multiple"):"string"===i.type(arguments[0])&&(o=arguments[0],s=arguments[1],l=arguments[2],"responsive"===arguments[0]&&"array"===i.type(arguments[1])?n="responsive":void 0!==arguments[1]&&(n="single")),"single"===n)r.options[o]=s;else if("multiple"===n)i.each(o,function(i,e){r.options[i]=e});else if("responsive"===n)for(t in s)if("array"!==i.type(r.options.responsive))r.options.responsive=[s[t]];else{for(e=r.options.responsive.length-1;e>=0;)r.options.responsive[e].breakpoint===s[t].breakpoint&&r.options.responsive.splice(e,1),e--;r.options.responsive.push(s[t])}l&&(r.unload(),r.reinit())},e.prototype.setPosition=function(){var i=this;i.setDimensions(),i.setHeight(),!1===i.options.fade?i.setCSS(i.getLeft(i.currentSlide)):i.setFade(),i.$slider.trigger("setPosition",[i])},e.prototype.setProps=function(){var i=this,e=document.body.style;i.positionProp=!0===i.options.vertical?"top":"left","top"===i.positionProp?i.$slider.addClass("slick-vertical"):i.$slider.removeClass("slick-vertical"),void 0===e.WebkitTransition&&void 0===e.MozTransition&&void 0===e.msTransition||!0===i.options.useCSS&&(i.cssTransitions=!0),i.options.fade&&("number"==typeof i.options.zIndex?i.options.zIndex<3&&(i.options.zIndex=3):i.options.zIndex=i.defaults.zIndex),void 0!==e.OTransform&&(i.animType="OTransform",i.transformType="-o-transform",i.transitionType="OTransition",void 0===e.perspectiveProperty&&void 0===e.webkitPerspective&&(i.animType=!1)),void 0!==e.MozTransform&&(i.animType="MozTransform",i.transformType="-moz-transform",i.transitionType="MozTransition",void 0===e.perspectiveProperty&&void 0===e.MozPerspective&&(i.animType=!1)),void 0!==e.webkitTransform&&(i.animType="webkitTransform",i.transformType="-webkit-transform",i.transitionType="webkitTransition",void 0===e.perspectiveProperty&&void 0===e.webkitPerspective&&(i.animType=!1)),void 0!==e.msTransform&&(i.animType="msTransform",i.transformType="-ms-transform",i.transitionType="msTransition",void 0===e.msTransform&&(i.animType=!1)),void 0!==e.transform&&!1!==i.animType&&(i.animType="transform",i.transformType="transform",i.transitionType="transition"),i.transformsEnabled=i.options.useTransform&&null!==i.animType&&!1!==i.animType},e.prototype.setSlideClasses=function(i){var e,t,o,s,n=this;if(t=n.$slider.find(".slick-slide").removeClass("slick-active slick-center slick-current").attr("aria-hidden","true"),n.$slides.eq(i).addClass("slick-current"),!0===n.options.centerMode){var r=n.options.slidesToShow%2==0?1:0;e=Math.floor(n.options.slidesToShow/2),!0===n.options.infinite&&(i>=e&&i<=n.slideCount-1-e?n.$slides.slice(i-e+r,i+e+1).addClass("slick-active").attr("aria-hidden","false"):(o=n.options.slidesToShow+i,t.slice(o-e+1+r,o+e+2).addClass("slick-active").attr("aria-hidden","false")),0===i?t.eq(t.length-1-n.options.slidesToShow).addClass("slick-center"):i===n.slideCount-1&&t.eq(n.options.slidesToShow).addClass("slick-center")),n.$slides.eq(i).addClass("slick-center")}else i>=0&&i<=n.slideCount-n.options.slidesToShow?n.$slides.slice(i,i+n.options.slidesToShow).addClass("slick-active").attr("aria-hidden","false"):t.length<=n.options.slidesToShow?t.addClass("slick-active").attr("aria-hidden","false"):(s=n.slideCount%n.options.slidesToShow,o=!0===n.options.infinite?n.options.slidesToShow+i:i,n.options.slidesToShow==n.options.slidesToScroll&&n.slideCount-i<n.options.slidesToShow?t.slice(o-(n.options.slidesToShow-s),o+s).addClass("slick-active").attr("aria-hidden","false"):t.slice(o,o+n.options.slidesToShow).addClass("slick-active").attr("aria-hidden","false"));"ondemand"!==n.options.lazyLoad&&"anticipated"!==n.options.lazyLoad||n.lazyLoad()},e.prototype.setupInfinite=function(){var e,t,o,s=this;if(!0===s.options.fade&&(s.options.centerMode=!1),!0===s.options.infinite&&!1===s.options.fade&&(t=null,s.slideCount>s.options.slidesToShow)){for(o=!0===s.options.centerMode?s.options.slidesToShow+1:s.options.slidesToShow,e=s.slideCount;e>s.slideCount-o;e-=1)t=e-1,i(s.$slides[t]).clone(!0).attr("id","").attr("data-slick-index",t-s.slideCount).prependTo(s.$slideTrack).addClass("slick-cloned");for(e=0;e<o+s.slideCount;e+=1)t=e,i(s.$slides[t]).clone(!0).attr("id","").attr("data-slick-index",t+s.slideCount).appendTo(s.$slideTrack).addClass("slick-cloned");s.$slideTrack.find(".slick-cloned").find("[id]").each(function(){i(this).attr("id","")})}},e.prototype.interrupt=function(i){var e=this;i||e.autoPlay(),e.interrupted=i},e.prototype.selectHandler=function(e){var t=this,o=i(e.target).is(".slick-slide")?i(e.target):i(e.target).parents(".slick-slide"),s=parseInt(o.attr("data-slick-index"));s||(s=0),t.slideCount<=t.options.slidesToShow?t.slideHandler(s,!1,!0):t.slideHandler(s)},e.prototype.slideHandler=function(i,e,t){var o,s,n,r,l,d=null,a=this;if(e=e||!1,!(!0===a.animating&&!0===a.options.waitForAnimate||!0===a.options.fade&&a.currentSlide===i))if(!1===e&&a.asNavFor(i),o=i,d=a.getLeft(o),r=a.getLeft(a.currentSlide),a.currentLeft=null===a.swipeLeft?r:a.swipeLeft,!1===a.options.infinite&&!1===a.options.centerMode&&(i<0||i>a.getDotCount()*a.options.slidesToScroll))!1===a.options.fade&&(o=a.currentSlide,!0!==t?a.animateSlide(r,function(){a.postSlide(o)}):a.postSlide(o));else if(!1===a.options.infinite&&!0===a.options.centerMode&&(i<0||i>a.slideCount-a.options.slidesToScroll))!1===a.options.fade&&(o=a.currentSlide,!0!==t?a.animateSlide(r,function(){a.postSlide(o)}):a.postSlide(o));else{if(a.options.autoplay&&clearInterval(a.autoPlayTimer),s=o<0?a.slideCount%a.options.slidesToScroll!=0?a.slideCount-a.slideCount%a.options.slidesToScroll:a.slideCount+o:o>=a.slideCount?a.slideCount%a.options.slidesToScroll!=0?0:o-a.slideCount:o,a.animating=!0,a.$slider.trigger("beforeChange",[a,a.currentSlide,s]),n=a.currentSlide,a.currentSlide=s,a.setSlideClasses(a.currentSlide),a.options.asNavFor&&(l=(l=a.getNavTarget()).slick("getSlick")).slideCount<=l.options.slidesToShow&&l.setSlideClasses(a.currentSlide),a.updateDots(),a.updateArrows(),!0===a.options.fade)return!0!==t?(a.fadeSlideOut(n),a.fadeSlide(s,function(){a.postSlide(s)})):a.postSlide(s),void a.animateHeight();!0!==t?a.animateSlide(d,function(){a.postSlide(s)}):a.postSlide(s)}},e.prototype.startLoad=function(){var i=this;!0===i.options.arrows&&i.slideCount>i.options.slidesToShow&&(i.$prevArrow.hide(),i.$nextArrow.hide()),!0===i.options.dots&&i.slideCount>i.options.slidesToShow&&i.$dots.hide(),i.$slider.addClass("slick-loading")},e.prototype.swipeDirection=function(){var i,e,t,o,s=this;return i=s.touchObject.startX-s.touchObject.curX,e=s.touchObject.startY-s.touchObject.curY,t=Math.atan2(e,i),(o=Math.round(180*t/Math.PI))<0&&(o=360-Math.abs(o)),o<=45&&o>=0?!1===s.options.rtl?"left":"right":o<=360&&o>=315?!1===s.options.rtl?"left":"right":o>=135&&o<=225?!1===s.options.rtl?"right":"left":!0===s.options.verticalSwiping?o>=35&&o<=135?"down":"up":"vertical"},e.prototype.swipeEnd=function(i){var e,t,o=this;if(o.dragging=!1,o.swiping=!1,o.scrolling)return o.scrolling=!1,!1;if(o.interrupted=!1,o.shouldClick=!(o.touchObject.swipeLength>10),void 0===o.touchObject.curX)return!1;if(!0===o.touchObject.edgeHit&&o.$slider.trigger("edge",[o,o.swipeDirection()]),o.touchObject.swipeLength>=o.touchObject.minSwipe){switch(t=o.swipeDirection()){case"left":case"down":e=o.options.swipeToSlide?o.checkNavigable(o.currentSlide+o.getSlideCount()):o.currentSlide+o.getSlideCount(),o.currentDirection=0;break;case"right":case"up":e=o.options.swipeToSlide?o.checkNavigable(o.currentSlide-o.getSlideCount()):o.currentSlide-o.getSlideCount(),o.currentDirection=1}"vertical"!=t&&(o.slideHandler(e),o.touchObject={},o.$slider.trigger("swipe",[o,t]))}else o.touchObject.startX!==o.touchObject.curX&&(o.slideHandler(o.currentSlide),o.touchObject={})},e.prototype.swipeHandler=function(i){var e=this;if(!(!1===e.options.swipe||"ontouchend"in document&&!1===e.options.swipe||!1===e.options.draggable&&-1!==i.type.indexOf("mouse")))switch(e.touchObject.fingerCount=i.originalEvent&&void 0!==i.originalEvent.touches?i.originalEvent.touches.length:1,e.touchObject.minSwipe=e.listWidth/e.options.touchThreshold,!0===e.options.verticalSwiping&&(e.touchObject.minSwipe=e.listHeight/e.options.touchThreshold),i.data.action){case"start":e.swipeStart(i);break;case"move":e.swipeMove(i);break;case"end":e.swipeEnd(i)}},e.prototype.swipeMove=function(i){var e,t,o,s,n,r,l=this;return n=void 0!==i.originalEvent?i.originalEvent.touches:null,!(!l.dragging||l.scrolling||n&&1!==n.length)&&(e=l.getLeft(l.currentSlide),l.touchObject.curX=void 0!==n?n[0].pageX:i.clientX,l.touchObject.curY=void 0!==n?n[0].pageY:i.clientY,l.touchObject.swipeLength=Math.round(Math.sqrt(Math.pow(l.touchObject.curX-l.touchObject.startX,2))),r=Math.round(Math.sqrt(Math.pow(l.touchObject.curY-l.touchObject.startY,2))),!l.options.verticalSwiping&&!l.swiping&&r>4?(l.scrolling=!0,!1):(!0===l.options.verticalSwiping&&(l.touchObject.swipeLength=r),t=l.swipeDirection(),void 0!==i.originalEvent&&l.touchObject.swipeLength>4&&(l.swiping=!0,i.preventDefault()),s=(!1===l.options.rtl?1:-1)*(l.touchObject.curX>l.touchObject.startX?1:-1),!0===l.options.verticalSwiping&&(s=l.touchObject.curY>l.touchObject.startY?1:-1),o=l.touchObject.swipeLength,l.touchObject.edgeHit=!1,!1===l.options.infinite&&(0===l.currentSlide&&"right"===t||l.currentSlide>=l.getDotCount()&&"left"===t)&&(o=l.touchObject.swipeLength*l.options.edgeFriction,l.touchObject.edgeHit=!0),!1===l.options.vertical?l.swipeLeft=e+o*s:l.swipeLeft=e+o*(l.$list.height()/l.listWidth)*s,!0===l.options.verticalSwiping&&(l.swipeLeft=e+o*s),!0!==l.options.fade&&!1!==l.options.touchMove&&(!0===l.animating?(l.swipeLeft=null,!1):void l.setCSS(l.swipeLeft))))},e.prototype.swipeStart=function(i){var e,t=this;if(t.interrupted=!0,1!==t.touchObject.fingerCount||t.slideCount<=t.options.slidesToShow)return t.touchObject={},!1;void 0!==i.originalEvent&&void 0!==i.originalEvent.touches&&(e=i.originalEvent.touches[0]),t.touchObject.startX=t.touchObject.curX=void 0!==e?e.pageX:i.clientX,t.touchObject.startY=t.touchObject.curY=void 0!==e?e.pageY:i.clientY,t.dragging=!0},e.prototype.unfilterSlides=e.prototype.slickUnfilter=function(){var i=this;null!==i.$slidesCache&&(i.unload(),i.$slideTrack.children(this.options.slide).detach(),i.$slidesCache.appendTo(i.$slideTrack),i.reinit())},e.prototype.unload=function(){var e=this;i(".slick-cloned",e.$slider).remove(),e.$dots&&e.$dots.remove(),e.$prevArrow&&e.htmlExpr.test(e.options.prevArrow)&&e.$prevArrow.remove(),e.$nextArrow&&e.htmlExpr.test(e.options.nextArrow)&&e.$nextArrow.remove(),e.$slides.removeClass("slick-slide slick-active slick-visible slick-current").attr("aria-hidden","true").css("width","")},e.prototype.unslick=function(i){var e=this;e.$slider.trigger("unslick",[e,i]),e.destroy()},e.prototype.updateArrows=function(){var i=this;Math.floor(i.options.slidesToShow/2),!0===i.options.arrows&&i.slideCount>i.options.slidesToShow&&!i.options.infinite&&(i.$prevArrow.removeClass("slick-disabled").attr("aria-disabled","false"),i.$nextArrow.removeClass("slick-disabled").attr("aria-disabled","false"),0===i.currentSlide?(i.$prevArrow.addClass("slick-disabled").attr("aria-disabled","true"),i.$nextArrow.removeClass("slick-disabled").attr("aria-disabled","false")):i.currentSlide>=i.slideCount-i.options.slidesToShow&&!1===i.options.centerMode?(i.$nextArrow.addClass("slick-disabled").attr("aria-disabled","true"),i.$prevArrow.removeClass("slick-disabled").attr("aria-disabled","false")):i.currentSlide>=i.slideCount-1&&!0===i.options.centerMode&&(i.$nextArrow.addClass("slick-disabled").attr("aria-disabled","true"),i.$prevArrow.removeClass("slick-disabled").attr("aria-disabled","false")))},e.prototype.updateDots=function(){var i=this;null!==i.$dots&&(i.$dots.find("li").removeClass("slick-active").end(),i.$dots.find("li").eq(Math.floor(i.currentSlide/i.options.slidesToScroll)).addClass("slick-active"))},e.prototype.visibility=function(){var i=this;i.options.autoplay&&(document[i.hidden]?i.interrupted=!0:i.interrupted=!1)},i.fn.slick=function(){var i,t,o=this,s=arguments[0],n=Array.prototype.slice.call(arguments,1),r=o.length;for(i=0;i<r;i++)if("object"==typeof s||void 0===s?o[i].slick=new e(o[i],s):t=o[i].slick[s].apply(o[i].slick,n),void 0!==t)return t;return o}});
+
+        --- End of js\slick.min.js ---
+
