@@ -88,7 +88,7 @@
   font-size: 5rem;
 }
 
-.profile-section h4 {
+.profile-myname {
   font-size: 3rem;
   margin-bottom: 1rem;
 }
@@ -120,7 +120,7 @@
   object-fit: cover;
 }
 
-.-mb-2rem {
+.profile-profile-title {
   margin-bottom: -2rem;
 }
 
@@ -154,5 +154,35 @@
 
   .profile-explanations {
     width: 90%;
+  }
+
+  .profile-section h3 {
+    font-size: 4rem;
+  }
+
+  .profile-myname {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .profile-section ul > li {
+    font-size: 1.5rem;
+  }
+
+  .profile-section p {
+    font-size: 1.2rem;
+  }
+
+  .profile-explanation .caption {
+    font-size: 0.9rem;
+    margin-top: -1.2rem;
+  }
+
+  .profile-explanation .subtitle {
+    font-size: 1.8rem;
+  }
+
+  .profile-profile-title {
+    margin-bottom: 0rem;
   }
 }
