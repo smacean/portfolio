@@ -1,0 +1,36 @@
+.skills-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  width: 100%;
+  min-height: 100vh;
+  z-index: 10;
+  gap: 2rem;
+}
+
+.skills-charts-layout {
+  display: flex;
+  width: 100%;
+  flex-grow: 1;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.skills-chart-wrapper {
+  height: 450px;
+  width: 450px;
+  max-width: 100vb;
+  max-height: 100vb;
+}
+.skills-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 2rem;
+}

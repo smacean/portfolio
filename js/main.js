@@ -98,7 +98,121 @@ $(function () {
       }, 1); // DOM反映直後に取得するための遅延
     });
   });
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    scales: {
+      r: {
+        beginAtZero: true,
+        max: 5,
+        ticks: {
+          stepSize: 1,
+          font: {
+            size: 14,
+          },
+        },
+        pointLabels: {
+          font: {
+            size: 15,
+          },
+          callback: function (label) {
+            return label.split(" "); // ← 単語で分割して複数行にする
+          },
+        },
+      },
+    },
+  };
 
-  $("#skills").load("components/skills.html");
+  $("#skills").load("components/skills.html", function () {
+    const ctx1 = document
+      .getElementById("skills-radarChart-language")
+      .getContext("2d");
+    new Chart(ctx1, {
+      type: "radar",
+      data: {
+        labels: [
+          "TypeScript",
+          "python",
+          "HTML/CSS",
+          "JavaScript",
+          "C",
+          "Go",
+          "PosgreSQL",
+        ], // 7項目
+        datasets: [
+          {
+            label: "スコア",
+            data: [3, 3, 2, 3, 1, 2, 2],
+            fill: true,
+            backgroundColor: "rgba(63, 81, 181, 0.6)",
+            borderColor: "rgba(63, 81, 181, 1)",
+            pointBackgroundColor: "rgba(63, 81, 181, 1)",
+          },
+        ],
+      },
+      options: options,
+    });
+    const ctx2 = document
+      .getElementById("skills-radarChart-library")
+      .getContext("2d");
+    new Chart(ctx2, {
+      type: "radar",
+      data: {
+        labels: [
+          "React.js",
+          "Next.js",
+          "Vue.js, Nuxt.js",
+          "prisma",
+          "Flusk",
+          "OpenCV",
+          "MediaPipe, Yolo",
+        ], // 7項目
+        datasets: [
+          {
+            label: "スコア",
+            data: [3, 3, 1, 2, 1, 3, 3],
+            fill: true,
+            backgroundColor: "rgba(76, 175, 80, 0.6)",
+            borderColor: "rgba(76, 175, 80, 1)",
+            pointBackgroundColor: "rgba(76, 175, 80, 1)",
+          },
+        ],
+      },
+      options: options,
+    });
+    const ctx3 = document
+      .getElementById("skills-radarChart-others")
+      .getContext("2d");
+    const radarChart = new Chart(ctx3, {
+      type: "radar",
+      data: {
+        labels: [
+          "Windows",
+          "Supabase",
+          "Unity",
+          "GitHub",
+          "Reinforcement Learning",
+          "Computer Vision",
+          "Dance",
+          "Intellectual Curiosity",
+        ],
+        datasets: [
+          {
+            label: "スコア",
+            data: [3, 2, 3, 3, 2, 2, 4, 5],
+            fill: true,
+            backgroundColor: "rgba(255, 193, 7, 0.6)",
+            borderColor: "rgba(255, 193, 7, 1)",
+            pointBackgroundColor: "rgba(255, 193, 7, 1)",
+          },
+        ],
+      },
+      options: options,
+    });
+  });
   $("#contact").load("components/contact.html");
 });
