@@ -123,3 +123,36 @@
 .-mb-2rem {
   margin-bottom: -2rem;
 }
+
+@media screen and (max-width: 600px) {
+  .profile-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    width: 100vw;
+    min-height: 100vh;
+    z-index: 100;
+    color: white;
+  }
+  .profile-menus {
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .profile-menu {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .profile-menu p {
+    display: none; /* テキスト非表示 */
+  }
+
+  .profile-explanations {
+    width: 90%;
+  }
+}
