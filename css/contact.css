@@ -1,0 +1,26 @@
+.contact-bg {
+  background-color: rgba(150, 186, 204, 0.8);
+}
+
+.contact-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  width: 100%;
+  z-index: 10;
+  gap: 2rem;
+}
+
+.contact-url-item {
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.mail-size {
+  height: 2rem;
+  object-fit: contain;
+}

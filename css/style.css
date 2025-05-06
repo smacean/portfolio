@@ -17,9 +17,16 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  background: rgb(38, 50, 56, 0.5);
   color: white;
   z-index: 1000;
+}
+
+.header-bg-color {
+  background-color: rgba(19, 45, 58, 0.8);
+}
+
+.header-selection a {
+  font-size: 1.5rem;
 }
 
 .navbar {
@@ -53,7 +60,7 @@ body {
   font-size: 3rem;
   font-weight: bold;
   margin: 0 1rem 0 0;
-  padding: 3rem 0 0 0;
+  padding: 5rem 0 0 0;
 }
 
 .parallax-section {

@@ -1,3 +1,14 @@
+.skills-bg {
+  background-image: url("/images/polygon.png");
+}
+
+.skills-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(122, 135, 194, 0.8);
+  z-index: 1;
+}
+
 .skills-wrapper {
   position: relative;
   display: flex;
@@ -8,6 +19,7 @@
   min-height: 100vh;
   z-index: 10;
   gap: 2rem;
+  color: white;
 }
 
 .skills-charts-layout {
@@ -23,8 +35,14 @@
 .skills-chart-wrapper {
   height: 450px;
   width: 450px;
+  /* background-color: rgba(0, 132, 255, 0.7); */
   max-width: 100vb;
   max-height: 100vb;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .skills-text-wrapper {
   display: flex;

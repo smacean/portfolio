@@ -8,10 +8,10 @@ $(function () {
 
       // 切り替えたい背景色
       const bgColors = {
-        profile: "rgb(255, 81, 81)", // 赤
-        research: "rgb(81, 180, 81)", // 緑
-        experience: "rgb(81, 81, 255)", // 青
-        hobby: "rgb(255, 230, 45)", // 黄
+        profile: "rgb(255, 81, 81,0.8)", // 赤
+        research: "rgb(81, 180, 81, 0.8)", // 緑
+        experience: "rgb(81, 81, 255, 0.8)", // 青
+        hobby: "rgb(255, 230, 45, 0.8)", // 黄
       };
 
       const textColors = {
@@ -22,7 +22,7 @@ $(function () {
       };
 
       // 背景色を変更
-      $(".profile-bg").css("background-color", bgColors[target]);
+      $(".profile-overlay").css("background-color", bgColors[target]);
 
       // テキスト切り替え
       $(".profile-section:visible").fadeOut(300, function () {
@@ -109,16 +109,25 @@ $(function () {
       r: {
         beginAtZero: true,
         max: 5,
+        grid: {
+          color: "rgb(255, 255, 255)", // 7角形の線の色（外周）
+        },
+        angleLines: {
+          color: "rgb(255, 255, 255)", // 中心から放射状に伸びる線の色
+        },
         ticks: {
           stepSize: 1,
+          color: "rgb(255, 255, 255)", // 数値の色
           font: {
             size: 14,
           },
+          backdropColor: "rgba(122, 135, 194, 0.75)", // 数値の背景色
         },
         pointLabels: {
           font: {
-            size: 15,
+            size: 18,
           },
+          color: "rgb(255, 255, 255)", // ラベルの色
           callback: function (label) {
             return label.split(" "); // ← 単語で分割して複数行にする
           },
@@ -137,7 +146,7 @@ $(function () {
         labels: [
           "TypeScript",
           "python",
-          "HTML/CSS",
+          "HTML CSS",
           "JavaScript",
           "C",
           "Go",
