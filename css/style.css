@@ -6,6 +6,9 @@
 @import url("slick.css");
 @import url("slick-theme.css");
 html,
+html {
+  scroll-behavior: smooth;
+}
 body {
   margin: 0;
   padding: 0;
@@ -60,7 +63,7 @@ body {
   font-size: 3rem;
   font-weight: bold;
   margin: 0 1rem 0 0;
-  padding: 5rem 0 0 0;
+  padding: 6rem 0 0 0;
 }
 
 .parallax-section {
