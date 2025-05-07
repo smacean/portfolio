@@ -1,4 +1,61 @@
 $(function () {
+  // 全リソースの読み込み進行を % 表示
+  const waitForImages = () => {
+    return new Promise((resolve) => {
+      const interval = setInterval(() => {
+        const images = Array.from(document.images);
+        if (images.length > 0) {
+          clearInterval(interval);
+          resolve(images);
+        }
+      }, 50);
+      setTimeout(() => {
+        clearInterval(interval);
+        resolve([]); // images.length === 0でも処理を続ける
+      }, 3000);
+    });
+  };
+
+  waitForImages().then((images) => {
+    const total = images.length;
+    const percentageText = document.getElementById("loading-percentage");
+    const loading = document.getElementById("loading");
+
+    setTimeout(() => {
+      if (!forcedFinish) {
+        console.warn("5秒経過。ロード強制終了。", { loaded, total });
+        finishLoading();
+      }
+    }, 5000);
+
+    if (total === 0) {
+      percentageText.textContent = "読み込み中… 100%";
+      loading.classList.add("hidden");
+      return;
+    }
+
+    let loaded = 0;
+
+    const updateProgress = () => {
+      loaded++;
+      const percent = Math.floor((loaded / total) * 100);
+      percentageText.textContent = `読み込み中… ${percent}%`;
+      if (loaded === total) {
+        setTimeout(() => {
+          loading.classList.add("hidden");
+        }, 300);
+      }
+    };
+
+    images.forEach((img) => {
+      if (img.complete && img.naturalHeight !== 0) {
+        updateProgress();
+      } else {
+        img.addEventListener("load", updateProgress);
+        img.addEventListener("error", updateProgress);
+      }
+    });
+  });
   $("header").load("components/header.html");
   $("footer").load("components/footer.html");
   $("#firstView").load("components/firstView.html");
@@ -263,46 +320,4 @@ $(function () {
     });
   });
   $("#contact").load("components/contact.html");
-  // 全リソースの読み込み進行を % 表示
-  window.addEventListener("load", () => {
-    const images = Array.from(document.images);
-    const total = images.length;
-    console.log("total", total);
-    const percentageText = document.getElementById("loading-percentage");
-    const loading = document.getElementById("loading");
-
-    if (total === 0) {
-      // 画像がない場合は即終了
-      percentageText.textContent = "読み込み中… 100%";
-      loading.classList.add("hidden");
-      return;
-    }
-
-    let loaded = 0;
-
-    const updateProgress = () => {
-      loaded++;
-      const percent = Math.floor((loaded / total) * 100);
-      percentageText.textContent = `読み込み中… ${percent}%`;
-      if (loaded === total) {
-        setTimeout(() => {
-          loading.classList.add("hidden");
-        }, 700);
-      }
-    };
-
-    images.forEach((img) => {
-      if (img.complete) {
-        if (img.naturalHeight !== 0) {
-          updateProgress();
-        } else {
-          // Safariでは失敗時も complete = true になる対策
-          img.addEventListener("error", updateProgress);
-        }
-      } else {
-        img.addEventListener("load", updateProgress);
-        img.addEventListener("error", updateProgress);
-      }
-    });
-  });
 });
