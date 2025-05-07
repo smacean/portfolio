@@ -1,4 +1,7 @@
 $(function () {
+  $(window).on("load", function () {
+    $("#loading").addClass("hidden");
+  });
   $("header").load("components/header.html");
   $("footer").load("components/footer.html");
   $("#firstView").load("components/firstView.html");
