@@ -19,3 +19,14 @@
   z-index: 10;
   color: white;
 }
+
+.main-title {
+  font-size: 7rem;
+  font-weight: bold;
+  margin: 1rem 0;
+}
+
+.subtitle {
+  font-size: 5rem;
+  margin: 1rem 0;
+}
