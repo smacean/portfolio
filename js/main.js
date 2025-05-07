@@ -212,7 +212,7 @@ $(function () {
         datasets: [
           {
             label: "スコア",
-            data: [3, 2, 3, 3, 2, 2, 4, 5],
+            data: [3, 2, 3, 3, 2, 2, 4, 4],
             fill: true,
             backgroundColor: "rgba(255, 193, 7, 0.6)",
             borderColor: "rgba(255, 193, 7, 1)",
