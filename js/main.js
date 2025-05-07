@@ -9,9 +9,10 @@ $(function () {
           resolve(images);
         }
       }, 50);
+
       setTimeout(() => {
         clearInterval(interval);
-        resolve([]); // images.length === 0でも処理を続ける
+        resolve([]); // images.length === 0でも処理を進める
       }, 3000);
     });
   };
@@ -21,6 +22,28 @@ $(function () {
     const percentageText = document.getElementById("loading-percentage");
     const loading = document.getElementById("loading");
 
+    let loaded = 0;
+    let forcedFinish = false;
+
+    const updateProgress = () => {
+      if (forcedFinish) return;
+
+      loaded++;
+      const percent = Math.floor((loaded / total) * 100);
+      console.log("percent", percent);
+      percentageText.textContent = `読み込み中… ${percent}%`;
+      if (loaded === total) {
+        finishLoading();
+      }
+    };
+
+    const finishLoading = () => {
+      if (forcedFinish) return;
+      forcedFinish = true;
+      loading.classList.add("hidden");
+    };
+
+    // 強制タイムアウト：5秒でローディング画面を消す
     setTimeout(() => {
       if (!forcedFinish) {
         console.warn("5秒経過。ロード強制終了。", { loaded, total });
@@ -30,22 +53,9 @@ $(function () {
 
     if (total === 0) {
       percentageText.textContent = "読み込み中… 100%";
-      loading.classList.add("hidden");
+      finishLoading();
       return;
     }
-
-    let loaded = 0;
-
-    const updateProgress = () => {
-      loaded++;
-      const percent = Math.floor((loaded / total) * 100);
-      percentageText.textContent = `読み込み中… ${percent}%`;
-      if (loaded === total) {
-        setTimeout(() => {
-          loading.classList.add("hidden");
-        }, 300);
-      }
-    };
 
     images.forEach((img) => {
       if (img.complete && img.naturalHeight !== 0) {
