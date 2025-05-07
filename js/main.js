@@ -1,6 +1,41 @@
 $(function () {
-  $(window).on("load", function () {
-    $("#loading").addClass("hidden");
+  // 全リソースの読み込み進行を % 表示
+  window.addEventListener("load", () => {
+    const images = Array.from(document.images);
+    const total = images.length;
+    const percentageText = document.getElementById("loading-percentage");
+    const loading = document.getElementById("loading");
+
+    if (total === 0) {
+      // 画像がない場合は即終了
+      console.log("2");
+      percentageText.textContent = "読み込み中… 100%";
+      loading.classList.add("hidden");
+      return;
+    }
+
+    let loaded = 0;
+
+    const updateProgress = () => {
+      loaded++;
+      const percent = Math.floor((loaded / total) * 100);
+      console.log(percent);
+      percentageText.textContent = `読み込み中… ${percent}%`;
+      if (loaded === total) {
+        setTimeout(() => {
+          loading.classList.add("hidden");
+        }, 300);
+      }
+    };
+
+    images.forEach((img) => {
+      if (img.complete) {
+        updateProgress();
+      } else {
+        img.addEventListener("load", updateProgress);
+        img.addEventListener("error", updateProgress); // 読み込み失敗でもカウント進める
+      }
+    });
   });
   $("header").load("components/header.html");
   $("footer").load("components/footer.html");
