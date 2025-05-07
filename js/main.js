@@ -3,12 +3,12 @@ $(function () {
   window.addEventListener("load", () => {
     const images = Array.from(document.images);
     const total = images.length;
+    console.log("total", total);
     const percentageText = document.getElementById("loading-percentage");
     const loading = document.getElementById("loading");
 
     if (total === 0) {
       // 画像がない場合は即終了
-      console.log("2");
       percentageText.textContent = "読み込み中… 100%";
       loading.classList.add("hidden");
       return;
