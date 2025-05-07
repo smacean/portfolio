@@ -23,13 +23,18 @@ $(function () {
       if (loaded === total) {
         setTimeout(() => {
           loading.classList.add("hidden");
-        }, 300);
+        }, 700);
       }
     };
 
     images.forEach((img) => {
-      if (img.complete && img.naturalHeight !== 0) {
-        updateProgress();
+      if (img.complete) {
+        if (img.naturalHeight !== 0) {
+          updateProgress();
+        } else {
+          // Safariでは失敗時も complete = true になる対策
+          img.addEventListener("error", updateProgress);
+        }
       } else {
         img.addEventListener("load", updateProgress);
         img.addEventListener("error", updateProgress);
