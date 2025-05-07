@@ -56,7 +56,35 @@
           <div class="works-modal-explanations">
             <h5>概要</h5>
             <div class="works-modal-detail">
-              <p>制作期間： 2024/07 ~ 2024/01<br /></p>
+              <p>
+                プロジェクタとカメラを用いた、<br />
+                サイファーのリアクション可視化・視空間的フィードバックシステム<br />
+                制作期間： 2024/07 ~ 2024/01<br />
+                目的： 卒業研究<br />
+                開発人数： 1人<br />
+              </p>
+            </div>
+            <h5>説明</h5>
+            <div class="works-modal-detail">
+              <p>
+                本システムは、ストリートダンスのサイファーにおける観客の盛り上がり（リアクション）を定量的に可視化し、
+                プロジェクタによる視空間的なフィードバックを返すことを目的に開発された。<br />
+                Webカメラでサイファーの様子を撮影し、MediaPipeとYOLOから得られた姿勢データに対して独自アルゴリズムを適用。
+                観客の動きや反応を検出・分析し、その結果をプロジェクタによる投影で演出としてリアルタイムにフィードバックする仕組みを構築した。
+                マルチプロセスによる並列処理や、3次元推定を活用したリアクション検出の精度向上も試みたが、
+                処理速度・精度の両面で課題が残る結果となった。<br />
+                一方で、体験者の感想を得ることには成功し、盛り上がりに寄与する要素の特定に向けた研究の一助となった。
+              </p>
+            </div>
+            <h5>使用技術など</h5>
+            <div class="works-modal-detail">
+              <p>
+                python<br />
+                OpenCV<br />
+                MediaPipe<br />
+                YOLO<br />
+                マルチプロセス処理<br />
+              </p>
             </div>
           </div>
         </div>
@@ -75,7 +103,41 @@
             class="works-modal-image"
           />
           <div class="works-modal-explanations">
-            <p>Researchの説明</p>
+            <h5>概要</h5>
+            <div class="works-modal-detail">
+              <p>
+                声を使って操作する、スプラトゥーン風の塗りつぶし対戦ゲーム<br />
+                制作期間： 2024/04 ~ 2024/05 6週間<br />
+                目的： 6WP(6 Week Project)<br />
+                開発人数： 4人(ソフト開発1人・ハード開発1人・デザイン2人)<br />
+              </p>
+            </div>
+            <h5>説明</h5>
+            <div class="works-modal-detail">
+              <p>
+                「声を使って塗りつぶす」というユニークなインタフェースを採用した、
+                スプラトゥーン風の対戦型ゲーム。<br />
+                研究室で毎年行われる「6WP（6 Week
+                Project）」にて、工学系・芸術系の混成チームで開発した。
+                「6週間・特定予算内で面白いものを作る」というテーマのもと、
+                私は工学側2名のうちの1人としてソフトウェア開発を担当。<br />
+                システムは、マイク・スイッチ・Bluetooth・赤外線ポインタ（未使用）などで構成。
+                マイクに大きな声を入力するほど球が大きく・速くなり、スイッチで発射。
+                塗った面積に応じてリザルト画面へ遷移する。<br />
+                ゲーム内容はチームで綿密に設計し、Unityで使用するアヒルや壁紙などの素材はデザイン担当に依頼して構築。
+                デザイン・ハード両面と連携しながら、個人では実現できないアイデアを形にする、貴重な制作経験となった。
+                なお、赤外線ポインタの接続がうまくいかず、ポインタ操作を実現できなかった点は心残りである。
+              </p>
+            </div>
+            <h5>使用技術など</h5>
+            <div class="works-modal-detail">
+              <p>
+                Unity <br />
+                C# <br />
+                Arduino <br />
+                Bluetooth <br />
+              </p>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -93,7 +155,47 @@
             class="works-modal-image"
           />
           <div class="works-modal-explanations">
-            <p>Researchの説明</p>
+            <h5>概要</h5>
+            <div class="works-modal-detail">
+              <p>
+                サッカーボール視点で逃げ回る、奇想天外なジャイロ操作ゲーム<br />
+                制作期間： 2023/11 ~ 2025/02 6週間<br />
+                目的： 実験の授業で何か変なものを作ること<br />
+                開発人数： 2人<br />
+              </p>
+            </div>
+            <h5>説明</h5>
+            <div class="works-modal-detail">
+              <p>
+                学校の実験授業にて、2人チームで開発した作品。<br />
+                サッカーボールとなって、試合時間中に選手たちから逃げ続けるという、
+                “ボール視点”のユニークなゲーム。
+                ゲーム開始とともに22人の選手が一斉に追いかけてきて、
+                時間経過とともにゴールも襲いかかってくるという混沌とした展開が特徴。
+              </p>
+              <p>
+                UnityとArduinoを用いて構築し、私はArduino側のコントローラー開発を担当。
+                3軸加速度センサを用い、傾け操作による移動と、上下に素早く振る動作によってジャンプを実装した。<br />
+                当時はGit操作には不慣れで、チーム統合に非常に苦労したが、
+                「何か変なものを作ってください」という課題趣旨に応え、
+                “なんだこれは”と良い意味でうけ、最終的に高評価を得ることができた。
+              </p>
+            </div>
+            <h5>使用技術など</h5>
+            <div class="works-modal-detail">
+              <p>
+                Unity <br />
+                C# <br />
+                Arduino <br />
+              </p>
+            </div>
+            <h5>関連</h5>
+            <div class="works-modal-detail">
+              <p>
+                資料： <a href=https://docs.google.com/presentation/d/1p-Dk40fQGiLs75F7aqGWFxw7bEGrwLhwF60jT_O2w14/edit?usp=sharing"
+                  >最終発表</a>
+              </p>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -111,7 +213,14 @@
             class="works-modal-image"
           />
           <div class="works-modal-explanations">
-            <p>Researchの説明</p>
+            
+            <h5>説明</h5>
+            <div class="works-modal-detail">
+              <p>
+                2年目の6WPを制作中。<br>
+                VRシステムと発射機構を作成し、リアルTPSを構想中
+              </p>
+            </div>
           </div>
         </div>
         <div class="modal-footer">

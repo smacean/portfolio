@@ -107,7 +107,7 @@
 }
 
 .works-modal-explanations {
-  width: 80%;
+  width: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -115,9 +115,9 @@
 }
 
 .works-modal-detail p {
-  font-size: 1rem;
+  font-size: 1.2rem;
   text-align: center;
-  margin-top: -1rem;
+  margin-top: -0.6rem;
 }
 
 @media screen and (max-width: 600px) {
