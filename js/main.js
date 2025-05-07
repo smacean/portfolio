@@ -19,7 +19,6 @@ $(function () {
     const updateProgress = () => {
       loaded++;
       const percent = Math.floor((loaded / total) * 100);
-      console.log(percent);
       percentageText.textContent = `読み込み中… ${percent}%`;
       if (loaded === total) {
         setTimeout(() => {
@@ -29,11 +28,11 @@ $(function () {
     };
 
     images.forEach((img) => {
-      if (img.complete) {
+      if (img.complete && img.naturalHeight !== 0) {
         updateProgress();
       } else {
         img.addEventListener("load", updateProgress);
-        img.addEventListener("error", updateProgress); // 読み込み失敗でもカウント進める
+        img.addEventListener("error", updateProgress);
       }
     });
   });
