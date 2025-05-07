@@ -62,6 +62,7 @@ $(function () {
         },
       ],
     });
+
     // モーダルの初期化
     $(".modal").modal({
       dismissible: true, // モーダルを閉じるために背景をクリックできるかどうか
@@ -69,16 +70,54 @@ $(function () {
       inDuration: 300, // 開くときのアニメーション時間
       outDuration: 200, // 閉じるときのアニメーション時間
       startingTop: "4%", // モーダルが開くときの初期位置
-      endingTop: "10%", // モーダルが開いたときの位置
+      endingTop: "15%", // モーダルが開いたときの位置
+    });
+
+    $(".modal").on("open", function () {
+      console.log("Modal opened:", this);
+      const $slider = $(this).find(".works-modal-slider");
+
+      if ($slider.hasClass("slick-initialized")) {
+        $slider.slick("unslick");
+      }
+
+      setTimeout(() => {
+        // CSSレイアウトの再計算を強制
+        $slider[0].offsetHeight;
+
+        $slider.slick({
+          dots: true,
+        });
+      }, 10);
+    });
+
+    $(".works-modal-slider").slick({
+      dots: true,
     });
 
     $(".slick-slide").on("click", function () {
-      console.log("clicked");
-      if ($(this).hasClass("slick-center")) {
+      if (
+        $(this).hasClass("slick-center") &&
+        !$(this).hasClass("works-modal-image")
+      ) {
         const target = $(this).data("target");
         const modalClass = ".works-modal-" + target;
-        console.log("Opening modal:", modalClass);
         $(modalClass).modal("open");
+        console.log("Modal opened:", this);
+        const $slider = $(modalClass).find(".works-modal-slider");
+
+        if ($slider.hasClass("slick-initialized")) {
+          $slider.slick("unslick");
+        }
+
+        setTimeout(() => {
+          // CSSレイアウトの再計算を強制
+          $slider[0].offsetHeight;
+
+          $slider.slick({
+            dots: true,
+          });
+        }, 10);
       }
     });
 
@@ -98,45 +137,45 @@ $(function () {
       }, 1); // DOM反映直後に取得するための遅延
     });
   });
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        display: false,
-      },
-    },
-    scales: {
-      r: {
-        beginAtZero: true,
-        max: 5,
-        grid: {
-          color: "rgb(255, 255, 255)", // 7角形の線の色（外周）
-        },
-        angleLines: {
-          color: "rgb(255, 255, 255)", // 中心から放射状に伸びる線の色
-        },
-        ticks: {
-          stepSize: 1,
-          color: "rgb(255, 255, 255)", // 数値の色
-          font: {
-            size: 14,
-          },
-          backdropColor: "rgba(122, 135, 194, 0.75)", // 数値の背景色
-        },
-        pointLabels: {
-          font: {
-            size: 18,
-          },
-          color: "rgb(255, 255, 255)", // ラベルの色
-          callback: function (label) {
-            return label.split(" "); // ← 単語で分割して複数行にする
-          },
-        },
-      },
-    },
-  };
 
   $("#skills").load("components/skills.html", function () {
+    const options = {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+      scales: {
+        r: {
+          beginAtZero: true,
+          max: 5,
+          grid: {
+            color: "rgb(255, 255, 255)", // 7角形の線の色（外周）
+          },
+          angleLines: {
+            color: "rgb(255, 255, 255)", // 中心から放射状に伸びる線の色
+          },
+          ticks: {
+            stepSize: 1,
+            color: "rgb(255, 255, 255)", // 数値の色
+            font: {
+              size: 14,
+            },
+            backdropColor: "rgba(122, 135, 194, 0.75)", // 数値の背景色
+          },
+          pointLabels: {
+            font: {
+              size: 18,
+            },
+            color: "rgb(255, 255, 255)", // ラベルの色
+            callback: function (label) {
+              return label.split(" "); // ← 単語で分割して複数行にする
+            },
+          },
+        },
+      },
+    };
     const ctx1 = document
       .getElementById("skills-radarChart-language")
       .getContext("2d");
