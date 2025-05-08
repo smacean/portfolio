@@ -74,7 +74,9 @@ $(function () {
   }
   $("header").load("components/header.html");
   $("footer").load("components/footer.html");
-  $("#firstView").load("components/firstView.html");
+  $("#firstView").load("components/firstView.html", function () {
+    AOS.init();
+  });
   $("#profile").load("components/profile.html", function () {
     AOS.init();
     $(".profile-menus").on("click", ".profile-menu", function () {
