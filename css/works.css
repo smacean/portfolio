@@ -2,6 +2,15 @@
   background-image: url("../images/research.png");
 }
 
+.works-header {
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
 .works-wrapper {
   position: relative;
   display: flex;
