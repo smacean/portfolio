@@ -9,7 +9,11 @@
   align-items: center;
   flex-grow: 1;
   min-height: 100vh;
-  z-index: 10;
+  z-index: 1;
+}
+
+.modal {
+  z-index: 100;
 }
 
 .works-slider-wrapper {

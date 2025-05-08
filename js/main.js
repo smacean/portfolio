@@ -12,7 +12,7 @@ $(function () {
 
       setTimeout(() => {
         clearInterval(interval);
-        resolve([]); // images.length === 0でも処理を進める
+        resolve([]);
       }, 5000);
     });
   };
@@ -20,7 +20,6 @@ $(function () {
   const runLoading = () => {
     waitForImages().then((images) => {
       const total = images.length;
-      console.log("total", total);
       const percentageText = document.getElementById("loading-percentage");
       const loading = document.getElementById("loading");
 
@@ -32,7 +31,6 @@ $(function () {
 
         loaded++;
         const percent = Math.floor((loaded / total) * 100);
-        console.log("percent", percent);
         percentageText.textContent = `読み込み中… ${percent}%`;
         if (loaded === total) {
           finishLoading();
@@ -69,14 +67,11 @@ $(function () {
     });
   };
 
-  console.log("before DOMContentLoaded?", document.readyState); // 'loading', 'interactive', 'complete'
   if (document.readyState === "loading") {
-    console.log("in DOMContentLoaded?", document.readyState); // 'loading', 'interactive', 'complete'
     document.addEventListener("DOMContentLoaded", runLoading);
   } else {
     runLoading();
   }
-  console.log("after DOMContentLoaded?", document.readyState); // 'loading', 'interactive', 'complete'
   $("header").load("components/header.html");
   $("footer").load("components/footer.html");
   $("#firstView").load("components/firstView.html");
