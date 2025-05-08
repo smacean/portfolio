@@ -13,7 +13,7 @@ $(function () {
       setTimeout(() => {
         clearInterval(interval);
         resolve([]); // images.length === 0でも処理を進める
-      }, 3000);
+      }, 5000);
     });
   };
 
@@ -43,13 +43,12 @@ $(function () {
       loading.classList.add("hidden");
     };
 
-    // 強制タイムアウト：5秒でローディング画面を消す
+    // 強制タイムアウト
     setTimeout(() => {
       if (!forcedFinish) {
-        console.warn("5秒経過。ロード強制終了。", { loaded, total });
         finishLoading();
       }
-    }, 5000);
+    }, 7000);
 
     if (total === 0) {
       percentageText.textContent = "読み込み中… 100%";
@@ -141,7 +140,6 @@ $(function () {
     });
 
     $(".modal").on("open", function () {
-      console.log("Modal opened:", this);
       const $slider = $(this).find(".works-modal-slider");
 
       if ($slider.hasClass("slick-initialized")) {
@@ -170,7 +168,6 @@ $(function () {
         const target = $(this).data("target");
         const modalClass = ".works-modal-" + target;
         $(modalClass).modal("open");
-        console.log("Modal opened:", this);
         const $slider = $(modalClass).find(".works-modal-slider");
 
         if ($slider.hasClass("slick-initialized")) {
