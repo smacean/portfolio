@@ -17,55 +17,66 @@ $(function () {
     });
   };
 
-  waitForImages().then((images) => {
-    const total = images.length;
-    console.log("total", total);
-    const percentageText = document.getElementById("loading-percentage");
-    const loading = document.getElementById("loading");
+  const runLoading = () => {
+    waitForImages().then((images) => {
+      const total = images.length;
+      console.log("total", total);
+      const percentageText = document.getElementById("loading-percentage");
+      const loading = document.getElementById("loading");
 
-    let loaded = 0;
-    let forcedFinish = false;
+      let loaded = 0;
+      let forcedFinish = false;
 
-    const updateProgress = () => {
-      if (forcedFinish) return;
+      const updateProgress = () => {
+        if (forcedFinish) return;
 
-      loaded++;
-      const percent = Math.floor((loaded / total) * 100);
-      console.log("percent", percent);
-      percentageText.textContent = `読み込み中… ${percent}%`;
-      if (loaded === total) {
+        loaded++;
+        const percent = Math.floor((loaded / total) * 100);
+        console.log("percent", percent);
+        percentageText.textContent = `読み込み中… ${percent}%`;
+        if (loaded === total) {
+          finishLoading();
+        }
+      };
+
+      const finishLoading = () => {
+        if (forcedFinish) return;
+        forcedFinish = true;
+        loading.classList.add("hidden");
+      };
+
+      // 強制タイムアウト
+      setTimeout(() => {
+        if (!forcedFinish) {
+          finishLoading();
+        }
+      }, 7000);
+
+      if (total === 0) {
+        percentageText.textContent = "読み込み中… 100%";
         finishLoading();
+        return;
       }
-    };
 
-    const finishLoading = () => {
-      if (forcedFinish) return;
-      forcedFinish = true;
-      loading.classList.add("hidden");
-    };
-
-    // 強制タイムアウト
-    setTimeout(() => {
-      if (!forcedFinish) {
-        finishLoading();
-      }
-    }, 7000);
-
-    if (total === 0) {
-      percentageText.textContent = "読み込み中… 100%";
-      finishLoading();
-      return;
-    }
-
-    images.forEach((img) => {
-      if (img.complete && img.naturalHeight !== 0) {
-        updateProgress();
-      } else {
-        img.addEventListener("load", updateProgress);
-        img.addEventListener("error", updateProgress);
-      }
+      images.forEach((img) => {
+        if (img.complete && img.naturalHeight !== 0) {
+          updateProgress();
+        } else {
+          img.addEventListener("load", updateProgress);
+          img.addEventListener("error", updateProgress);
+        }
+      });
     });
-  });
+  };
+
+  console.log("before DOMContentLoaded?", document.readyState); // 'loading', 'interactive', 'complete'
+  if (document.readyState === "loading") {
+    console.log("in DOMContentLoaded?", document.readyState); // 'loading', 'interactive', 'complete'
+    document.addEventListener("DOMContentLoaded", runLoading);
+  } else {
+    runLoading();
+  }
+  console.log("after DOMContentLoaded?", document.readyState); // 'loading', 'interactive', 'complete'
   $("header").load("components/header.html");
   $("footer").load("components/footer.html");
   $("#firstView").load("components/firstView.html");
