@@ -19,6 +19,7 @@ $(function () {
 
   waitForImages().then((images) => {
     const total = images.length;
+    console.log("total", total);
     const percentageText = document.getElementById("loading-percentage");
     const loading = document.getElementById("loading");
 
