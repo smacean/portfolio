@@ -19,7 +19,7 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   color: white;
   z-index: 1000;
 }
@@ -153,4 +153,10 @@ body {
   color: white;
   background: black;
   text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+  .parallax-section {
+    overflow: hidden;
+  }
 }

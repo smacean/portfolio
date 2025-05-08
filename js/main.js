@@ -76,6 +76,7 @@ $(function () {
   $("footer").load("components/footer.html");
   $("#firstView").load("components/firstView.html");
   $("#profile").load("components/profile.html", function () {
+    AOS.init();
     $(".profile-menus").on("click", ".profile-menu", function () {
       const target = $(this).data("target");
 
@@ -108,6 +109,7 @@ $(function () {
   });
 
   $("#works").load("components/works.html", function () {
+    AOS.init();
     $(".works-slider").slick({
       centerMode: true,
       centerPadding: "0px",
@@ -210,6 +212,7 @@ $(function () {
   });
 
   $("#skills").load("components/skills.html", function () {
+    AOS.init();
     const options = {
       responsive: true,
       plugins: {
